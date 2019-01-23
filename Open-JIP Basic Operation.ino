@@ -1,6 +1,8 @@
 #include <digitalWriteFast.h> //used for fast turning ON and OFF of digitalpins
 
-#define readPin 0 //which analogpin pin will be used
+#define readPin 2 //which analog pin will be used
+int actinicPin = 7; //which digital pin will be used to activate the actinic light
+int batteryPin = 8; //digital pin associated with battery circuit control
 #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit)) //used for <20us data acquisition
 #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit)) //used for <20us data acquisition
 
@@ -15,28 +17,29 @@ int milliCycles = 900; //amount of millisecond data points
 int h[5]; //array size for baseline data points
 unsigned long t[200]; //array size for microsecond data points 
 unsigned long p[900]; //array size for millisecond data points
+String command; //used to read the serial teminal input
 
 void setup() {
   Serial.begin(74880); //intalises arduino with a baud rate of 74880
-  pinMode(5, OUTPUT); //defines the output for switching on and off LED (slow arduino response without this)
-  analogReference(INTERNAL2V56); //defines which reference voltage to use for analogRead (lower the value, Higher the sensitivity)
+  pinMode(actinicPin, OUTPUT); //defines the output for switching on and off LED (slow arduino response without this)
+  //analogReference(INTERNAL2V56); //defines which reference voltage to use for analogRead (lower the value, higher the sensitivity)
+  pinMode(batteryPin, OUTPUT);
+  digitalWrite(batteryPin, HIGH);
   sbi(ADCSRA, ADPS2); //used for 20us data acquisition
   cbi(ADCSRA, ADPS1); // used for 20us data acquisition
   cbi(ADCSRA, ADPS0); // used for 20us data acquisition
 }
 
-void loop() {
-  delay(10000); //preliminary delay to ensure arduino is ready
+void measureFluoro() {
   long timer = micros(); //creates an offset for the timer (takes it to zero);
   micros(); //starts timer
-  
   for (int y = 0; y < baseCycles; y++) //first array loop for baseline (stores analogRead values in an array)
   {
     baseRead[y] = analogRead(readPin);
     h[y] = micros() - timer;
   }
   
-  digitalWriteFast(5, HIGH); //switches ON the light (125ns response time)
+  digitalWriteFast(actinicPin, HIGH); //switches ON the light (125ns response time)
   
   for (int i = 0; i < microCycles; i++) //second array loop for microsecond values
   {
@@ -51,7 +54,7 @@ void loop() {
     delay(1);
   }
   
-  digitalWriteFast(5, LOW); //switches OFF the light
+  digitalWriteFast(actinicPin, LOW); //switches OFF the light
   
   int microMax = microRead[1]; //finds the maximum of the microsecond array values
     for (int u = 1; u < microCycles; u++){
@@ -74,6 +77,7 @@ void loop() {
     Serial.print(basetimeConverted, 3);
     Serial.print("\t");
     Serial.println(baseRead[k]);
+    delay(1);
   }
   
   for (int q = 0; q < microCycles; q++) //prints the values of the ojip curve for microsecond array values
@@ -83,6 +87,7 @@ void loop() {
    Serial.print(realCounts, 3); 
    Serial.print("\t");
    Serial.println(microRead[q]);
+   delay(1);
   }
   
   for (int l = 0; l < milliCycles; l++) //prints the values of the ojip curve for millisecond array values
@@ -92,6 +97,7 @@ void loop() {
    Serial.print(millitimeConverted, 3); 
    Serial.print("\t");
    Serial.println(milliRead[l]);
+   delay(1);
   }
   
   Serial.println();
@@ -117,5 +123,40 @@ void loop() {
     Serial.print("Fv/Fm = ");
     Serial.println(FvoverFm); //prints Fv/Fm value
     Serial.println();
+  }
+}
+
+void measureLight(){
+  digitalWrite(actinicPin, HIGH);
+  delay(4000);
+  digitalWrite(actinicPin, LOW);
+  delay(20);
+  return;
+}
+
+void loop(){
+  if(Serial.available()){  //the next section waits until a command is entered in the serial monitor before measuring OJIP
+    command = Serial.readStringUntil('\n');
+    if(command.equals("MeasureFluoro")){
+      measureFluoro();
+    }
+    else if(command.equals("Measure")){ //if you type "measure" into the serial monitor the device will preform an OJIP measurement
+      measureFluoro();
+    }
+    else if(command.equals("ojip")){ //if you type "measure" into the serial monitor the device will preform an OJIP measurement
+      measureFluoro();
+    }
+    else if(command.equals("MF")){
+      measureFluoro();
+    }
+    else if(command.equals("Measure Light")){
+      measureFluoro();
+    }
+    else if(command.equals("ML")){
+      measureLight();
+    }
+    else{
+      Serial.println("Invalid Command");
+    }
   }
 }
