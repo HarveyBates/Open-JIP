@@ -1,5 +1,5 @@
 # Open-JIP
-Information regarding the operation of the Open-JIP Chlorophyll Fluorometer is enclosed in this repository. Open-JIP is a low-cost ~100USD instrument for quantifying photosynthesis in plants and algae.
+Information regarding the operation of the Open-JIP Chlorophyll Fluorometer is enclosed in this repository. Open-JIP is a low-cost instrument for quantifying photosynthesis in plants and algae.
 
 <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Open-JIP%20Algae.png" height="250" width="250"> Open-JIP Algae
 <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Open-JIP%20Plant.png" height="250" width="250"> Open-JIP Plant
