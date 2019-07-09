@@ -5,13 +5,13 @@ Information regarding the operation of the Open-JIP Chlorophyll Fluorometer is e
 <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Open-JIP%20Plant.png" height="250" width="250"> Open-JIP Plant
 
 # About Chlorophyll Fluorescence
-Chlorophyll a fluorescence can be used to monitor photosynthetic activity in plants. Light interacting with a special chlorophylls called photosystems (specifically photosystem II or PSII) results in three processes. The first is a series of reduction and oxidisation reactions called photochemisty. The result of photochemisty is the production of energy in the form of NADPH and ATP. The second fate of light is the formation of heat due to a process known as non-photochemical quenching. The final fate is the one we can measure directly, this is known as chlorophyll a fluorescence. 
+Chlorophyll a fluorescence can be used to monitor photosynthetic activity in plants. Light absorbed by a plants antenna complexes is channeled to a protein complex known as Photosytem II and results in three processes. The first is a series of reduction and oxidisation reactions called photochemisty. The result of photochemisty is the production of energy in the form of NADPH and ATP. The second fate of light is the formation of heat due to a process known as non-photochemical quenching. The final fate is the one we can measure directly, this is known as chlorophyll a fluorescence. 
 
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Fate_of_Light.png" height="300" width="540">
 </p>
 
-The fluorescence occurs with a peak at 680nm (Far-Red in color) however, the spread of this peak streatches far into the infra-red portion of the spectrum. By measuring chlorophyll fluorescence we can derive information about the photochemistry of a plant as an increase in fluorescence is an indicator of poor photochemisty and decreases indicate high photochemistry. The interpretation of fluorescence is a bit more complicated than this and will be explained below. 
+The chlorophyll fluorescence occurs has a peak at 680nm (Far-Red in color) however, the spread of this peak streatches far into the infra-red portion of the spectrum. By measuring chlorophyll a fluorescence we can derive information about the photochemistry of a plant. The basic interpreation of chlorophyll fluorescence is that an increase in fluorescence is an indicator of poor photochemisty where as a decrease indicates higher photochemistry. The interpretation of fluorescence is a bit more complicated than this and will be expalined below.
 
 There are a few different methods of assessing chlorophyll fluorescence:
 1. Pulse Amplitude Modulated Fluorometery (PAM)
@@ -19,13 +19,20 @@ There are a few different methods of assessing chlorophyll fluorescence:
 3. Fast Rise Fluorometry (OJIP)
 
 # About Open-JIP
-Open-JIP as the name suggests is a fast rise fluorometer (OJIP). Its design is simple, an actinic (drives photosynthesis) light source with an IR-filter, a sample, a ~680nm longpass filter and a detector. Light emitted from the light source is filtered of heat using the IR-filter. The sample is excited by the light source and fluorescence is emitted. The fluorescence is filtered from the actinic light source using the ~680nm longpass filter and detected by a photodiode. The entire measurment takes one second however longer protocals can be designed if the user wishes. 
+Open-JIP as the name suggests is a fast rise fluorometer (OJIP). Its design is simple, an actinic (drives photosynthesis) light source with an IR-filter, a sample, a ~680nm longpass filter and a detector. Light emitted from the light source is filtered of heat using the IR-filter. The sample is excited by the light source and fluorescence is emitted. The fluorescence is filtered from the actinic light source using the ~680nm longpass filter and detected by a photodiode. The entire measurment takes one second however longer protocals can be designed if the user wishes.
+
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Open-JIP%20Diagram.png" height="544" width="626">
+</p>
+As can be seen from the figure, Open-JIP operates using a controller (Arduino Mega) that sends a signal to a excitation LED circuit (Actinc LED) which excites the algae or plant. The resulting fluorescence is detected by the photodiode circuit and interpreted by the Arduino.
+The algae version uses a 90 degree angle between detector and emitter. The LED is activated and filtered by the infrared filter to remove far infra-red radiation (heat). The sample (housed in a polystyrene cuvette) is surrounded on the two opposing walls by mirrors. These mirrors help to focus more fluorescence into the detector and also aid to increase the average light intensity within the cuvette. As the sample fluoresces the detector records the intensity while the LED is on. As the LED is on at the time of measurment and light it emits needs to be filtered from the measured light intensity and this is done though the use of a 695nm long-pass filter that is located infront of the photodiode.
+The plant version using the same setup as the algae version however as it utalises a blue excitation (actinic) LED there is no need for an infrared filter as it emits very little IR. An apature infront of the sample reduces the exposure of PSIIs' to be measured and results in reduced fluorescence intensity ensuring the detector doesn't saturate. The size of the apature can be changed to suit the plants which are being measured. 
+
+The technique of OJIP is named based on its three main phases, O-J, J-I and I-P:
 
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/OJIP.png" height="315" width="494">
 </p>
-
-The technique of OJIP is named based on its three main phases, O-J, J-I and I-P:
 
 - O-J   is the photochemical phase and corrosponds the rate of which the first electron acceptor (Qa) is reduced. 
 - J-I   corrosponds to the reduction of the pladtoquinone pool (PQ-pool) 
