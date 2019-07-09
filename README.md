@@ -27,9 +27,9 @@ Open-JIP as the name suggests is a fast rise fluorometer (OJIP). Its design is s
 
 The technique of OJIP is named based on its three main phases, O-J, J-I and I-P:
 
-O-J   is the photochemical phase and corrosponds the rate of which the first electron acceptor (Qa) is reduced. 
-J-I   corrosponds to the reduction of the pladtoquinone pool (PQ-pool) 
-I-P   is the result of a satuation of electrons on the acceptor side of PSI
+- O-J   is the photochemical phase and corrosponds the rate of which the first electron acceptor (Qa) is reduced. 
+- J-I   corrosponds to the reduction of the pladtoquinone pool (PQ-pool) 
+- I-P   is the result of a satuation of electrons on the acceptor side of PSI
 
 # Modification of Open-JIP
 The user is encouraged to modify the device to suit there needs and trial different protocals. This can be done by redesigning the 3D models and/or the software aspect of Open-JIP. Below is a list of example changes that can be made to the device:
