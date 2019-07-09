@@ -10,7 +10,7 @@ There a few different methods of assessing chlorophyll fluorescence:
 3. Fast Rise Fluorometry (OJIP)
 
 # About Open-JIP
-Open-JIP as the name suggests is a fast rise fluorometer (OJIP). Its design is simple, a actinic (drives photosynthesis) light source with an IR-filter, a sample, a ~680nm longpass filter and a detector. Light emitted from the light source is filtered of heat using the IR-filter. The sample is excited by the light source and fluorescence is emitted. The fluorescence is filtered from the actinic light source using the ~680nm longpass filter and detected by a photodiode. The entire measurment takes one second however longer protocals can be designed if the user wishes. 
+Open-JIP as the name suggests is a fast rise fluorometer (OJIP). Its design is simple, an actinic (drives photosynthesis) light source with an IR-filter, a sample, a ~680nm longpass filter and a detector. Light emitted from the light source is filtered of heat using the IR-filter. The sample is excited by the light source and fluorescence is emitted. The fluorescence is filtered from the actinic light source using the ~680nm longpass filter and detected by a photodiode. The entire measurment takes one second however longer protocals can be designed if the user wishes. 
 
 The technique of OJIP is named based on its three main phases, O-J, J-I and I-P:
 
