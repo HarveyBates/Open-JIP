@@ -18,7 +18,7 @@ There are a few different methods of assessing chlorophyll fluorescence:
 2. Fast Repetition Rate (FRR) 
 3. Fast Rise Fluorometry (OJIP)
 
-<br>The technique of OJIP is named based on its three main phases, O-J, J-I and I-P:
+The technique of OJIP is named based on its three main phases, O-J, J-I and I-P:
 
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/OJIP.png" height="315" width="494">
