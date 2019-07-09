@@ -13,7 +13,7 @@ Chlorophyll a fluorescence can be used to monitor photosynthetic activity in pla
 
 The fluorescence occurs with a peak at 680nm (Far-Red in color) however, the spread of this peak streatches far into the infra-red portion of the spectrum. By measuring chlorophyll fluorescence we can derive information about the photochemistry of a plant as an increase in fluorescence is an indicator of poor photochemisty and decreases indicate high photochemistry. The interpretation of fluorescence is a bit more complicated than this and will be explained below. 
 
-There a few different methods of assessing chlorophyll fluorescence:
+There are a few different methods of assessing chlorophyll fluorescence:
 1. Pulse Amplitude Modulated Fluorometery (PAM)
 2. Fast Repetition Rate (FRR) 
 3. Fast Rise Fluorometry (OJIP)
