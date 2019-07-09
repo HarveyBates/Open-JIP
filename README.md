@@ -18,16 +18,6 @@ There are a few different methods of assessing chlorophyll fluorescence:
 2. Fast Repetition Rate (FRR) 
 3. Fast Rise Fluorometry (OJIP)
 
-# About Open-JIP
-Open-JIP as the name suggests is a fast rise fluorometer (OJIP). Its design is simple, an actinic (drives photosynthesis) light source with an IR-filter, a sample, a ~680nm longpass filter and a detector. Light emitted from the light source is filtered of heat using the IR-filter. The sample is excited by the light source and fluorescence is emitted. The fluorescence is filtered from the actinic light source using the ~680nm longpass filter and detected by a photodiode. The entire measurment takes one second however longer protocals can be designed if the user wishes.
-
-<p align="center">
-  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Open-JIP%20Diagram.png" height="544" width="626">
-</p>
-As can be seen from the figure, Open-JIP operates using a controller (Arduino Mega) that sends a signal to a excitation LED circuit (Actinc LED) which excites the algae or plant. The resulting fluorescence is detected by the photodiode circuit and interpreted by the Arduino.
-The algae version uses a 90 degree angle between detector and emitter. The LED is activated and filtered by the infrared filter to remove far infra-red radiation (heat). The sample (housed in a polystyrene cuvette) is surrounded on the two opposing walls by mirrors. These mirrors help to focus more fluorescence into the detector and also aid to increase the average light intensity within the cuvette. As the sample fluoresces the detector records the intensity while the LED is on. As the LED is on at the time of measurment and light it emits needs to be filtered from the measured light intensity and this is done though the use of a 695nm long-pass filter that is located infront of the photodiode.
-The plant version using the same setup as the algae version however as it utalises a blue excitation (actinic) LED there is no need for an infrared filter as it emits very little IR. An apature infront of the sample reduces the exposure of PSIIs' to be measured and results in reduced fluorescence intensity ensuring the detector doesn't saturate. The size of the apature can be changed to suit the plants which are being measured. 
-
 <br>The technique of OJIP is named based on its three main phases, O-J, J-I and I-P:
 
 <p align="center">
@@ -37,6 +27,16 @@ The plant version using the same setup as the algae version however as it utalis
 - O-J   is the photochemical phase and corrosponds the rate of which the first electron acceptor (Qa) is reduced. 
 - J-I   corrosponds to the reduction of the pladtoquinone pool (PQ-pool) 
 - I-P   is the result of a satuation of electrons on the acceptor side of PSI
+
+# About Open-JIP
+Open-JIP as the name suggests is a fast rise fluorometer (OJIP). Its design is simple, an actinic (drives photosynthesis) light source with an IR-filter, a sample, a ~680nm longpass filter and a detector. Light emitted from the light source is filtered of heat using the IR-filter. The sample is excited by the light source and fluorescence is emitted. The fluorescence is filtered from the actinic light source using the ~680nm longpass filter and detected by a photodiode. The entire measurment takes one second however longer protocals can be designed if the user wishes.
+
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Open-JIP%20Diagram.png" height="544" width="626">
+</p>
+As can be seen from the figure, Open-JIP operates using a controller (Arduino Mega) that sends a signal to a excitation LED circuit (Actinc LED) which excites the algae or plant. The resulting fluorescence is detected by the photodiode circuit and interpreted by the Arduino.
+The algae version uses a 90 degree angle between detector and emitter. The LED is activated and filtered by the infrared filter to remove far infra-red radiation (heat). The sample (housed in a polystyrene cuvette) is surrounded on the two opposing walls by mirrors. These mirrors help to focus more fluorescence into the detector and also aid to increase the average light intensity within the cuvette. As the sample fluoresces the detector records the intensity while the LED is on. As the LED is on at the time of measurment and light it emits needs to be filtered from the measured light intensity and this is done though the use of a 695nm long-pass filter that is located infront of the photodiode.
+The plant version using the same setup as the algae version however as it utalises a blue excitation (actinic) LED there is no need for an infrared filter as it emits very little IR. An apature infront of the sample reduces the exposure of PSIIs' to be measured and results in reduced fluorescence intensity ensuring the detector doesn't saturate. The size of the apature can be changed to suit the plants which are being measured. 
 
 # Modification of Open-JIP
 The user is encouraged to modify the device to suit there needs and trial different protocals. This can be done by redesigning the 3D models and/or the software aspect of Open-JIP. Below is a list of example changes that can be made to the device:
