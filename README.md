@@ -28,7 +28,7 @@ There are a few different methods of assessing chlorophyll fluorescence:
 The chlorophyll fluorometer presented here utiliases fast rise (OJIP) fluorometry, this techniques name is based on its three main phases, O-J, J-I and I-P:
 
 <p align="center">
-  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/OJIP.png" height="315" width="494">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/OJIP%20Relative.png" height="315" width="494">
 </p>
 
 - O-J   is the photochemical phase and corrosponds the rate of which the first electron acceptor (Qa) is reduced
