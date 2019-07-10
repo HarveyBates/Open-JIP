@@ -5,26 +5,26 @@ Information regarding the operation of the Open-JIP Chlorophyll Fluorometer is e
 <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Open-JIP%20Plant.png" height="250" width="250"> Open-JIP Plant
 
 # About Chlorophyll Fluorescence
-Chlorophyll a fluorescence can be used to monitor photosynthetic activity in plants. Light absorbed by a plants antenna complexes is channeled to a protein complex known as Photosytem II and results in three processes. The first is a series of reduction and oxidisation reactions called photochemisty. The result of photochemisty is the production of energy in the form of NADPH and ATP. The second fate of light is the formation of heat due to a process known as non-photochemical quenching. The final fate is the one we can measure directly, this is known as chlorophyll a fluorescence. 
+Chlorophyll a fluorescence can be used to monitor photosynthetic activity in plants. Light absorbed by a plants antenna complexes is channeled to a protein complex known as Photosytem II (which is a special chlorophyll) and results in three processes. The first is a series of reduction and oxidisation reactions called photochemisty. The result of photochemisty is the production of energy in the form of NADPH and ATP and helps the plant to grow. The second fate of light that has been channeled to PSII is the formation of heat due to a process known as non-photochemical quenching. The final process is the one we can measure directly, this is known as chlorophyll a fluorescence. 
 
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Fate_of_Light.png" height="300" width="540">
 </p>
 
-The chlorophyll fluorescence occurs has a peak at 680nm (Far-Red in color) however, the spread of this peak streatches far into the infra-red portion of the spectrum. By measuring chlorophyll a fluorescence we can derive information about the photochemistry of a plant. The basic interpreation of chlorophyll fluorescence is that an increase in fluorescence is an indicator of poor photochemisty where as a decrease indicates higher photochemistry. The interpretation of fluorescence is a bit more complicated than this and will be expalined below.
+The chlorophyll fluorescence that is emitted has a peak intensity at ~680nm (Far-Red in color) however, the spread of the emission streatches far into the infra-red portion of the spectrum. The basic interpreation of chlorophyll fluorescence is that an increase in relative fluorescence is an indicator of poor photochemisty where as a decrease in relative fluorescence intensity indicates higher photochemistry. The interpretation of fluorescence is a bit more complicated than this and will be expalined below.
 
 There are a few different methods of assessing chlorophyll fluorescence:
 1. Pulse Amplitude Modulated Fluorometery (PAM)
 2. Fast Repetition Rate (FRR) 
 3. Fast Rise Fluorometry (OJIP)
 
-The technique of OJIP is named based on its three main phases, O-J, J-I and I-P:
+The chlorophyll fluorometer presented here utiliases fast rise (OJIP) fluorometry, this techniques name is based on its three main phases, O-J, J-I and I-P:
 
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/OJIP.png" height="315" width="494">
 </p>
 
-- O-J   is the photochemical phase and corrosponds the rate of which the first electron acceptor (Qa) is reduced. 
+- O-J   is the photochemical phase and corrosponds the rate of which the first electron acceptor (Qa) is reduced
 - J-I   corrosponds to the reduction of the pladtoquinone pool (PQ-pool) 
 - I-P   is the result of a satuation of electrons on the acceptor side of PSI
 
