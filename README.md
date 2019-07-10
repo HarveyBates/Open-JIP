@@ -15,7 +15,7 @@ Topics discussed:
 Chlorophyll a fluorescence can be used to monitor photosynthetic activity in plants. Light absorbed by a plants antenna complexes is channeled to a protein complex known as Photosytem II (which is a special chlorophyll) and results in three processes. The first is a series of reduction and oxidisation reactions called photochemisty. The result of photochemisty is the production of energy in the form of NADPH and ATP and helps the plant to grow. The second fate of light that has been channeled to PSII is the formation of heat due to a process known as non-photochemical quenching. The final process is the one we can measure directly, this is known as chlorophyll a fluorescence. 
 
 <p align="center">
-  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Fate_of_Light.png" height="300" width="540">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Chl%20excitation.png" height="459" width="495">
 </p>
 
 The chlorophyll fluorescence that is emitted has a peak intensity at ~680nm (Far-Red in color) however, the spread of the emission streatches far into the infra-red portion of the spectrum. The basic interpreation of chlorophyll fluorescence is that an increase in relative fluorescence is an indicator of poor photochemisty where as a decrease in relative fluorescence intensity indicates higher photochemistry. The interpretation of fluorescence is a bit more complicated than this and will be expalined below.
