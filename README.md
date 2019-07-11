@@ -52,7 +52,7 @@ As can be seen from the figure, Open-JIP operates using a controller (Arduino Me
 The algae version uses a 90 degree angle between detector and emitter. The LED is activated and filtered by the infrared filter to remove far infra-red radiation (heat). The sample (housed in a polystyrene cuvette) is surrounded on the two opposing walls by mirrors. These mirrors help to focus more fluorescence into the detector and also aid to increase the average light intensity within the cuvette. As the sample fluoresces the detector records the intensity while the LED is on. As the LED is on at the time of measurment and light it emits needs to be filtered from the measured light intensity and this is done though the use of a 695nm long-pass filter that is located infront of the photodiode.
 The plant version using the same setup as the algae version however as it utalises a blue excitation (actinic) LED there is no need for an infrared filter as it emits very little IR. An apature infront of the sample reduces the exposure of PSIIs' to be measured and results in reduced fluorescence intensity ensuring the detector doesn't saturate. The size of the apature can be changed to suit the plants which are being measured. 
 
-# Construction of Open-JIP
+# Construction of Open-JIP (Electronics)
 Below contains an instruction manual for building Open-JIP (Algae).
 
 <p align="center">
@@ -70,7 +70,6 @@ Start with the small components, the capacitors and resistors. Look at the capac
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(4%20of%2034).JPG">
 </p>
-
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(5%20of%2034).JPG">
 </p>
@@ -80,7 +79,6 @@ Once complete you want to solder the capacitors in place. To do this hold the so
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(6%20of%2034).JPG">
 </p>
-
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(7%20of%2034).JPG">
 </p>
@@ -138,15 +136,12 @@ Next up we have the four large components the LM7812 voltage regulator, the IRL4
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(18%20of%2034).JPG">
 </p>
-
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(19%20of%2034).JPG">
 </p>
-
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(20%20of%2034).JPG">
 </p>
-
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(21%20of%2034).JPG">
 </p>
@@ -156,7 +151,6 @@ Now its time for the boost coverter. This goes over the lettering on the PCB tha
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(22%20of%2034).JPG">
 </p>
-
 <p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(23%20of%2034).JPG">
 </p>
@@ -181,6 +175,46 @@ Lastly measure the photodiode wires that we prepared above to be roughly ~105mm 
 
 You have now assembled Open-JIPs electronics circuit. 
 
+# Construction of Open-JIP (Hardware)
+
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(28%20of%2034).JPG">
+</p>
+
+For the hardware construction of Open-JIP we will need, the 3D printed scaffold, an arduino mega, the circuit board we just made, the 10W LED of choice (R, B, G, O), a heat sink for the LED (optional), a 695nm longpass filter and an IR-filter (as shown in the above image). You will also need some hookup wire (solid core), a soldering iron, some solder and some wire snips. To start off attach a decent length of hookup wire to the terminals of the LED with some solder, take note of the polarity of the LED when doing this.
+
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(29%20of%2034).JPG">
+</p>
+
+Next up attach the heatsink to the back of the LED. These usually have some thermal adheasive in which case you must peal off its cover before attaching. 
+
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(30%20of%2034).JPG">
+</p>
+
+Now its time to glue the LED to the 3D printed part, you can use any glue for this however I recommend 5 minute epoxy (not what is shown in the photo). 
+
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(31%20of%2034).JPG">
+</p>
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(32%20of%2034).JPG">
+</p>
+
+Once cured we can attach the circuit board to the top of the Arduino and push it into its holder. Route and cut the wires from the LED though the holes and insert them into the spot on the PCB marked "Actinic LED". Push the photodiode into the small hole on the back side of the 3D printed structure it should be a tight fit. If not use a small amount of expoxy to secure it in place, ensuring that no expoxy gets on the face of the photodiode. 
+
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(33%20of%2034).JPG">
+</p>
+
+Lastly place the filters in the corrosponding spots. IR infront of the LED and 695nm longpass infront of the photodiode.
+
+<p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(34%20of%2034).JPG">
+</p>
+
+You have now assembled Open-JIP Algae.
 
 # User modification of Open-JIP
 The user is encouraged to modify the device to suit there needs and trial different protocals. This can be done by redesigning the 3D models and/or the software aspect of Open-JIP. Below is a list of example changes that can be made to the device:
