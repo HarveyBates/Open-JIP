@@ -56,6 +56,10 @@ The plant version using the same setup as the algae version however as it utalis
 Below contains an instruction manual for building Open-JIP (Algae).
 
 <p align="center">
+  <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Pictures/Schematic_Open-JIP.png">
+</p>
+
+<p align="center">
   <img src="https://github.com/Open-JIP/Open-JIP/blob/master/Open-JIP%20Assembly/pic%20(1%20of%2034).JPG">
 </p>
 
