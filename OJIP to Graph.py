@@ -6,15 +6,14 @@ REF_VOLTAGE = 1.1
 
 ser = serial.Serial('EnterSerialPortOfArduinoHere', 74880)
 
+xdataArray = []
+ydataArray = []
+
 
 def measureOJIP():
-    global xdataArray
-    global ydataArray
     ser.flush()
     time.sleep(1)
     ser.write(b'MF')
-    xdataArray = []
-    ydataArray = []
     for i in range(1100):
         OJIP_bytes = ser.readline()
         decoded_OJIP_bytes = str(
