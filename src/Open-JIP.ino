@@ -4,6 +4,8 @@
  Author:	Harvey Bates
 */
 
+#include <Adafruit_GFX.h>
+#include <Adafruit_ILI9341.h>
 #include "SPI.h"
 #include <SD.h>
 #include "SDRead_Write.h"

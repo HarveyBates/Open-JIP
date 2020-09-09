@@ -10,6 +10,7 @@
 #include <vector>
 #include <cmath>
 
+
 SDCard sdCard;
 
 extern const char* sdState;
