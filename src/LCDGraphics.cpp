@@ -10,7 +10,6 @@
 #include <vector>
 #include <cmath>
 
-
 SDCard sdCard;
 
 extern const char* sdState;
@@ -115,9 +114,9 @@ unsigned long LCDGraphics::mainScene(const char* measuringDevice, const char* ac
     tft.fillRect(5, 70, 80, 30, ILI9341_MAGENTA);
     tft.drawRect(5, 70, 80, 30, ILI9341_WHITE);
     tft.setFont(smallFont);
-    tft.setTextColor(ILI9341_BLACK);
+    tft.setTextColor(ILI9341_WHITE);
     centeredString("SD Card:", 45, 90);
-    tft.setCursor(100, 85);
+    tft.setCursor(90, 90);
     tft.print(*&sdState);
 
     // Print quantum yeild
@@ -132,7 +131,7 @@ unsigned long LCDGraphics::mainScene(const char* measuringDevice, const char* ac
     tft.drawRect(30, height - 30, 180, -180, ILI9341_WHITE);
     tft.setFont(smallFont);
     tft.setTextColor(ILI9341_WHITE);
-    centeredString("Time (ms)", width / 2, height - 10);
+    centeredString("Log10(time)", width / 2, height - 10);
     centeredString("V", 10, height - 120);
 
     return(0);
