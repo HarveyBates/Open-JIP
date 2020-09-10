@@ -61,7 +61,6 @@ void setup()
     //files = SD.open("/");
     //sd.printDirectory(files, 0);
     //sd.createTextFile("example.txt");
-
 }
 
 void loop(void)

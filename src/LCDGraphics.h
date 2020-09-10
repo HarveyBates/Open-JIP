@@ -22,17 +22,17 @@
 #define TFT_DC 9
 #define TFT_CS 10
 
-
 class LCDGraphics {
 public:
 	Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
-	int amplitude = 40;
-	int frequency = 4;
 
 	int width = 240;
 	int height = 320;
 
 	float fvfm = 0.00;
+
+	float maxDataPoint;
+	float minDataPoint;
 
 	const GFXfont* headingFont = &FreeSans24pt7b;
 	const GFXfont* minorHeadingFont = &FreeSans18pt7b;

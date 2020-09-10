@@ -1,8 +1,6 @@
 
 #include "LCDGraphics.h"
 #include "SPI.h"
-#include "Adafruit_GFX.h"
-#include "Adafruit_ILI9341.h"
 #include "SDRead_Write.h"
 #include "SystemInformation.h"
 #include <algorithm>
@@ -134,6 +132,14 @@ unsigned long LCDGraphics::mainScene(const char* measuringDevice, const char* ac
     centeredString("Log10(time)", width / 2, height - 10);
     centeredString("V", 10, height - 120);
 
+    //Print graph limits
+    tft.setCursor(190, 100);
+    tft.setFont(smallFont);
+    tft.setTextColor(ILI9341_WHITE);
+    tft.print(maxDataPoint); // Fm
+    tft.setCursor(5, 310);
+    tft.print(minDataPoint); // Fo
+
     return(0);
 }
 
@@ -166,8 +172,8 @@ unsigned long LCDGraphics::plotOJIP(std::vector<float> timeStamps, std::vector<f
     // Normalsie data between the graphs limits
     // Width = 180, Height = -180
     std::vector<float> xData, yData;
-    float maxDataPoint = *std::max_element(dataPoints.begin() + 3, dataPoints.end()); //Get max datapoint (Fm)
-    float minDataPoint = *std::min_element(dataPoints.begin() + 3, dataPoints.end()); //Get min datapoint (Fo)
+    maxDataPoint = *std::max_element(dataPoints.begin() + 3, dataPoints.end()); //Get max datapoint (Fm)
+    minDataPoint = *std::min_element(dataPoints.begin() + 3, dataPoints.end()); //Get min datapoint (Fo)
 
     //Plot OJIP data within the confines of the rectangular plotting area
     for (unsigned int i = 0; i < timeStamps.size(); i++)
@@ -185,56 +191,5 @@ unsigned long LCDGraphics::plotOJIP(std::vector<float> timeStamps, std::vector<f
         delay(1);
     }
 
-
     return(0);
-}
-
-
-unsigned long LCDGraphics::testText()
-{
-    int w = tft.width(), h = tft.height();
-    tft.fillScreen(ILI9341_BLACK);
-    unsigned long start = micros();
-    tft.setCursor(35, 40);
-    tft.setTextColor(ILI9341_WHITE);
-    tft.setTextSize(3);
-    tft.print(w);
-    tft.print("x");
-    tft.println(h);
-
-    tft.drawRect(20, 100, 200, 180, ILI9341_WHITE);
-
-    // Create X Labels
-    int x_label_pos = 20;
-    for (int i = 0; i < 10; i++)
-    {
-        tft.setCursor(x_label_pos, h - 35);
-        tft.setTextColor(ILI9341_WHITE);
-        tft.setTextSize(1);
-        tft.println(i);
-        x_label_pos += 20;
-    }
-
-    // Create Y Labels
-    int y_label_pos = h - 40;
-    for (int i = 0; i < 10; i++)
-    {
-        tft.setCursor(10, y_label_pos);
-        tft.setTextColor(ILI9341_WHITE);
-        tft.setTextSize(1);
-        tft.println(i);
-        y_label_pos -= 20;
-    }
-
-    // Create data
-    for (int i = 1; i < 200; i++)
-    {
-        int prev_xPoint = 20 + i - 1;
-        int prev_yPoint = 180 - (amplitude * sin(prev_xPoint / frequency));
-        int curr_xPoint = 20 + i;
-        int curr_yPoint = 180 - (amplitude * sin(curr_xPoint / frequency));
-        tft.drawLine(prev_xPoint, prev_yPoint, curr_xPoint, curr_yPoint, ILI9341_GREEN);
-    }
-
-    return micros() - start;
 }
