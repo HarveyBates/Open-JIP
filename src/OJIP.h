@@ -17,7 +17,7 @@
 #define greenPin 37
 #define bluePin 36
 
-#define ojipPin 33
+#define ojipPin 34
 
 extern float fo;
 extern float f100us;

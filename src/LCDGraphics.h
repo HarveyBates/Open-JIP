@@ -29,7 +29,7 @@ public:
 	int width = 240;
 	int height = 320;
 
-	float fvfm = 0.00;
+	float fvfm = 0.00f;
 
 	float maxDataPoint;
 	float minDataPoint;
@@ -45,7 +45,6 @@ public:
 	void assessQuantumYield();
 	void centeredString(const char* buf, int x, int y);
 	unsigned long plotOJIP(std::vector<float> timeStamps, std::vector<float> dataPoints);
-	unsigned long testText();
 };
 
 

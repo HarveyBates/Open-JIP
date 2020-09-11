@@ -40,6 +40,8 @@ OJIP ojip;
 void setup()
 {
     Serial.begin(115200);
+    analogReadResolution(12);
+    analogReference(DEFAULT);
     pinMode(actinicPin, OUTPUT);
     digitalWrite(actinicPin, LOW);
 
@@ -63,8 +65,18 @@ void setup()
     //sd.createTextFile("example.txt");
 }
 
-void loop(void)
+void loop()
 {
+    //float voltage = analogRead(ojipPin);
+    //if (Serial.available())
+    //{
+    //    String command = Serial.readStringUntil('\n');
+    //    if (command.equals("MF") || command.equals("mf") || command.equals("MeasureFluorescence"))
+    //    {
+    //        ojip.measureOJIP(2.0, 998.0, 'G', true);
+    //    }
+    //}
+
     lcd.mainScene("Plant", "Blue", sdState);
     lcd.plotOJIP(timeStamps, dataPoints);
     ojip.calculateParameters(timeStamps, dataPoints);
