@@ -56,7 +56,6 @@ void OJIP::measureOJIP(float microReadLength, float milliReadLength, char actini
 		dataPoints[i] = (dataPoints[i] * 3.33) / 4096; // Convert bits to volts
 		timeStamps[i] = timeStamps[i] / 1000; // Convert micros to milliseconds
  	}
-
 }
 
 void OJIP::printOJIPData()

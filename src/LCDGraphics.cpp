@@ -172,20 +172,20 @@ unsigned long LCDGraphics::plotOJIP(std::vector<float> timeStamps, std::vector<f
     // Normalsie data between the graphs limits
     // Width = 180, Height = -180
     std::vector<float> xData, yData;
-    maxDataPoint = *std::max_element(dataPoints.begin() + 3, dataPoints.end()); //Get max datapoint (Fm)
-    minDataPoint = *std::min_element(dataPoints.begin() + 3, dataPoints.end()); //Get min datapoint (Fo)
+    maxDataPoint = *std::max_element(dataPoints.begin() + 2, dataPoints.end()); //Get max datapoint (Fm)
+    minDataPoint = *std::min_element(dataPoints.begin() + 2, dataPoints.end()); //Get min datapoint (Fo)
 
     //Plot OJIP data within the confines of the rectangular plotting area
     for (unsigned int i = 0; i < timeStamps.size(); i++)
     {
         // Append normalised xdata with log10 converson
-        xData.push_back((180) * ((log10(timeStamps[i]) - log10(timeStamps[3])) / (log10(timeStamps[timeStamps.size()-1]) - log10(timeStamps[3]))) + 30);
-        // Append normalised ydata
-        yData.push_back((180) * ((dataPoints[i] - minDataPoint) / (maxDataPoint - minDataPoint)) + 110);
+        xData.push_back((180) * ((log10(timeStamps[i]) - log10(timeStamps[2])) / (log10(timeStamps[timeStamps.size()-1]) - log10(timeStamps[2]))) + 30);
+        // Append inversed normalised ydata to correspond with the orientation of the screen
+        yData.push_back((180) * -((dataPoints[i] - minDataPoint) / (maxDataPoint - minDataPoint)) + 290);
     }
     
     // Plots data from Fo
-    for (unsigned int i = 3; i < xData.size(); i++)
+    for (unsigned int i = 2; i < xData.size(); i++)
     {
         tft.fillCircle(xData[i], yData[i], 2, ILI9341_CYAN); // Plot datapoints as a series of circles
         delay(1);

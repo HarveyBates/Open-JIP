@@ -68,6 +68,7 @@ void setup()
 void loop()
 {
     //float voltage = analogRead(ojipPin);
+    //delay(10);
     //if (Serial.available())
     //{
     //    String command = Serial.readStringUntil('\n');
@@ -76,7 +77,6 @@ void loop()
     //        ojip.measureOJIP(2.0, 998.0, 'G', true);
     //    }
     //}
-
     lcd.mainScene("Plant", "Blue", sdState);
     lcd.plotOJIP(timeStamps, dataPoints);
     ojip.calculateParameters(timeStamps, dataPoints);
