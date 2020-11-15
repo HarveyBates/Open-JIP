@@ -36,6 +36,8 @@ Here you will find a table all the components needed to construct the Open-JIP c
 
 Note that most of the comonents are suface mount (SMD), this is due to their increased reliablity and in my opinion its easier to assemble SMD compared to through-hole (THT) components. 
 
+To order the circuit board I reccomend using [JLCPCB](https://jlcpcb.com/). Simpily open the folder titled Electronics and compress the housed Gerber folder into a ```.zip``` file. Then on the JLCPCB website drag and drop the ```.zip``` file into the order form. The default settings are sutiable and you will receive 5 circuit boards for around $30 AUD. 
+
 #### Other
 
 In addition to the above electronics you will need a few components such as a Teensy microcontroller, power supply and computer to use the device. A table of all these additional items can be found in the folder location ```Open-JIP/Bill of Materials/Other```.
