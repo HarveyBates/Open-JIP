@@ -4,8 +4,9 @@ Open-JIP is an open-source chlorophyll fluorometer used for quantifying photosyn
 If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through fluorometer.
 
 <p align="center">
-  <img src="Open-JIP Pictures/Teensy (v0.2).jpg" width="300">
+  <img src="Pictures/Teensy (v0.2).jpg" width="300">
 </p>
+
 
 ## Getting started
 
@@ -134,8 +135,9 @@ While software adjustments are suitable for small changes in a number of factors
 The easiest way to accomplish this is through the use of neutral density filters placed infront of the actinic LED. However, we can also change this by adjusting a resistor value (R10) on the circuit board.
 
 <p align="center">
-  <img src="Open-JIP Pictures/ActinicCircuit.png" width="600">
+  <img src="Pictures/ActinicCircuit.png" width="600">
 </p>
+
 
 **Increasing** the resistance of R10 results in *decreased* actinic brightness.
 
@@ -148,8 +150,9 @@ Do this in 1Kohm steps to dial in the specific brightness you need for your appl
 When measuring dilute or highly concentrated solutions of microalgae you may want to change the resistor value (R5) to suit your needs. 
 
 <p align="center">
-  <img src="Open-JIP Pictures/DetectionCircuit.png" width="600">
+  <img src="Pictures/DetectionCircuit.png" width="600">
 </p>
+
 
 **Increasing** the resistance of R5 will *increase* the sensitivty of detection.
 
