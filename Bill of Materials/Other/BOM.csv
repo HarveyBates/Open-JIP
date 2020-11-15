@@ -1,0 +1,13 @@
+Item,Required,Notes,Website
+Teensy 3.6 ,Y,"Can get 3.5, 3.6 or 4.1",https://www.pjrc.com/store/teensy36.html 
+3D-Printed Holder,Y,,See repository
+LED Cover,Y,Can glue the LED in place if you want,See repository
+Power supply (15DYS818-150120W-K),Y,,https://cpc.farnell.com/ideal-power/15dys618-150120w-k/ac-dc-power-supply-15v-1-2a-intl/dp/PW04156
+MicroUSB to USB Adaptor,Y,Any one will do,
+22.6x30x3mm Plexiglass (Acrylic) Mirrored,Y,Used to surround the cuvette and increase the change of photons hitting the detector (breath x height x width),Any plexiglass supplier
+16.6x30x3mm Plexiglass (Acrylic) Mirrored,Y,Used to surround the cuvette and increase the change of photons hitting the detector (breath x height x width),Any plexiglass supplier
+Cuvette (Polystyrene),Y,Or glass,https://www.sigmaaldrich.com/catalog/product/sigma/c0918?lang=en&region=AU
+25mm IR Filter,N,Optional filter if you are getting interference from the actinic LED,
+ND Filter,N,Optional any ND filter paper will do or use a 25mm ND filter in front of the actinic LED,
+16 AWG Wire (Red and Black),Y,For attaching LED to circuit board,https://www.ebay.com.au/p/2119056858 
+10W COB LED,Y,"Supplier change for this LED, but look for 10W COB LED (Red, Green, Blue) on ebay and you will find them",https://www.ebay.com.au/itm/10W-20W-30W-50W-70W-100W-12V-36V-High-Power-LED-Lamp-Light-COB-SMD-Bulb-Chip-DIY/323902290356?hash=item4b6a14b9b4:g:uVMAAOSwaVNau0Um 

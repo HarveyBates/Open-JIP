@@ -169,7 +169,7 @@ void loop(){
     else if(command.equals("ML")){
       measureLight();
     }
-    else if(command.equals("C")){
+    else if(command.equals("Cr")){
       calibrateRise();
     }
     else{
