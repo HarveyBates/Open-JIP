@@ -3,7 +3,9 @@ Open-JIP is an open-source chlorophyll fluorometer used for quantifying photosyn
 
 If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through fluorometer.
 
-<img src="Open-JIP Pictures/Teensy (v0.2).jpg" width="300">
+<p align="center">
+  <img src="Open-JIP Pictures/Teensy (v0.2).jpg" width="300">
+</p>
 
 ## Getting started
 
@@ -23,53 +25,173 @@ In addition to the Bill of Mateirals you will need to have access to:
 
 1. Soldering iron
 2. Solder (Paste or wire variety)
-3. 3D-printer
-4. Wire strippers / cutters
-5. Tweesers
+3. Reflow oven (not nessesary but makes the circuit board easier to assemble)
+4. 3D-printer
+5. Wire strippers / cutters
+6. Tweesers
 
 #### Circuit Board
 
-Here you will find all the components needed to construct the Open-JIP circuit board. These components can be bought from common electronics suppliers such as [digikey](https://www.digikey.com/), [LCSC](https://lcsc.com/en) or [farnell](https://au.element14.com/) etc. 
+Here you will find a table all the components needed to construct the Open-JIP circuit board. These components can be bought from common electronics suppliers such as [digikey](https://www.digikey.com/), [LCSC](https://lcsc.com/en) or [farnell](https://au.element14.com/) etc. 
 
 Note that most of the comonents are suface mount (SMD), this is due to their increased reliablity and in my opinion its easier to assemble SMD compared to through-hole (THT) components. 
 
 #### Other
 
-In addition to the above electronics you will need a few components such as a Teensy microcontroller, power supply and computer to use the device. A list of all these additional items can be found in the folder location ```Open-JIP/Bill of Materials/Other```.
+In addition to the above electronics you will need a few components such as a Teensy microcontroller, power supply and computer to use the device. A table of all these additional items can be found in the folder location ```Open-JIP/Bill of Materials/Other```.
 
 #### 3D Models
 
-The 3D-models used for 3D-printing Open-JIP can be found in the ```Open-JIP/3D Models``` folder. Two file types are specified (1) ```.stl``` can be directly imported into 3D-printing software such as [Ultimaker-Cura](https://ultimaker.com/software/ultimaker-cura) or sent to a 3D-printing manufactuer. (2) ```.STEP``` is the modifiable Open-JIP 3D-model and as such can be configured whichever way you want before being exported as a ```.stl``` file. 
+The 3D-models used for 3D-printing Open-JIP can be found in the ```Open-JIP/3D Models``` folder. Two file types are specified:
+
+1. ```.stl``` can be directly imported into 3D-printing software such as [Ultimaker-Cura](https://ultimaker.com/software/ultimaker-cura) or sent to a 3D-printing manufactuer.
+2. ```.STEP``` is the modifiable Open-JIP 3D-model and as such can be configured whichever way you want before being exported as a ```.stl``` file. You can use 3D modeling software to do this such as [Fusion360](https://www.autodesk.com/products/fusion-360/overview) or [Solidworks](https://www.solidworks.com/).
 
 ### Software
 
-Open-JIP operates via a computers serial port, the user sends commands in the form of strings that are converted to bytes then read by the Teensy microcontroller. This results in the device taking a measurement or other tasks. 
+Open-JIP operates via a computers serial port (USB connection), the user sends commands in the form of strings that are converted to bytes then read by the Teensy microcontroller. This results in the device taking a measurement or other tasks. 
 
-To setup the Teensy (flash the program to the Teensy microcontroller) you will need **both** [Arduino IDE](https://www.arduino.cc/en/software) and [TeensyDuino](https://www.pjrc.com/teensy/teensyduino.html) if running on Linux or Windows, or just [TeensyDuino](https://www.pjrc.com/teensy/teensyduino.html) if using a Mac. Instructions on how to do this is provided in the provided links. 
+To setup the Teensy (flash the program to the Teensy microcontroller) you will need **both** [Arduino IDE](https://www.arduino.cc/en/software) and [TeensyDuino](https://www.pjrc.com/teensy/teensyduino.html) if running on Linux or Windows, or just [TeensyDuino](https://www.pjrc.com/teensy/teensyduino.html) if using a Mac. Instructions on how to do this is provided in the above links. 
 
 When first using Open-JIP: 
 
 1. Plug the Teensy into your computer
-2. Open Arduino-IDE
+2. Open Arduino IDE
 3. Select ```Tools>Board>Teensy 3.6``` (*may be in another part called Teensyduino)
 4. Select ```Port>"Your Teensy Device"```
 5. ```File>Open``` the "Teensy.ino" file found in ```Open-JIP/Teensy/Teensy.ino```
 6. ```Sketch>Upload``` to flash the file onto the Teensy
 
+*Note* - You may need some libraries which can be downloard easily if you follow [these instructions](https://www.arduino.cc/en/Reference/Libraries).
+
 After this you only need to flash the Teensy again after changing settings in the Teensy.ino file.
 
 #### Basic Operations
 
-To take a measurment open the serial monitor (```Tools>Serial Monitor```) and type in the command ```MF```. This will (in the default configuration) take a one second measurement of fluorescence and print the resulting measurments out into the serial monitor. 
+To take a measurment open the serial monitor (in the Arduino IDE when the deivce is connected to your computer) (```Tools>Serial Monitor```) and type in the command ```MF``` (denoting **m**easure **f**luorescence). This will (in the default configuration) take a one second measurement of chlorophyll fluorescence and print the resulting measurments out into the serial monitor. 
 
-You can copy and paste this into excel to graph the measurment. If you want to automate this you can create a script that sends and recieves commands to/from the serial port. I reccomend using python and the [pyserial](https://pypi.org/project/pyserial/) (```pip install pyserial```) package. 
+You can copy and paste the data into excel in order to graph the polyphasic rise. If you want to automate this you can create a script that sends and recieves commands to/from the serial port. I reccomend using python and the [pyserial](https://pypi.org/project/pyserial/) (```pip install pyserial```) package. 
+
+There are a number of included functions that require the same method to operate:
+
+1. ```CFo``` - **C**alibrate **Fo** (the minimum level fluoresence). Provides short flashes of illumination for calibrating the minimum level fluorescence. This command is useful if you want to know if your measurment is going to *saturate* (due to an overly concentrated sample) before taking a measurment. 
+2. ```ML``` - Calibrate actinic intensity (**m**easure **l**ight). Turns on the actinic LED for a period of three seconds to allow the intensity to be measured by a 4\pi light meter.
+3. ```Cr``` **C**alibrate **r**ise time of the actinic LED/amplifier combination. Provides some short  (100us) flashes of illumination from the actinic LED to calibrate your setup using an external oscilloscope. Useful if you want to ensure your Fo value is accurate (i.e. Fo should be measured when the actinic LED and amplifier are stable (usually around 40us)). *Note* this is only nessesary if you alter the default electronics configuration (see below).  
+
+#### Custom Software Functions
+
+The main feature of Open-JIP is its simple nature and customisability. Users can change things such as the length of the actinic saturation pulse and the sensitivity of the device.
+
+##### Changing the actinic pulse length
+
+In the Teensy/Teensy.ino file these lines are responsible for the actinic pulse length:
+
+```C++
+// Initalise datapoint arrays
+int baseRead[5]; // Baseline reading (without actinic LED)
+int microRead [1000]; // Microsecond reads
+int milliRead[1000]; // Millisecond reads
+
+// Timestamps for each of the datapoints
+float h[5]; // Baseline timestamps
+float t[1000]; // Microsecond timestamps
+float p[1000]; // Millisecond timestamps
+```
+
+The baseline readings are not used in the default configuration but can be added if you want to measure a few points before the actinic LED is turned on.
+
+```microRead``` and ```milliRead``` are arrays containing the number of datapoints that should be captured at fast (microseconds) and slower (milliseconds) intervals. Teensy microcontrollers have alot of memory compared to the original Arduino version of Open-JIP. This allows the measurments times to be alot longer without running out of memory space. 
+
+If you want to change the actinic pulse length you can do so by adjusing the array size of the ```milliRead``` values and the ```p``` values (timestamps) to match eachother. Unfortunatly, these adjustments are not representive of time so if you want 3 second exposures you will have to play around with the array size of these variables untill your measurements are 3 seconds in length. 
+
+##### Changing the devices senstivity
+
+This can be done simpily if using a Teensy 3.6 as this device comes with two analog refernce values (3.3V and 1.1V). To change the analog reference values simily change this line:
+
+```c++
+analogReference(DEFAULT); // For 3.3V reference voltage
+analogReference(INTERNAL1V1); // For 1.1V reference voltage
+```
+
+Changing these values means that your analog readings will be constricted to either 3.3V or 1.1V. The number of bits for these reading can be changed via this command:
+
+```c++
+analogResolution(12); // 12 bit-resolution
+```
+
+*Note* - **Increasing** the resolution **decreases** the sampling time so if you want to get alot of measurements around Fo I reccomend you use a 12 bit-resolution.
+
+If you use have a 12 bit-resolution with a reference voltage of 1.1V the finest sensivitiy of the device is 0.00027 V per-division (1.1V / 2^12). 
+
+### Hardware
+
+While software adjustments are suitable for small changes in a number of factors, other adjustments need to made to the hardware to dial in the performance of Open-JIP.  This includes changing the brightness of the actinic LED and large changes to the senstivitiy of the detection circutry. 
+
+#### Changing the actinic LED brightness
+
+The easiest way to accomplish this is through the use of neutral density filters placed infront of the actinic LED. However, we can also change this by adjusting a resistor value (R10) on the circuit board.
+
+<p align="center">
+  <img src="Open-JIP Pictures/ActinicCircuit.png" width="600">
+</p>
+
+**Increasing** the resistance of R10 results in *decreased* actinic brightness.
+
+**Decreasing** the resistance of R10 results in *increased* actinic brightness.
+
+Do this in 1Kohm steps to dial in the specific brightness you need for your application.
+
+#### Changing the detection sensitivity
+
+When measuring dilute or highly concentrated solutions of microalgae you may want to change the resistor value (R5) to suit your needs. 
+
+<p align="center">
+  <img src="Open-JIP Pictures/DetectionCircuit.png" width="600">
+</p>
+
+**Increasing** the resistance of R5 will *increase* the sensitivty of detection.
+
+**Decreasing** the resistance of R5 will *decrese* the sensitivty of detection.
+
+Do this with 200kohm steps to dial in the specific sensitivty that you need for your application.
+
+*Note* if you begin to get a large overshoot occuring at the start of your measurments you may need to increase the capacitor value (C5) to 2pF - 5pF. This [article](https://wiki.analog.com/university/courses/electronics/electronics-lab-1st) may help you if you encounter this issue.
+
+### User customiabilty 
+
+Users are encouraged to modify Open-JIP for their needs. Some examples of this may be to:
+
+1. Customise the 3D-model to suit a flow through arrangement 
+2. Make an array of Open-JIP devices of difference actinic colors
+3. Change the desgin of the 3D printed mount
+4. Add an external trigger 
+
+### To do list
+
+These are notes on features I would like to see the device have in the future:
+
+1. Software customisable gain
+2. Software customisable actinic brightness
+3. Entirely USB powered
+4. Mulit-wavelength actinic LED software selectablity 
+5. Smaller overall footprint
+
+### Licence
+
+The software in this work is licensed under GNU AFFERO GENERAL PUBLIC LICENSE Copyright (C) (2020) (Harvey Bates)
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/
+
+For more information contact: [harvey_bates@hotmail.com](mailto:harvey_bates@hotmail.com)
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+
+The hardware (3D Models, Electronic Schematics) in this work is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
 
 
 
-
-
-
-
-
-
-
+ 
