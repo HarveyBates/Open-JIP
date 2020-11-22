@@ -1,20 +1,22 @@
-// <Open-JIP Teensy 3.6 Script. Controls "Open-JIP" chlorophyll fluorometer>
-     // Copyright (C) <2020>  <Harvey Bates>
+/* <Open-JIP Teensy 3.6 Script. Controls "Open-JIP" chlorophyll fluorometer>
+     Copyright (C) <2020>  <Harvey Bates>
 
-     // This program is free software: you can redistribute it and/or modify
-     // it under the terms of the GNU General Public License as published by
-     // the Free Software Foundation, either version 3 of the License, or
-     // (at your option) any later version.
-
-     // This program is distributed in the hope that it will be useful,
-     // but WITHOUT ANY WARRANTY; without even the implied warranty of
-     // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     // GNU General Public License for more details.
-
-     // You should have received a copy of the GNU General Public License
-     // along with this program.  If not, see <https://www.gnu.org/licenses/>
-    
-     // For more information contact: harvey.bates@student.uts.edu.au
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+     
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+     
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>
+     
+     For more information contact: harvey.bates@student.uts.edu.au or see
+     https://github.com/HarveyBates/Open-JIP 
+*/ 
 
 // Analog Pins
 #define readPin 18
@@ -23,26 +25,28 @@
 #define actinicPin 21
 
 // Setup arrays that hold fluorescence data
-int baseRead[5];
 int microRead [1000];
 int milliRead[1000];
 
 // Setup arrays that hold timestamps that correspond to fluorescence values
-float h[5];
-float t[1000]; 
-float p[1000];
+float microTime[1000]; 
+float milliTime[1000];
 String command;
 
-int fluorescenceValues[2000];
-double timeStamps[2000];
+int microLength = 1000, milliLength = 1000; // Change these to match the size of the above arrays
 
-// Initialse some variables
-int microMax = 0, milliMax = 0;
+// Setup arrays to hold all datapoints and corresponding timestamps
+float fluorescenceValues[2000];
+float timeStamps[2000];
+
+int fm = 0; // Initalise the fm value so we can calcualte it later
+
+float refVoltage = 3.3; // Set the reference voltage (only applicable with Teensy 3.6)
 
 void setup() {
-  Serial.begin(115200);
-  analogReadResolution(12);
-  set_reference_voltage(3.3); // Only applicable with a Teensy 3.6 (disable if using other microcontroller)
+  Serial.begin(115200); // Initalise serial communications at specific baud rate
+  analogReadResolution(12); // Set the resolution of the microcontroller in bits
+  set_reference_voltage(refVoltage); // Only applicable with a Teensy 3.6 (disable if using other microcontroller)
   pinMode(actinicPin, OUTPUT); // Set the actinic pin as an output
   digitalWrite(actinicPin, LOW); // Make sure the actinic LED is turned off
   pinMode(13, OUTPUT); // Sets the microcontrollers LED pin as an output
@@ -63,7 +67,7 @@ void set_reference_voltage(float voltage){
 }
 
 void measure_fluorescence() {
-  set_reference_voltage(3.3); 
+  set_reference_voltage(refVoltage); 
   
   digitalWrite(actinicPin, HIGH); // Turn on actinic LED
 
@@ -73,102 +77,128 @@ void measure_fluorescence() {
   for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++) 
   {
     microRead[i] = analogRead(readPin);
-    t[i] = micros() - timer;
+    microTime[i] = micros() - timer;
   }
 
   // Read millisecond fluorescence values and corresponding timestamps
   for (unsigned int i = 0; i < sizeof(milliRead) / sizeof(int); i++) 
   {
     milliRead[i] = analogRead(readPin);
-    p[i] = micros() - timer;
+    milliTime[i] = micros() - timer;
     delay(1);
   }
   
   digitalWrite(actinicPin, LOW); // Turn off actinic LED
   delay(10);
 
-  // Convert micros() to milliseconds for microsecond values
+  // Convert micros() to milliseconds (ms) for microsecond values and convert bits to voltage
   for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++)
   {
-   float milliReal = t[i]/1000;
-   fluorescenceValues[i] = microRead[i];
-   timeStamps[i] = milliReal;
+   float milliReal = microTime[i]/1000; // Convert micros() to ms
+   // Find fm value, we do this here while data are still ints
+   if (microRead[i] > fm){
+    fm = microRead[i];
+   }
+   fluorescenceValues[i] = (microRead[i] * refVoltage) / 4096; // Convert to volts and append to final array
+   timeStamps[i] = milliReal; // Append time to final array
    Serial.print(milliReal, 3); 
    Serial.print("\t");
-   Serial.println(microRead[i]);
+   Serial.println((microRead[i] * refVoltage) / 4096, 4);
    delay(1);
   }
 
-  // Convert micros() to milliseconds for millsecond values
+  // Convert micros() to milliseconds for millsecond values and convert bits to voltage
   for (unsigned int i = 0; i < sizeof(milliRead) / sizeof(int); i++) 
   {
-   float milliReal = p[i]/1000;
-   fluorescenceValues[i + 1000] = milliRead[i];
-   timeStamps[i] = milliReal;
+   float milliReal = milliTime[i]/1000; // Convert micros() to ms
+   // Find fm value if not in microsecond range
+   if (milliRead[i] > fm){
+    fm = milliRead[i];
+   }
+   fluorescenceValues[i + microLength] = (milliRead[i] * refVoltage) / 4096; // Convert to V and append
+   timeStamps[i + microLength] = milliReal; // Append to timestamps after microRead data
    Serial.print(milliReal, 3); 
    Serial.print("\t");
-   Serial.println(milliRead[i]);
+   Serial.println((milliRead[i] * refVoltage) / 4096, 4);
    delay(1);
   }
 }
 
 void calculate_parameters(){
   float fo = fluorescenceValues[4]; // Gets the minimum level fluorescence (Fo)
-  int fj = 0, fi = 0;
+  float fj = 0.0f, fi = 0.0f;
+  float fj_time = 0.0f, fi_time = 0.0f, fm_time = 0.0f;
   bool fj_found = false, fi_found = false;
-  int fm = 0, fm_time = 0;
+
+  // Next loop gets the Fj and Fi values at 2 and 30 ms respsctively 
   for(unsigned int i = 0; i < sizeof(timeStamps) / sizeof(int); i++){
     // Search for timestamp corresponding to 2 ms
-    if(!fj_found && int(t[i] == 2)){
+    if(!fj_found && int(timeStamps[i]) == 2){
       fj = fluorescenceValues[i];
+      fj_time = timeStamps[i];
       fj_found = true;
     }
-    else if(!fi_found && int(p[i] == 30)){
+    else if(!fi_found && int(timeStamps[i]) == 30){
       fi = fluorescenceValues[i];
+      fi_time = timeStamps[i];
       fi_found = true;
-    }
-    else if(fluorescenceValues[i] > fm){
-      fm = fluorescenceValues[i];
-      fm_time = timeStamps[i];
     }
   }
 
-  float fv = fm - fo;
-  float fvfm = fv/fm;
+  float fm_volts = (fm * refVoltage) / 4096;
+  float fv = fm_volts - fo;
+  float fvfm = fv / fm;
 
+  Serial.println();
   Serial.print("Fo: \t");
-  Serial.println(fo);
+  Serial.println(fo, 4);
   Serial.print("Fj: \t");
-  Serial.println(fj);
+  Serial.print(fj, 4);
+  Serial.println(" V @ " + String(fj_time) + " ms");
   Serial.print("Fi: \t");
-  Serial.println(fi);
+  Serial.print(fi, 4);
+  Serial.println(" V @ " + String(fi_time) + " ms");
   Serial.print("Fm: \t");
-  Serial.println(fm);
+  Serial.print(fm_volts, 4);
+  Serial.println(" V @ " + String(fm_time) + " ms");
   Serial.print("Fv: \t");
-  Serial.println(fv);
-  Serial.print("Fv/Fm: \t");
-  Serial.print(fvfm);
-  Serial.println(" @ " + fm_time + " ms");
+  Serial.print(fv, 4);
+  Serial.println(" V");
+  Serial.print("Quantum yield (Fv/Fm): \t");
+  Serial.print(fvfm, 2);
+  if(fvfm < 0.5){
+    Serial.println(" Poor health");
+  }
+  else if(fvfm >= 0.5 && fvfm < 0.7){
+    Serial.println(" Moderately healthy");
+  }
+  else if(fvfm >= 0.7){
+    Serial.println(" Healthy");
+  }
 }
 
 void calibrate_fo(){
-  set_reference_voltage(3.3); 
+  /* Calibrate the fo value of the fluorometer, can be used to ensure the concentration of algae
+  is not too high
+  */ 
+  set_reference_voltage(refVoltage); 
   float foread = 0.0f;
   for (int k = 0; k < 5; k++){
     digitalWrite(actinicPin, HIGH);
     delayMicroseconds(20);
     for (int i = 0; i <= 2; i++){
       foread = analogRead(readPin);
-      Serial.println((foread/4096) * 3.3);
+      Serial.println((foread/4096) * refVoltage);
     }
     digitalWrite(actinicPin, LOW);
     Serial.print("Final Fo = ");
-    Serial.println((foread/4096) * 3.3);
+    Serial.println((foread/4096) * refVoltage);
     delay(2000);
     }
 }
 
 void calibrate_rise(){
+  // Calibrate the rise time of the flurometer (useful for debugging)
   for (int i = 0; i < 200; i++){
     digitalWrite(actinicPin, HIGH);
     delayMicroseconds(100);
@@ -178,6 +208,7 @@ void calibrate_rise(){
 }
 
 void measure_light(){
+  // Measure light using external 4pi light meter
   digitalWrite(actinicPin, HIGH);
   delay(3000);
   digitalWrite(actinicPin, LOW);
@@ -189,6 +220,9 @@ void loop(){
     command = Serial.readStringUntil('\n');
     if(command.equals("MeasureFluorescence") || command.equals("MF")){
       measure_fluorescence();
+    }
+    else if(command.equals("CP")){
+      calculate_parameters();
     }
     else if(command.equals("CFo")){
       calibrate_fo();
