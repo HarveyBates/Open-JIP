@@ -1,12 +1,22 @@
 # Open-JIP
 Open-JIP is an open-source chlorophyll fluorometer used for quantifying photosynthetic processes is terrestrial plants and microalgae. The original device was published in [Photosynthesis Research](https://doi.org/10.1007/s11120-019-00673-2) in 2019. Since then a number of upgrades have been made to improve the performace of the device. 
 
-If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through fluorometer.
+If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through chlorophyll *a* fluorometer with the microalga *Chlorella vulgaris*.
 
 <p align="center">
-  <img src="Pictures/Teensy (v0.2).jpg" width="300">
+  <img src="Pictures/Teensy (v0.2).jpg" width="400">
 </p>
 
+### Specficiations
+
+| Feature            | Value / Description                                          |
+| ------------------ | ------------------------------------------------------------ |
+| Actinic LED Colors | **Blue** 455 – 485 nm (466 nm), **Green** 517 – 555 nm (532 nm), **Orange** 583 – 600 nm (593 nm), **Red** 617 – 635 nm (626 nm). |
+| Resolution         | 10 to 16-bit (optimised for 12-bit)                          |
+| Sampling rate      | 20 us at 12-bits (can be overclocked to 8 us)                |
+| Operating voltage  | 15 V 1.2 A (Barrel plug)                                     |
+| Communications     | USB                                                          |
+| Microcontroller    | Teensy 3.5/3.6 or Teensy 4.1                                 |
 
 ## Getting started
 
@@ -37,7 +47,7 @@ Here you will find a table all the components needed to construct the Open-JIP c
 
 Note that most of the comonents are suface mount (SMD), this is due to their increased reliablity and in my opinion its easier to assemble SMD compared to through-hole (THT) components. 
 
-To order the circuit board I reccomend using [JLCPCB](https://jlcpcb.com/). Simpily open the folder titled Electronics and compress the housed Gerber folder into a ```.zip``` file. Then on the JLCPCB website drag and drop the ```.zip``` file into the order form. The default settings are sutiable and you will receive 5 circuit boards for around $30 AUD. 
+To order the circuit board I recommend using [JLCPCB](https://jlcpcb.com/) as they are cheap, easy and ship fast. Open the folder titled Electronics and compress the housed Gerber files into a ```.zip``` file. Then on the JLCPCB website drag and drop the ```.zip``` file into the order form. The default settings are sutiable and you will receive 5 circuit boards for around $30 AUD. 
 
 #### Other
 
@@ -65,7 +75,7 @@ When first using Open-JIP:
 5. ```File>Open``` the "Teensy.ino" file found in ```Open-JIP/Teensy/Teensy.ino```
 6. ```Sketch>Upload``` to flash the file onto the Teensy
 
-*Note* - You may need some libraries which can be downloard easily if you follow [these instructions](https://www.arduino.cc/en/Reference/Libraries).
+*Note* - You may need some libraries which can be downloaded easily if you follow [these instructions](https://www.arduino.cc/en/Guide/Libraries).
 
 After this you only need to flash the Teensy again after changing settings in the Teensy.ino file.
 
@@ -109,26 +119,30 @@ If you want to change the actinic pulse length you can do so by adjusing the arr
 
 ##### Changing the devices senstivity
 
-This can be done simpily if using a Teensy 3.6 as this device comes with two analog refernce values (3.3V and 1.1V). To change the analog reference values simily change this line:
+This can be done simpily if using a Teensy 3.6 as this device comes with two analog reference values (3.3V and 1.1V). To change the analog reference values change this line in the ```void setup()``` command:
 
 ```c++
 analogReference(DEFAULT); // For 3.3V reference voltage
 analogReference(INTERNAL1V1); // For 1.1V reference voltage
 ```
 
-Changing these values means that your analog readings will be constricted to either 3.3V or 1.1V. The number of bits for these reading can be changed via this command:
+Changing these values means that your analog readings will be set to to either 3.3V or 1.1V. 
+
+*Note* - If you wish to change the analog reference value dynamically you will need to combine both the set ```analogReference``` command and a single ```analogRead``` command to initialse the desired reference voltage.
+
+The number of bits for these readings can be changed via this command:
 
 ```c++
 analogResolution(12); // 12 bit-resolution
 ```
 
-*Note* - **Increasing** the resolution **decreases** the sampling time so if you want to get alot of measurements around Fo I reccomend you use a 12 bit-resolution.
+*Note* - **Increasing** the resolution **decreases** the sampling rate so if you want to get alot of measurements around Fo I reccomend you use a 12 bit-resolution.
 
 If you use have a 12 bit-resolution with a reference voltage of 1.1V the finest sensivitiy of the device is 0.00027 V per-division (1.1V / 2^12). 
 
 ### Hardware
 
-While software adjustments are suitable for small changes in a number of factors, other adjustments need to made to the hardware to dial in the performance of Open-JIP.  This includes changing the brightness of the actinic LED and large changes to the senstivitiy of the detection circutry. 
+While software adjustments are suitable for small changes in a number of factors, other adjustments need to made to the hardware to dial in the performance of Open-JIP.  This includes changing the brightness of the actinic LED and large changes to the senstivitiy of the detection circuitry. 
 
 #### Changing the actinic LED brightness
 
@@ -139,9 +153,9 @@ The easiest way to accomplish this is through the use of neutral density filters
 </p>
 
 
-**Increasing** the resistance of R10 results in *decreased* actinic brightness.
+**Increasing** the resistance of R10 results in **decreased** actinic brightness.
 
-**Decreasing** the resistance of R10 results in *increased* actinic brightness.
+**Decreasing** the resistance of R10 results in **increased** actinic brightness.
 
 Do this in 1Kohm steps to dial in the specific brightness you need for your application.
 
@@ -154,22 +168,23 @@ When measuring dilute or highly concentrated solutions of microalgae you may wan
 </p>
 
 
-**Increasing** the resistance of R5 will *increase* the sensitivty of detection.
+**Increasing** the resistance of R5 will **increase** the sensitivty of detection.
 
-**Decreasing** the resistance of R5 will *decrese* the sensitivty of detection.
+**Decreasing** the resistance of R5 will **decrese** the sensitivty of detection.
 
 Do this with 200kohm steps to dial in the specific sensitivty that you need for your application.
 
-*Note* if you begin to get a large overshoot occuring at the start of your measurments you may need to increase the capacitor value (C5) to 2pF - 5pF. This [article](https://wiki.analog.com/university/courses/electronics/electronics-lab-1st) may help you if you encounter this issue.
+*Note* - if you begin to get a large overshoot occuring at the start of your measurements you may need to increase the capacitor value (C5) to 2pF - 5pF. This [article](https://wiki.analog.com/university/courses/electronics/electronics-lab-1st) may help you if you encounter this issue.
 
 ### User customiabilty 
 
 Users are encouraged to modify Open-JIP for their needs. Some examples of this may be to:
 
-1. Customise the 3D-model to suit a flow through arrangement 
-2. Make an array of Open-JIP devices of difference actinic colors
-3. Change the desgin of the 3D printed mount
-4. Add an external trigger 
+1. Customise the 3D-model to suit a flow-through cuvette arrangement 
+2. Redesign the 3D-model to improve its water resistance
+3. Make an array of Open-JIP devices of difference actinic colors
+4. Change the desgin of the 3D printed mount
+5. Add an external trigger (TTL)
 
 ### To do list
 
@@ -178,7 +193,7 @@ These are notes on features I would like to see the device have in the future:
 1. Software customisable gain
 2. Software customisable actinic brightness
 3. Entirely USB powered
-4. Mulit-wavelength actinic LED software selectablity 
+4. Mulit-wavelength actinic LED with software control 
 5. Smaller overall footprint
 
 ### Licence
