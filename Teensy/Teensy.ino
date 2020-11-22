@@ -16,114 +16,144 @@
     
      // For more information contact: harvey.bates@student.uts.edu.au
 
-// Required Imports
-#include <SPI.h>
-#include <math.h>
-#include <Wire.h>
-#include <stdlib.h>
-
 // Analog Pins
 #define readPin 18
 
 // Digital Pins
 #define actinicPin 21
 
+// Setup arrays that hold fluorescence data
 int baseRead[5];
 int microRead [1000];
 int milliRead[1000];
 
+// Setup arrays that hold timestamps that correspond to fluorescence values
 float h[5];
 float t[1000]; 
 float p[1000];
 String command;
 
-int microMax = 0;
-int milliMax = 0;
-float foread = 0;
+int fluorescenceValues[2000];
+double timeStamps[2000];
 
-float Fo;
-float Fm;
-float VarFluoro;
-float FvoverFm;
+// Initialse some variables
+int microMax = 0, milliMax = 0;
 
 void setup() {
   Serial.begin(115200);
   analogReadResolution(12);
-  analogReference(DEFAULT);
-  pinMode(actinicPin, OUTPUT);
-  digitalWrite(actinicPin, LOW);
+  set_reference_voltage(3.3); // Only applicable with a Teensy 3.6 (disable if using other microcontroller)
+  pinMode(actinicPin, OUTPUT); // Set the actinic pin as an output
+  digitalWrite(actinicPin, LOW); // Make sure the actinic LED is turned off
+  pinMode(13, OUTPUT); // Sets the microcontrollers LED pin as an output
 }
 
-void measureFluoro() {
-  analogReference(DEFAULT);
-  delay(10);
-  
-  analogRead(readPin);
-  delay (1000);
-  
-  digitalWrite(actinicPin, HIGH); 
+void set_reference_voltage(float voltage){
+  // Sets and initalises the required reference voltage for measurments
+  if(voltage == 3.3){
+    analogReference(DEFAULT); // Set to 3.3 V
+  }
+  else if(voltage == 1.1){
+    analogReference(INTERNAL1V1); // Set to 1.1 V
+  }
+  else{
+    analogReference(DEFAULT); // Set to default (3.3 V) if unknown value is found
+  }
+  analogRead(readPin); // Initalise reference voltage
+}
 
-  long timer = micros();
+void measure_fluorescence() {
+  set_reference_voltage(3.3); 
+  
+  digitalWrite(actinicPin, HIGH); // Turn on actinic LED
 
+  long timer = micros(); // Start timer 
+
+  // Read microsecond fluorescence values and corresponding timestamps
   for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++) 
   {
     microRead[i] = analogRead(readPin);
     t[i] = micros() - timer;
   }
-  
-  for (unsigned int o = 0; o < sizeof(milliRead) / sizeof(int); o++) 
+
+  // Read millisecond fluorescence values and corresponding timestamps
+  for (unsigned int i = 0; i < sizeof(milliRead) / sizeof(int); i++) 
   {
-    milliRead[o] = analogRead(readPin);
-    p[o] = micros() - timer;
+    milliRead[i] = analogRead(readPin);
+    p[i] = micros() - timer;
     delay(1);
   }
   
-  digitalWrite(actinicPin, LOW); 
+  digitalWrite(actinicPin, LOW); // Turn off actinic LED
   delay(10);
-  
-  int microMax = microRead[1]; 
-    for (unsigned int u = 1; u < sizeof(microRead) / sizeof(int); u++){
-      if(microRead[u] > microMax){
-        microMax = microRead[u];
-      }
-    }
-    
-  int milliMax = milliRead[0];
-    for (unsigned int i = 0; i < sizeof(milliRead) / sizeof(int); i++){
-      if(milliRead[i] > milliMax){
-        milliMax = milliRead[i];
-      }
-    }
-  
-  for (unsigned int q = 0; q < sizeof(microRead) / sizeof(int); q++)
+
+  // Convert micros() to milliseconds for microsecond values
+  for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++)
   {
-   float millCounts = t[q];
-   float millicountsConverted = millCounts/1000; 
-   float milliReal = millicountsConverted;
+   float milliReal = t[i]/1000;
+   fluorescenceValues[i] = microRead[i];
+   timeStamps[i] = milliReal;
    Serial.print(milliReal, 3); 
    Serial.print("\t");
-   Serial.println(microRead[q]);
-   delay(1);
-  }
-  
-  for (unsigned int l = 0; l < sizeof(milliRead) / sizeof(int); l++) 
-  {
-   float milliTime = p[l];
-   float millitimeConverted = milliTime/1000;
-   float milliReal = millitimeConverted;
-   Serial.print(milliReal, 3); 
-   Serial.print("\t");
-   Serial.println(milliRead[l]);
+   Serial.println(microRead[i]);
    delay(1);
   }
 
+  // Convert micros() to milliseconds for millsecond values
+  for (unsigned int i = 0; i < sizeof(milliRead) / sizeof(int); i++) 
+  {
+   float milliReal = p[i]/1000;
+   fluorescenceValues[i + 1000] = milliRead[i];
+   timeStamps[i] = milliReal;
+   Serial.print(milliReal, 3); 
+   Serial.print("\t");
+   Serial.println(milliRead[i]);
+   delay(1);
+  }
 }
 
-void calibrateFo(){
-  analogReference(DEFAULT);
-  delay(10);
-  analogRead(readPin);
-  delay(10);
+void calculate_parameters(){
+  float fo = fluorescenceValues[4]; // Gets the minimum level fluorescence (Fo)
+  int fj = 0, fi = 0;
+  bool fj_found = false, fi_found = false;
+  int fm = 0, fm_time = 0;
+  for(unsigned int i = 0; i < sizeof(timeStamps) / sizeof(int); i++){
+    // Search for timestamp corresponding to 2 ms
+    if(!fj_found && int(t[i] == 2)){
+      fj = fluorescenceValues[i];
+      fj_found = true;
+    }
+    else if(!fi_found && int(p[i] == 30)){
+      fi = fluorescenceValues[i];
+      fi_found = true;
+    }
+    else if(fluorescenceValues[i] > fm){
+      fm = fluorescenceValues[i];
+      fm_time = timeStamps[i];
+    }
+  }
+
+  float fv = fm - fo;
+  float fvfm = fv/fm;
+
+  Serial.print("Fo: \t");
+  Serial.println(fo);
+  Serial.print("Fj: \t");
+  Serial.println(fj);
+  Serial.print("Fi: \t");
+  Serial.println(fi);
+  Serial.print("Fm: \t");
+  Serial.println(fm);
+  Serial.print("Fv: \t");
+  Serial.println(fv);
+  Serial.print("Fv/Fm: \t");
+  Serial.print(fvfm);
+  Serial.println(" @ " + fm_time + " ms");
+}
+
+void calibrate_fo(){
+  set_reference_voltage(3.3); 
+  float foread = 0.0f;
   for (int k = 0; k < 5; k++){
     digitalWrite(actinicPin, HIGH);
     delayMicroseconds(20);
@@ -138,7 +168,7 @@ void calibrateFo(){
     }
 }
 
-void calibrateRise(){
+void calibrate_rise(){
   for (int i = 0; i < 200; i++){
     digitalWrite(actinicPin, HIGH);
     delayMicroseconds(100);
@@ -147,7 +177,7 @@ void calibrateRise(){
   }
 }
 
-void measureLight(){
+void measure_light(){
   digitalWrite(actinicPin, HIGH);
   delay(3000);
   digitalWrite(actinicPin, LOW);
@@ -157,23 +187,24 @@ void measureLight(){
 void loop(){
   if(Serial.available()){   
     command = Serial.readStringUntil('\n');
-    if(command.equals("MeasureFluorescence")){
-      measureFluoro();
-    }
-    else if(command.equals("MF")){
-      measureFluoro();
+    if(command.equals("MeasureFluorescence") || command.equals("MF")){
+      measure_fluorescence();
     }
     else if(command.equals("CFo")){
-      calibrateFo();
+      calibrate_fo();
     }
     else if(command.equals("ML")){
-      measureLight();
+      measure_light();
     }
     else if(command.equals("Cr")){
-      calibrateRise();
+      calibrate_rise();
     }
     else{
       delay(100);
     }
   }
+  digitalWrite(13, HIGH);
+  delay(1000);
+  digitalWrite(13, LOW);
+  delay(1000);
 }
