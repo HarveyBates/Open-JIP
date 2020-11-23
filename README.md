@@ -142,7 +142,7 @@ void set_reference_voltage(float voltage){
 The number of bits for these readings can be changed via this command in the ```void setup()``` function:
 
 ```c++
-analogResolution(12); // 12 bit-resolution
+analogResolution(12); // 12-bit resolution
 ```
 
 *Note* - **Increasing** the resolution **decreases** the sampling rate so if you want to get alot of data points around Fo I reccomend you use a 12 or 10-bit resolution.
