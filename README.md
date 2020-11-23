@@ -13,10 +13,10 @@ If you would like to see what the device is capable of, you may be interested in
 | ------------------ | ------------------------------------------------------------ |
 | Actinic LED Colors | **Blue** 455 – 485 nm (466 nm), **Green** 517 – 555 nm (532 nm), **Orange** 583 – 600 nm (593 nm), **Red** 617 – 635 nm (626 nm). |
 | Resolution         | 10 to 16-bit (optimised for 12-bit)                          |
-| Sampling rate      | 20 us at 12-bits (can be overclocked to 8 us)                |
+| Sampling rate      | 8 &mu;s at 12-bits (can be overclocked)                      |
 | Operating voltage  | 15 V 1.2 A (Barrel plug)                                     |
 | Communications     | USB                                                          |
-| Microcontroller    | Teensy 3.5/3.6 or Teensy 4.1                                 |
+| Microcontroller    | Teensy 3.5/3.6 or Teensy 4.1 (3.6 Recommended)               |
 
 ## Getting started
 
@@ -87,9 +87,11 @@ You can copy and paste the data into excel in order to graph the polyphasic rise
 
 There are a number of included functions that require the same method to operate:
 
-1. ```CFo``` - **C**alibrate **Fo** (the minimum level fluoresence). Provides short flashes of illumination for calibrating the minimum level fluorescence. This command is useful if you want to know if your measurment is going to *saturate* (due to an overly concentrated sample) before taking a measurment. 
-2. ```ML``` - Calibrate actinic intensity (**m**easure **l**ight). Turns on the actinic LED for a period of three seconds to allow the intensity to be measured by a 4\pi light meter.
-3. ```Cr``` **C**alibrate **r**ise time of the actinic LED/amplifier combination. Provides some short  (100us) flashes of illumination from the actinic LED to calibrate your setup using an external oscilloscope. Useful if you want to ensure your Fo value is accurate (i.e. Fo should be measured when the actinic LED and amplifier are stable (usually around 40us)). *Note* this is only nessesary if you alter the default electronics configuration (see below).  
+1. ```MF``` - **M**easure **f**luorescence. Measure the chlorophyll *a* fluorescence signature of the microalga of interest. 
+2. ```CP``` - **C**alculate **p**arameters. Calculate and print out basic fluorescence parameters from the most recently captured OJIP curve. 
+3. ```CFo``` - **C**alibrate **Fo** (the minimum level fluoresence). Provides short flashes of illumination for calibrating the minimum level fluorescence. This command is useful if you want to know if your measurment is going to *saturate* (due to an overly concentrated sample) before taking a measurment. 
+4. ```ML``` - Calibrate actinic intensity (**m**easure **l**ight). Turns on the actinic LED for a period of three seconds to allow the intensity to be measured by a 4\pi light meter.
+5. ```Cr``` **C**alibrate **r**ise time of the actinic LED/amplifier combination. Provides some short  (100us) flashes of illumination from the actinic LED to calibrate your setup using an external oscilloscope. Useful if you want to ensure your Fo value is accurate (i.e. Fo should be measured when the actinic LED and amplifier are stable (usually around 40us)). *Note* this is only nessesary if you alter the default electronics configuration (see below).  
 
 #### Custom Software Functions
 
@@ -100,45 +102,52 @@ The main feature of Open-JIP is its simple nature and customisability. Users can
 In the Teensy/Teensy.ino file these lines are responsible for the actinic pulse length:
 
 ```C++
-// Initalise datapoint arrays
-int baseRead[5]; // Baseline reading (without actinic LED)
-int microRead [1000]; // Microsecond reads
-int milliRead[1000]; // Millisecond reads
+// Setup arrays that hold fluorescence data
+int microRead [1000];
+int milliRead[1000];
 
-// Timestamps for each of the datapoints
-float h[5]; // Baseline timestamps
-float t[1000]; // Microsecond timestamps
-float p[1000]; // Millisecond timestamps
+// Setup arrays that hold timestamps that correspond to fluorescence values
+float microTime[1000]; 
+float milliTime[1000];
+
+int microLength = 1000, milliLength = 1000; // Change these to match the size of the above arrays
 ```
 
-The baseline readings are not used in the default configuration but can be added if you want to measure a few points before the actinic LED is turned on.
+```microRead``` and ```milliRead``` are arrays containing the number of datapoints that should be captured at fast (microseconds) and slower (milliseconds) intervals. Teensy microcontrollers have alot of memory compared to the original Arduino version of Open-JIP. This allows the measurments times to be alot longer without running out of memory. 
 
-```microRead``` and ```milliRead``` are arrays containing the number of datapoints that should be captured at fast (microseconds) and slower (milliseconds) intervals. Teensy microcontrollers have alot of memory compared to the original Arduino version of Open-JIP. This allows the measurments times to be alot longer without running out of memory space. 
-
-If you want to change the actinic pulse length you can do so by adjusing the array size of the ```milliRead``` values and the ```p``` values (timestamps) to match eachother. Unfortunatly, these adjustments are not representive of time so if you want 3 second exposures you will have to play around with the array size of these variables untill your measurements are 3 seconds in length. 
+If you want to change the actinic pulse length you can do so by adjusing the array size of ```milliRead```, ```milliTime``` (timestamps) and the ```milliLength``` value to match eachother. Unfortunatly, these adjustments are not representive of time so if you want for example 3 second exposures you will have to play around with the array size of these variables untill your measurements are 3 seconds in length. 
 
 ##### Changing the devices senstivity
 
-This can be done simpily if using a Teensy 3.6 as this device comes with two analog reference values (3.3V and 1.1V). To change the analog reference values change this line in the ```void setup()``` command:
+This can be done easily if using a Teensy 3.6 as this device comes with two analog reference values (3.3V and 1.1V). The ```set_reference_voltage()``` function allows you to change the required analog reference dynamically. 
 
 ```c++
-analogReference(DEFAULT); // For 3.3V reference voltage
-analogReference(INTERNAL1V1); // For 1.1V reference voltage
+void set_reference_voltage(float voltage){
+  // Sets and initalises the required reference voltage for measurments
+  if(voltage == 3.3){
+    analogReference(DEFAULT); // Set to 3.3 V
+  }
+  else if(voltage == 1.1){
+    analogReference(INTERNAL1V1); // Set to 1.1 V
+  }
+  else{
+    analogReference(DEFAULT); // Set to default (3.3 V) if unknown value is found
+  }
+  analogRead(readPin); // Initalise reference voltage
+}
 ```
 
-Changing these values means that your analog readings will be set to to either 3.3V or 1.1V. 
+*Note* - This is usally done statically at the start of the program by adjusting the value of ```refVoltage``` to either 3.3 or 1.1 depending on you requirements.
 
-*Note* - If you wish to change the analog reference value dynamically you will need to combine both the set ```analogReference``` command and a single ```analogRead``` command to initialse the desired reference voltage.
-
-The number of bits for these readings can be changed via this command:
+The number of bits for these readings can be changed via this command in the ```void setup()``` function:
 
 ```c++
 analogResolution(12); // 12 bit-resolution
 ```
 
-*Note* - **Increasing** the resolution **decreases** the sampling rate so if you want to get alot of measurements around Fo I reccomend you use a 12 bit-resolution.
+*Note* - **Increasing** the resolution **decreases** the sampling rate so if you want to get alot of data points around Fo I reccomend you use a 12 or 10-bit resolution.
 
-If you use have a 12 bit-resolution with a reference voltage of 1.1V the finest sensivitiy of the device is 0.00027 V per-division (1.1V / 2^12). 
+If you use have a 12 bit-resolution with a reference voltage of 1.1V the finest sensivitiy of the device is 0.00027 V per-division (1.1V / 2^12) and a 8 &mu;s sampling rate. 
 
 ### Hardware
 
