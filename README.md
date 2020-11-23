@@ -1,7 +1,7 @@
 # Open-JIP
-Open-JIP is an open-source chlorophyll fluorometer used for quantifying photosynthetic processes is terrestrial plants and microalgae. The original device was published in [Photosynthesis Research](https://doi.org/10.1007/s11120-019-00673-2) in 2019. Since then a number of upgrades have been made to improve the performace of the device. 
+Open-JIP is an open-source chlorophyll fluorometer used for quantifying photosynthetic processes is terrestrial plants and microalgae. The original device was published in [Photosynthesis Research](https://doi.org/10.1007/s11120-019-00673-2) in 2019. Since then a number of upgrades have been made to improve the performace of the device. If you would like to know more about the theory surrounding the measurment of chlorophyll *a* fluorescence, the provided link above gives a basic introduction and resources for futher reading.
 
-If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through chlorophyll *a* fluorometer with the microalga *Chlorella vulgaris*.
+If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through chlorophyll *a* fluorometer connected [a photobioreactor](https://github.com/HarveyBates/Phenobottle) with the microalga *Chlorella vulgaris*.
 
 <p align="center">
   <img src="Pictures/Teensy (v0.2).jpg" width="400">
@@ -57,7 +57,7 @@ In addition to the above electronics you will need a few components such as a Te
 
 The 3D-models used for 3D-printing Open-JIP can be found in the ```Open-JIP/3D Models``` folder. Two file types are specified:
 
-1. ```.stl``` can be directly imported into 3D-printing software such as [Ultimaker-Cura](https://ultimaker.com/software/ultimaker-cura) or sent to a 3D-printing manufactuer.
+1. ```.stl``` can be directly imported into 3D-printing software such as [Ultimaker-Cura](https://ultimaker.com/software/ultimaker-cura) or sent to a local 3D-printing manufactuer.
 2. ```.STEP``` is the modifiable Open-JIP 3D-model and as such can be configured whichever way you want before being exported as a ```.stl``` file. You can use 3D modeling software to do this such as [Fusion360](https://www.autodesk.com/products/fusion-360/overview) or [Solidworks](https://www.solidworks.com/).
 
 ### Software
@@ -75,9 +75,7 @@ When first using Open-JIP:
 5. ```File>Open``` the "Teensy.ino" file found in ```Open-JIP/Teensy/Teensy.ino```
 6. ```Sketch>Upload``` to flash the file onto the Teensy
 
-*Note* - You may need some libraries which can be downloaded easily if you follow [these instructions](https://www.arduino.cc/en/Guide/Libraries).
-
-After this you only need to flash the Teensy again after changing settings in the Teensy.ino file.
+The povided ```Teensy.ino``` file will work as is, but if you wish to change settings in this file you will need to flash the program to the Teensy again after such changes have been made.
 
 #### Basic Operations
 
