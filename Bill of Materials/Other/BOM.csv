@@ -12,3 +12,5 @@ Cuvette (Polystyrene),Y,Or glass,https://www.sigmaaldrich.com/catalog/product/si
 ND Filter,N,Optional any ND filter paper will do or use a 25mm ND filter in front of the actinic LED,
 16 AWG Wire (Red and Black),Y,For attaching LED to circuit board,https://www.ebay.com.au/p/2119056858 
 10W COB LED,Y,"Supplier change for this LED, but look for 10W COB LED (Red, Green, Blue) on ebay and you will find them",https://www.ebay.com.au/itm/10W-20W-30W-50W-70W-100W-12V-36V-High-Power-LED-Lamp-Light-COB-SMD-Bulb-Chip-DIY/323902290356?hash=item4b6a14b9b4:g:uVMAAOSwaVNau0Um 
+Threaded Inserts (M3),Y,For attaching LED cover to 3D-printed frame,
+M3 12mm Bolt ,Y,For attaching LED cover to 3D-printed frame,
