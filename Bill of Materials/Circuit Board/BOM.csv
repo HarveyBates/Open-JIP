@@ -4,7 +4,6 @@ Value,Designator (Location),Quantity ,Footprint,Required,Notes,Website
 100nF,"C6,C7,C8,C11",4,Capacitor_SMD:C_0805_2012Metric,Y,Capacitor SMD,https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_TORCH-CT41G-0805-2X1-50V-0-1mF-M-N_C138340.html 
 1uF,C9,1,Capacitor_SMD:CP_Elec_ 4x5.4mm,Y,Capacitor Electrolytic 4 x 5.4mm,https://lcsc.com/product-detail/Aluminum-Electrolytic-Capacitors-SMD_ST-Semtech-CS1H010M-CRC54_C116391.html 
 PJ-202A,J2,1,Barrel_Jack_5.5mmODx2.1mmID_PJ-202A,Y,Barrel Jack for 15 V 1.2 A power supply,https://lcsc.com/product-detail/AC-DC-Power-Plugs-Receptacles_GANGYUAN-DC-470-2-1GP_C194407.html 
-22-23-2021,J3,1,PinHeader_1x2_P2.54mm_Drill1.02mm,N,"No need for this, just the 24 Pin Female Header x2 (see below)",
 SFH_213,PV1,1,Photodiode_5mm_Radial_IR_Filtered,Y,Photodiode (IR Filtered),https://au.element14.com/osram-opto-semiconductors/sfh213-fa/photodiode-ir-filtered/dp/1212763?st=SFH213-FA 
 BD681,Q1,1,BD681_Darlington_Transistor,Y,Transistor (Darlington),https://lcsc.com/product-detail/Darlington-Transistors_STMicroelectronics-BD681_C703688.html 
 5.6K,R10,1,Resistor_SMD:R_0805_2012Metric,Y,"Resistor, May want a range (3K – 15K)",https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount_5-6KR-562-5_C159921.html 
