@@ -1,0 +1,30 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# B2B-PH-K-S(LF)(SN)
+#
+DEF B2B-PH-K-S(LF)(SN) J 0 40 Y Y 1 L N
+F0 "J" -100 130 50 H V L BNN
+F1 "B2B-PH-K-S(LF)(SN)" -100 -301 50 H V L BNN
+F2 "JST_B2B-PH-K-S(LF)(SN)" 0 0 50 H I L BNN
+F3 "455-1704-ND" 0 0 50 H I L BNN
+F4 "https://www.digikey.com.ua/product-detail/en/jst-sales-america-inc/B2B-PH-K-S_LF__SN_/455-1704-ND/926611?utm_source=snapeda&utm_medium=aggregator&utm_campaign=symbol" 0 0 50 H I L BNN
+F5 "None" 0 0 50 H I L BNN
+F6 "IPC-7251" 0 0 50 H I L BNN
+F7 "JST Sales" 0 0 50 H I L BNN
+F8 "N/A" 0 0 50 H I L BNN
+F9 "B2B-PH-K-S_LF__SN_" 0 0 50 H I L BNN
+F10 "PH Series 2 Position 2 mm Pitch Through Hole Top Entry Shrouded Header" 0 0 50 H I L BNN
+DRAW
+P 2 0 0 10 -100 -200 -100 100 N
+P 2 0 0 10 -100 100 100 100 N
+P 2 0 0 10 100 100 100 -200 N
+P 2 0 0 10 100 -200 -100 -200 N
+X 1 1 -300 0 200 R 40 40 0 0 P 
+X 2 2 -300 -100 200 R 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
