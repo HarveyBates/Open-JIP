@@ -67,7 +67,7 @@ void set_reference_voltage(float voltage){
 }
 
 void measure_fluorescence() {
-  set_reference_voltage(refVoltage); 
+//  set_reference_voltage(refVoltage); 
   
   digitalWrite(actinicPin, HIGH); // Turn on actinic LED
 
@@ -127,7 +127,7 @@ void measure_fluorescence() {
 void calculate_parameters(){
   float fo = fluorescenceValues[4]; // Gets the minimum level fluorescence (Fo)
   float fj = 0.0f, fi = 0.0f;
-  float fj_time = 0.0f, fi_time = 0.0f, fm_time = 0.0f;
+  float  fj_time = 0.0f, fi_time = 0.0f, fm_time = 0.0f;
   bool fj_found = false, fi_found = false;
 
   // Next loop gets the Fj and Fi values at 2 and 30 ms respsctively 
@@ -145,13 +145,16 @@ void calculate_parameters(){
     }
   }
 
-  float fm_volts = (fm * refVoltage) / 4096;
+  float fm_volts = (fm * refVoltage) / 4096.0;
   float fv = fm_volts - fo;
-  float fvfm = fv / fm;
+  float fvfm = fv / fm_volts;
 
   Serial.println();
   Serial.print("Fo: \t");
-  Serial.println(fo, 4);
+  Serial.print(fo, 4);
+  Serial.print(" V @ ");
+  Serial.print(timeStamps[4], 4);
+  Serial.println(" ms");
   Serial.print("Fj: \t");
   Serial.print(fj, 4);
   Serial.println(" V @ " + String(fj_time) + " ms");
@@ -165,7 +168,7 @@ void calculate_parameters(){
   Serial.print(fv, 4);
   Serial.println(" V");
   Serial.print("Quantum yield (Fv/Fm): \t");
-  Serial.print(fvfm, 2);
+  Serial.print(fvfm, 3);
   if(fvfm < 0.5){
     Serial.println(" Poor health");
   }
