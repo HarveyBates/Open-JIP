@@ -41,6 +41,8 @@ float timeStamps[2000];
 
 int fm = 0; // Initalise the fm value so we can calcualte it later
 
+int fo_pos = 4; // Location of Fo in the measured array
+
 float refVoltage = 3.3; // Set the reference voltage (only applicable with Teensy 3.6)
 
 void setup() {
@@ -125,7 +127,7 @@ void measure_fluorescence() {
 }
 
 void calculate_parameters(){
-  float fo = fluorescenceValues[4]; // Gets the minimum level fluorescence (Fo)
+  float fo = fluorescenceValues[fo_pos]; // Gets the minimum level fluorescence (Fo)
   float fj = 0.0f, fi = 0.0f;
   float  fj_time = 0.0f, fi_time = 0.0f, fm_time = 0.0f;
   bool fj_found = false, fi_found = false;
@@ -153,7 +155,7 @@ void calculate_parameters(){
   Serial.print("Fo: \t");
   Serial.print(fo, 4);
   Serial.print(" V @ ");
-  Serial.print(timeStamps[4], 4);
+  Serial.print(timeStamps[fo_pos], 4);
   Serial.println(" ms");
   Serial.print("Fj: \t");
   Serial.print(fj, 4);
