@@ -8,7 +8,6 @@ import datetime
 from time import strftime
 
 usb_baudrate = 115200 # Baudrate to match Teensy
-
 fileName = "Open-JIP_Data.csv" # Filename of output .csv file
 
 
