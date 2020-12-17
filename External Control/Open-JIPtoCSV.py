@@ -10,39 +10,38 @@ usb_baudrate = 115200 # Baudrate to match teensy
 
 ser = serial.Serial(usb_address, usb_baudrate) # Connect to teensy
 
-def measure_fluorescence():
-	ser.flush() # Clear serial bus
-	time.sleep(1) # Wait for bus to be cleared
-	ser.write(b'MF') # Send byte command to teensy 
-    timeStamps = [] # Create timeStamp
-    fluorescenceValues = []
-	for _ in range(2000):
-		fluorescence_bytes = ser.readline()
-        decoded_fluorescence_bytes = str(fluorescence_bytes[0:len(fluorescence_bytes) - 2].decode("utf-8"))
-        data_split = [float(s) for s in decoded_fluorescence_bytes.split("\t")]
-        x_data = data_split[0]
-        y_data = float(data_split[1])
-        time_stamps.append(x_data)
-        values.append(y_data)
+fileName = "Open-JIP_Data.csv"
 
+def measure_fluorescence(readLength):
+    ser.flush() # Clear serial bus
+    time.sleep(1) # Wait for bus to be cleared
+    ser.write(b'MF') # Send byte command to teensy 
+    timeStamps = [] # Create array to hold timeStamp
+    fluorescenceValues = [] # Create array to hold data
+    for _ in range(readLength):
+        line = ser.readline()
+        decodedLine = str(line[0:len(line) - 2].decode("utf-8"))
+        splitLine = [float(s) for s in decodedLine.split("\t")]
+        timeStamps.append(splitLine[0])
+        fluorescenceValues.append(float(splitLine[1]))
+    return timeStamps, fluorescenceValues
 
-def upload():
-    global day_night
-    # time_stamps = ", ".join(str(x) for x in time_stamps)
-    # values = ", ".join(str(x) for x in values)
-    worksheet_name = "Open-JIP Data.csv"
+def upload(timeStamps, fluorescenceValues):
+    timeStamps = ", ".join(str(x) for x in time_stamps)
+    fluorescenceValues = ", ".join(str(x) for x in values)
+    worksheet_name = fileName
     with open(worksheet_name, 'a') as f:
         try:
             writer = csv.writer(f)
-            spreadsheet_time = str(datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-            writer.writerow([spreadsheet_time, time_stamps, values])
-            print("Written to local csv")
+            currentTime = str(datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+            writer.writerow([currentTime, timeStamps, fluorescenceValues])
+            print("Written to local .csv")
 
         except:
             print("Failed to write to local csv file...")
     f.close()
 
 if __name__ == "__main__":
-    measure_fluorescence()
-    upload()
+    timeStamps, fluorescenceValues = measure_fluorescence(2000)
+    upload(timeStamps, fluorescenceValues)
 
