@@ -57,7 +57,7 @@ def serial_ports():
 
 def connect(portAddress):
         # Connect to the Open-JIP fluorometer (Teensy Microcontroller)
-    global ser
+    global openJIP
     if(len(portAddress) > 1 and type(portAddress) is not str):
         print("Which port do you want to connect to:")
         for i in range(len(portAddress)):
@@ -67,8 +67,8 @@ def connect(portAddress):
         print("Port {} selected.".format(portAddress[portID]))
     else:
         portID = 0
-    ser = serial.Serial(portAddress[portID], usb_baudrate)  # Connect to Teensy
-    if(ser.is_open):
+    openJIP = serial.Serial(portAddress[portID], usb_baudrate)  # Connect to Teensy
+    if(openJIP.is_open):
         print("Connected to Open-JIP fluorometer.")
     else:
         print("Open-JIP USB device not found.")
@@ -77,13 +77,13 @@ def connect(portAddress):
 def measure_fluorescence(readLength):
     # Read fluorescence and create two arrays of corresponding values
     print("Measuring fluorescence, please wait...")
-    ser.flush()  # Clear serial bus
+    openJIP.flush()  # Clear serial bus
     time.sleep(1)  # Wait for bus to be cleared
-    ser.write(b'MF')  # Send byte command to Teensy
+    openJIP.write(b'MF')  # Send byte command to Teensy
     timeStamps = []  # Create array to hold timeStamp
     fluorescenceValues = []  # Create array to hold data
     for _ in range(readLength):
-        line = ser.readline()  # Read line from Teensy serial bus
+        line = openJIP.readline()  # Read line from Teensy serial bus
         # Decde data from serial bus
         decodedLine = str(line[0:len(line) - 2].decode("utf-8"))
         # Split into time and values
