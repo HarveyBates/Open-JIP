@@ -22,6 +22,7 @@ import serial
 import time
 import datetime
 from time import strftime
+import numpy as np
 
 usb_baudrate = 115200  # Baudrate to match Teensy
 fileName = "Open-JIP_Data.csv"  # Filename of output .csv file
@@ -116,9 +117,37 @@ def upload(timeStamps, fluorescenceValues):
     f.close()
 
 
+def diplay_plot(timeStamps, fluorescenceValues):
+
+    trace = go.Scatter(x=timeStamps, y=fluorescenceValues, 
+        mode='markers')
+    #labels=dict(x="Time (ms)", y="Fluorescence (V)")
+    updatemenus = list([
+    dict(active=1,
+         buttons=list([
+            dict(label='Logarithmic Scale',
+                 method='update',
+                 args=[{'visible': [True, True]},
+                       {'xaxis': {'type': 'log'}}]),
+            dict(label='Linear Scale',
+                 method='update',
+                 args=[{'visible': [True, False]},
+                       {'xaxis': {'type': 'linear'}}])
+            ]),
+        )
+    ])
+    layout = dict(updatemenus=updatemenus, title='Open-JIP Transient')
+    fig = go.Figure(data=trace, layout=layout)
+    
+    fig.show()
+
+
+
 if __name__ == "__main__":
-    port = serial_ports()
-    connect(port)
+    #port = serial_ports()
+    #connect(port)
     # Takes the length of the corresponding array in the Teensy script
-    timeStamps, fluorescenceValues = measure_fluorescence(2000)
-    upload(timeStamps, fluorescenceValues)
+    #timeStamps, fluorescenceValues = measure_fluorescence(2000)
+    #upload(timeStamps, fluorescenceValues)
+    timeStamps, fluorescenceValues = np.arange(0, 2000, 1), np.arange(0, 2000, 1)
+    diplay_plot(timeStamps, fluorescenceValues)
