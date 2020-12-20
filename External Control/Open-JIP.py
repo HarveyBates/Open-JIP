@@ -1,20 +1,20 @@
 # <Open-JIPtoCSV Operates "Open-JIP" which is an Open-source Chlorophyll fluorometer>
-    # Copyright (C) <2020>  <Harvey Bates>
+# Copyright (C) <2020>  <Harvey Bates>
 
-    # This program is free software: you can redistribute it and/or modify
-    # it under the terms of the GNU General Public License as published by
-    # the Free Software Foundation, either version 3 of the License, or
-    # (at your option) any later version.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 
-    # This program is distributed in the hope that it will be useful,
-    # but WITHOUT ANY WARRANTY; without even the implied warranty of
-    # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    # GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
-    # You should have received a copy of the GNU General Public License
-    # along with this program.  If not, see <https://www.gnu.org/licenses/>
-    
-    # For more information contact: harvey_bates@hotmail.com
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>
+
+# For more information contact: harvey_bates@hotmail.com
 import sys
 import csv
 import glob
@@ -22,7 +22,9 @@ import serial
 import time
 import datetime
 from time import strftime
-import numpy as np
+import plotly
+import plotly.graph_objects as go
+import csv
 
 usb_baudrate = 115200  # Baudrate to match Teensy
 fileName = "Open-JIP_Data.csv"  # Filename of output .csv file
@@ -68,7 +70,8 @@ def connect(portAddress):
         print("Port {} selected.".format(portAddress[portID]))
     else:
         portID = 0
-    openJIP = serial.Serial(portAddress[portID], usb_baudrate)  # Connect to Teensy
+    openJIP = serial.Serial(
+        portAddress[portID], usb_baudrate)  # Connect to Teensy
     if(openJIP.is_open):
         print("Connected to Open-JIP fluorometer.")
     else:
@@ -117,37 +120,68 @@ def upload(timeStamps, fluorescenceValues):
     f.close()
 
 
-def diplay_plot(timeStamps, fluorescenceValues):
+def query_user_plot():
+    plotData = input(
+        "Would you like to plot data from {}? (y/n)".format(fileName))
+    if(plotData == "Y" or plotData == "y"):
+        get_data_from_csv(fileName)
+        readTimes, timeStamps, fluorescenceValues = get_data_from_csv(fileName)
+        plot_transients(readTimes, timeStamps, fluorescenceValues)
+    else:
+        print("Exiting.")
 
-    trace = go.Scatter(x=timeStamps, y=fluorescenceValues, 
-        mode='markers')
-    #labels=dict(x="Time (ms)", y="Fluorescence (V)")
+
+def get_data_from_csv(fileName):
+    readTimes = []
+    timeStamps = []
+    fluorescenceValues = []
+    with open(fileName, 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            if row:
+                readTimes.append(row[0][11:])
+                timeStamps.append([float(s) for s in row[1].split(',')])
+                fluorescenceValues.append([float(s)
+                                           for s in row[2].split(',')])
+            else:
+                raise IndexError("No data found in {}.".format(fileName))
+    f.close()
+    return readTimes, timeStamps, fluorescenceValues
+
+
+def plot_transients(readTimes, timeStamps, fluorescenceValues):
+    print("Plotting data from {}, please wait...".format(fileName))
     updatemenus = list([
-    dict(active=1,
-         buttons=list([
-            dict(label='Logarithmic Scale',
-                 method='update',
-                 args=[{'visible': [True, True]},
-                       {'xaxis': {'type': 'log'}}]),
-            dict(label='Linear Scale',
-                 method='update',
-                 args=[{'visible': [True, False]},
-                       {'xaxis': {'type': 'linear'}}])
-            ]),
-        )
+        dict(active=1,
+             buttons=list([
+                 dict(label='Logarithmic Scale',
+                      method='update',
+                      args=[{'visible': [True, True]},
+                            {'xaxis': {'type': 'log'}}]),
+                 dict(label='Linear Scale',
+                      method='update',
+                      args=[{'visible': [True, True]},
+                            {'xaxis': {'type': 'linear'}}])
+             ]),
+             )
     ])
-    layout = dict(updatemenus=updatemenus, title='Open-JIP Transient')
-    fig = go.Figure(data=trace, layout=layout)
-    
+
+    data = []
+    for index, (readTime, times, values) in enumerate(zip(readTimes, timeStamps, fluorescenceValues)):
+        data.append(go.Scatter(x=times, y=values, mode='markers',
+                               name="Transient{} at {}".format(index+1, readTime)))
+    layout = dict(updatemenus=updatemenus, title='Open-JIP Transients')
+    fig = go.Figure(data=data, layout=layout)
+    fig.update_xaxes(title_text="Time (ms)")
+    fig.update_yaxes(title_text="Fluorescence (V)")
+    fig.layout.template = "seaborn"
     fig.show()
 
 
-
 if __name__ == "__main__":
-    #port = serial_ports()
-    #connect(port)
+    port = serial_ports()
+    connect(port)
     # Takes the length of the corresponding array in the Teensy script
-    #timeStamps, fluorescenceValues = measure_fluorescence(2000)
-    #upload(timeStamps, fluorescenceValues)
-    timeStamps, fluorescenceValues = np.arange(0, 2000, 1), np.arange(0, 2000, 1)
-    diplay_plot(timeStamps, fluorescenceValues)
+    timeStamps, fluorescenceValues = measure_fluorescence(2000)
+    upload(timeStamps, fluorescenceValues)
+    query_user_plot()
