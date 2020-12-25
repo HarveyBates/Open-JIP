@@ -159,7 +159,7 @@ F 3 "~" H 2450 5250 50  0001 C CNN
 $EndComp
 Connection ~ 2450 5100
 Wire Wire Line
-	2450 5100 1950 5100
+	2450 5100 2350 5100
 Wire Wire Line
 	2450 5400 2450 5450
 Connection ~ 2450 5450
@@ -755,13 +755,13 @@ Text GLabel 2650 1600 0    50   Input ~ 0
 FluoroGain3
 Text GLabel 2650 1700 0    50   Input ~ 0
 FluoroGain4
-Text GLabel 7200 2100 0    50   Input ~ 0
+Text GLabel 9500 5300 2    50   Input ~ 0
 FluoroGain1
 Text GLabel 7200 2200 0    50   Input ~ 0
 FluoroGain2
 Text GLabel 7200 2300 0    50   Input ~ 0
 FluoroGain3
-Text GLabel 7200 2400 0    50   Input ~ 0
+Text GLabel 9500 5400 2    50   Input ~ 0
 FluoroGain4
 Text GLabel 2500 6400 0    50   Input ~ 0
 ActinicGain1
@@ -779,4 +779,64 @@ Text GLabel 7200 4800 0    50   Input ~ 0
 ActinicGain3
 Text GLabel 7200 4900 0    50   Input ~ 0
 ActinicGain4
+$Comp
+L Device:R R13
+U 1 1 5FE7A0A1
+P 10850 4900
+F 0 "R13" H 10920 4946 50  0000 L CNN
+F 1 "15K" H 10920 4855 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10780 4900 50  0001 C CNN
+F 3 "~" H 10850 4900 50  0001 C CNN
+	1    10850 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D3
+U 1 1 5FE7A0A7
+P 10850 5300
+F 0 "D3" V 10889 5182 50  0000 R CNN
+F 1 "LED" V 10798 5182 50  0000 R CNN
+F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 5300 50  0001 C CNN
+F 3 "~" H 10850 5300 50  0001 C CNN
+	1    10850 5300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0120
+U 1 1 5FE7A0AD
+P 10850 5450
+F 0 "#PWR0120" H 10850 5200 50  0001 C CNN
+F 1 "GND" H 10855 5277 50  0000 C CNN
+F 2 "" H 10850 5450 50  0001 C CNN
+F 3 "" H 10850 5450 50  0001 C CNN
+	1    10850 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10850 5150 10850 5050
+$Comp
+L power:+15V #PWR0121
+U 1 1 5FE7D3E8
+P 2350 5100
+F 0 "#PWR0121" H 2350 4950 50  0001 C CNN
+F 1 "+15V" H 2365 5273 50  0000 C CNN
+F 2 "" H 2350 5100 50  0001 C CNN
+F 3 "" H 2350 5100 50  0001 C CNN
+	1    2350 5100
+	1    0    0    -1  
+$EndComp
+Connection ~ 2350 5100
+Wire Wire Line
+	2350 5100 1950 5100
+$Comp
+L power:+15V #PWR0122
+U 1 1 5FE7D5C0
+P 10850 4750
+F 0 "#PWR0122" H 10850 4600 50  0001 C CNN
+F 1 "+15V" H 10865 4923 50  0000 C CNN
+F 2 "" H 10850 4750 50  0001 C CNN
+F 3 "" H 10850 4750 50  0001 C CNN
+	1    10850 4750
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
