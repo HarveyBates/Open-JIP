@@ -429,8 +429,6 @@ Wire Wire Line
 	4650 3450 4650 3750
 Connection ~ 4650 3450
 Wire Wire Line
-	4500 3850 4650 3850
-Wire Wire Line
 	4500 3250 4850 3250
 Wire Wire Line
 	4850 3250 4850 3000
@@ -586,21 +584,21 @@ F 7 "Manufacturer Recommendations" H 1700 5400 50  0001 L BNN "STANDARD"
 $EndComp
 Wire Wire Line
 	1900 5150 1900 5300
-Text GLabel 9800 3950 2    50   Input ~ 0
-ActinicGain1
-Text GLabel 9800 3850 2    50   Input ~ 0
-ActinicGain2
-Text GLabel 7800 3950 0    50   Input ~ 0
-ActinicGain3
-Text GLabel 7800 3850 0    50   Input ~ 0
-ActinicGain4
 Text GLabel 7800 1650 0    50   Input ~ 0
-FluoroGain1
-Text GLabel 7800 1750 0    50   Input ~ 0
-FluoroGain2
+ActinicGain1
 Text GLabel 7800 1850 0    50   Input ~ 0
-FluoroGain3
+ActinicGain2
 Text GLabel 7800 1950 0    50   Input ~ 0
+ActinicGain3
+Text GLabel 7800 1750 0    50   Input ~ 0
+ActinicGain4
+Text GLabel 9800 3850 2    50   Input ~ 0
+FluoroGain1
+Text GLabel 7800 3950 0    50   Input ~ 0
+FluoroGain2
+Text GLabel 7800 3850 0    50   Input ~ 0
+FluoroGain3
+Text GLabel 9800 3950 2    50   Input ~ 0
 FluoroGain4
 $Comp
 L power:GNDA #PWR0109
@@ -713,28 +711,6 @@ F 3 "" H 7800 1250 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0118
-U 1 1 5FE91B90
-P 7800 2850
-F 0 "#PWR0118" H 7800 2600 50  0001 C CNN
-F 1 "GND" V 7805 2722 50  0000 R CNN
-F 2 "" H 7800 2850 50  0001 C CNN
-F 3 "" H 7800 2850 50  0001 C CNN
-	1    7800 2850
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R12
-U 1 1 5FE92923
-P 7250 5350
-F 0 "R12" H 7320 5396 50  0000 L CNN
-F 1 "1K" H 7320 5305 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7180 5350 50  0001 C CNN
-F 3 "~" H 7250 5350 50  0001 C CNN
-	1    7250 5350
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R13
 U 1 1 5FE92BE8
 P 7750 5350
@@ -774,17 +750,6 @@ Connection ~ 4500 5150
 Wire Wire Line
 	4500 5150 4850 5150
 $Comp
-L power:+5V #PWR0121
-U 1 1 5FE93F51
-P 7250 5100
-F 0 "#PWR0121" H 7250 4950 50  0001 C CNN
-F 1 "+5V" H 7265 5273 50  0000 C CNN
-F 2 "" H 7250 5100 50  0001 C CNN
-F 3 "" H 7250 5100 50  0001 C CNN
-	1    7250 5100
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+15V #PWR0122
 U 1 1 5FE946B7
 P 7750 5100
@@ -794,17 +759,6 @@ F 2 "" H 7750 5100 50  0001 C CNN
 F 3 "" H 7750 5100 50  0001 C CNN
 	1    7750 5100
 	1    0    0    -1  
-$EndComp
-$Comp
-L Device:LED D2
-U 1 1 5FE957E5
-P 7250 5750
-F 0 "D2" V 7289 5632 50  0000 R CNN
-F 1 "LED" V 7198 5632 50  0000 R CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7250 5750 50  0001 C CNN
-F 3 "~" H 7250 5750 50  0001 C CNN
-	1    7250 5750
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:LED D3
@@ -818,17 +772,6 @@ F 3 "~" H 7750 5750 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:GND #PWR0123
-U 1 1 5FE96F8E
-P 7250 6000
-F 0 "#PWR0123" H 7250 5750 50  0001 C CNN
-F 1 "GND" H 7255 5827 50  0000 C CNN
-F 2 "" H 7250 6000 50  0001 C CNN
-F 3 "" H 7250 6000 50  0001 C CNN
-	1    7250 6000
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR0124
 U 1 1 5FE974D6
 P 7750 6000
@@ -840,17 +783,11 @@ F 3 "" H 7750 6000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7250 6000 7250 5900
-Wire Wire Line
-	7250 5600 7250 5500
-Wire Wire Line
 	7750 5600 7750 5500
 Wire Wire Line
 	7750 5900 7750 6000
 Wire Wire Line
 	7750 5200 7750 5100
-Wire Wire Line
-	7250 5200 7250 5100
 Wire Notes Line
 	1100 750  6350 750 
 Wire Notes Line
@@ -897,4 +834,14 @@ Text Notes 8150 7650 0    59   ~ 0
 26/12/2020 by Harvey Bates
 Text GLabel 7800 3550 0    50   Input ~ 0
 FluoroRead
+Wire Wire Line
+	4550 4150 4650 4150
+Wire Wire Line
+	4500 3850 4550 3850
+Wire Wire Line
+	4550 3850 4550 4150
+Connection ~ 4550 3850
+Wire Wire Line
+	4550 3850 4650 3850
+Connection ~ 4650 4150
 $EndSCHEMATC

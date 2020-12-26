@@ -842,4 +842,10 @@ $EndComp
 Wire Wire Line
 	1950 5250 1950 5350
 Connection ~ 1950 5350
+Wire Wire Line
+	4300 3800 4300 4100
+Wire Wire Line
+	4300 4100 4450 4100
+Connection ~ 4300 3800
+Connection ~ 4450 4100
 $EndSCHEMATC
