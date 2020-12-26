@@ -895,6 +895,4 @@ Text Notes 7350 7500 0    79   ~ 0
 Open-JIP v0.3 (Teensy 3.2)
 Text Notes 8150 7650 0    59   ~ 0
 26/12/2020 by Harvey Bates
-Text GLabel 7800 3550 0    50   Input ~ 0
-FluoroRead
 $EndSCHEMATC
