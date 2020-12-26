@@ -4,8 +4,9 @@ Open-JIP is an open-source chlorophyll fluorometer used for quantifying photosyn
 If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through chlorophyll *a* fluorometer connected [a photobioreactor](https://github.com/HarveyBates/Phenobottle) with the microalga *Chlorella vulgaris*.
 
 <p align="center">
-  <img src="Pictures/Teensy (v0.2).jpg" width="400">
+  <img src="Images/Teensy (v0.2).jpg" width="400">
 </p>
+
 
 ### Specficiations
 
@@ -88,7 +89,7 @@ There are a number of included functions that require the same method to operate
 1. ```MF``` - **M**easure **f**luorescence. Measure the chlorophyll *a* fluorescence signature of the microalga of interest. 
 2. ```CP``` - **C**alculate **p**arameters. Calculate and print out basic fluorescence parameters from the most recently captured OJIP curve. 
 3. ```CFo``` - **C**alibrate **Fo** (the minimum level fluoresence). Provides short flashes of illumination for calibrating the minimum level fluorescence. This command is useful if you want to know if your measurment is going to *saturate* (due to an overly concentrated sample) before taking a measurment. 
-4. ```ML``` - Calibrate actinic intensity (**m**easure **l**ight). Turns on the actinic LED for a period of three seconds to allow the intensity to be measured by a 4\pi light meter.
+4. ```ML``` - Calibrate actinic intensity (**m**easure **l**ight). Turns on the actinic LED for a period of three seconds to allow the intensity to be measured by a 4&#960; light meter.
 5. ```Cr``` **C**alibrate **r**ise time of the actinic LED/amplifier combination. Provides some short  (100us) flashes of illumination from the actinic LED to calibrate your setup using an external oscilloscope. Useful if you want to ensure your Fo value is accurate (i.e. Fo should be measured when the actinic LED and amplifier are stable (usually around 40us)). *Note* this is only nessesary if you alter the default electronics configuration (see below).  
 
 #### Custom Software Functions
@@ -145,7 +146,7 @@ analogResolution(12); // 12-bit resolution
 
 *Note* - **Increasing** the resolution **decreases** the sampling rate so if you want to get alot of data points around Fo I reccomend you use a 12 or 10-bit resolution.
 
-If you use have a 12 bit-resolution with a reference voltage of 1.1V the finest sensivitiy of the device is 0.00027 V per-division (1.1V / 2^12) and a 8 &mu;s sampling rate. 
+If you use have a 12 bit-resolution with a reference voltage of 1.1V the finest sensivitiy of the device is 0.00027 V per-division (1.1V / 2<sup>12</sup>) and a 8 &mu;s sampling rate. 
 
 ### Hardware
 
@@ -156,8 +157,9 @@ While software adjustments are suitable for small changes in a number of factors
 The easiest way to accomplish this is through the use of neutral density filters placed infront of the actinic LED. However, we can also change this by adjusting a resistor value (R10) on the circuit board.
 
 <p align="center">
-  <img src="Pictures/ActinicCircuit.png" width="600">
+  <img src="Images/ActinicCircuit.png" width="600">
 </p>
+
 
 
 **Increasing** the resistance of R10 results in **decreased** actinic brightness.
@@ -171,8 +173,9 @@ Do this in 1Kohm steps to dial in the specific brightness you need for your appl
 When measuring dilute or highly concentrated solutions of microalgae you may want to change the resistor value (R5) to suit your needs. 
 
 <p align="center">
-  <img src="Pictures/DetectionCircuit.png" width="600">
+  <img src="Images/DetectionCircuit.png" width="600">
 </p>
+
 
 
 **Increasing** the resistance of R5 will **increase** the sensitivty of detection.
@@ -193,15 +196,28 @@ Users are encouraged to modify Open-JIP for their needs. Some examples of this m
 4. Change the desgin of the 3D printed mount
 5. Add an external trigger (TTL)
 
-### To do list
+### To do list:
 
 These are notes on features I would like to see the device have in the future:
 
-1. Software customisable gain
-2. Software customisable actinic brightness
-3. Entirely USB powered
-4. Mulit-wavelength actinic LED with software control 
-5. Smaller overall footprint
+- [x] Software customisable gain
+- [x] Software customisable actinic brightness
+- [ ] Entirely USB powered
+- [ ] Mulit-wavelength actinic LED with software control 
+- [x] Smaller overall footprint
+
+## Future versions
+
+v0.3 is nearly complete and in testing. Several important features have been added to the device including:
+
+- The ability to change the sensitivity of detection - 
+  - This has been acheived by using a CMOS switch to change the feedback resistance in fluorescence detection. Four sensitivies can be chosen from in the software. Additionally, these sensitivies can also be customised in the hardware to suit almost every application. 
+
+- Change the brightness of the actinic LED - 
+  - As with the above fluorescence detection a CMOS switch has been incorperated to modulate the brighness of the actinic LED. Again, there are four intensitiy settings that can be adjusted both within the hardware and more easily in the software. Note that the switching darlington transistor used in this desgin has a variable *hfe* (transistor gain) so results between instruments may vary, therefore before measuring you should use a light meter to vertify the actinic brightness at each gain setting.
+
+- Two device variants - 
+  - Open-JIP has previously been run with an Arduino MEGA and a Teensy 3.6. The MEGA has a low cost and it more suitable for beginners, while the Teensy 3.6 provides superior preformace. In v0.3 a Teensy 3.2 has been incorperated to find the middle ground between these two factors. There is still going to be a version using the 3.6 for superior preformance and to maintain backwards compatibility.  
 
 ### Licence
 
