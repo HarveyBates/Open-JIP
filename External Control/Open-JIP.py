@@ -121,6 +121,7 @@ def upload(timeStamps, fluorescenceValues):
 
 
 def query_user_plot():
+    # Get an input from the user to determine if they want to plot the data
     plotData = input(
         "Would you like to plot data from {}? (y/n)".format(fileName))
     if(plotData == "Y" or plotData == "y"):
@@ -132,6 +133,7 @@ def query_user_plot():
 
 
 def get_data_from_csv(fileName):
+    # Read the csv file and create arrays of values
     readTimes = []
     timeStamps = []
     fluorescenceValues = []
@@ -139,7 +141,7 @@ def get_data_from_csv(fileName):
         reader = csv.reader(f)
         for row in reader:
             if row:
-                readTimes.append(row[0][11:])
+                readTimes.append(row[0][11:]) # Get the date/time stamp
                 timeStamps.append([float(s) for s in row[1].split(',')])
                 fluorescenceValues.append([float(s)
                                            for s in row[2].split(',')])
@@ -150,6 +152,7 @@ def get_data_from_csv(fileName):
 
 
 def plot_transients(readTimes, timeStamps, fluorescenceValues):
+    # Plot data from all the transients found in the csv file
     print("Plotting data from {}, please wait...".format(fileName))
     updatemenus = list([
         dict(active=1,
