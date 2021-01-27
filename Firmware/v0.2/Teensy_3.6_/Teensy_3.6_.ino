@@ -18,41 +18,81 @@
      https://github.com/HarveyBates/Open-JIP 
 */ 
 
-// Analog Pins
+// Analog pin used to record the analog signal coming from the OP-amps output
 #define readPin 18
 
-// Digital Pins
+// Digital pin used to trigger the actininc LED 
 #define actinicPin 21
 
-// Setup arrays that hold fluorescence data
-int microRead [1000];
-int milliRead[1000];
-
-// Setup arrays that hold timestamps that correspond to fluorescence values
+/* Setup for OJIP analysis 
+ *  Length specifies the number of data points captured at two different 
+ *  acquisition frequencies. 
+ *  Microsecond (micro) = readings every 8 us
+ *  Millisecond (milli) = readings every 1 ms
+ *  
+ *  Each value is stored with its corresponding timestamp. Thus, the length
+ *  of each array must match their corresponding number of acquisitions. 
+ *  E.g. microLength of 1000 means 1000 data points will be captured at 8 us 
+ *  intervals, this must match the array size of microRead and microTime.
+*/
+int microLength = 1000;
+int microRead[1000];
 float microTime[1000]; 
+
+int milliLength = 1000;
+int milliRead[1000];
 float milliTime[1000];
-String command;
 
-int microLength = 1000, milliLength = 1000; // Change these to match the size of the above arrays
-
-// Setup arrays to hold all datapoints and corresponding timestamps
+/* These arrays represent the final array size of OJIP fluorescence acquisitions.
+ *  Thus they are calculated as:
+ *  array size = microLength + milliLength
+ *  
+ *  They hold the full OJIP acquisition (time stamps and values) in volts
+ *  and milliseconds.
+ */
 float fluorescenceValues[2000];
 float timeStamps[2000];
 
-/* Setup array for J-Step length 
- *  Default length: 250 acquisitions (2 ms) at 8 us per measurment
+/* Setup arrays for a single J-Step acquisitions.
+ *  These are used to capture a single 2 ms rise from Fo to Fj.
+ *  The same rules as noted above for the array size apply.
+ *  E.g. Keep the array size of each component the same.
+ *  
+ *  Default: 250 acquisitions (2 ms) at 8 us per measurment
  */
-int micorReadJLength = 250;
+unsigned int micorReadJLength = 250;
 int microReadJ[250];
 int microTimeJ[250];
 float jValues[250];
 float jTime[250];
+
+/* Setup for the wave feature of J-step acquisitions (Multiple O-J rises). 
+ * Large arrays are used to store consecutive O-J rises with 5 ms between  
+ * measurments.
+ * To save space these arrays are not converted to volts or milliseconds, 
+ * this can be done in post processing using python or excel. 
+ * 
+ * Array sizes are calculated as follows:
+ * array size = numWaves * J-length
+ * 
+ * Where J-length is the number of microsecond acquisitions used to resolve the
+ * J-step and the number of waves represent your desired number of consecutive
+ * O-J rises
+ */
+unsigned int numWaves = 100; // Number of consecutive acquisitions
+unsigned int waveInterval = 5; // Time between each O-J rise
+unsigned int waveLength = 25000; // Array size of wave acquisitions
+unsigned int waveAqu = 250; // Number of acquisitions in each O-J rise
+int waveRead[25000];
+int waveTime[25000];
 
 int fm = 0; // Initalise the fm value so we can calcualte it later
 
 int fo_pos = 4; // Location of Fo in the measured array
 
 float refVoltage = 3.3; // Set the reference voltage (only applicable with Teensy 3.6)
+
+String command; // Used for reading serial port requests
 
 void setup() {
   Serial.begin(115200); // Initalise serial communications at specific baud rate
@@ -78,7 +118,7 @@ void set_reference_voltage(float voltage){
 }
 
 void measure_j_step(){
-  /* Measures the J-Step only (2 ms) */
+  /* Measures up to the J-Step (2 ms) and prints the values in the serial output*/
   set_reference_voltage(refVoltage);
   digitalWrite(actinicPin, HIGH);
   long timer = micros();
@@ -101,6 +141,35 @@ void measure_j_step(){
     delay(5);
   }
 }
+
+
+void wave(){
+  int wavePos = 0; // Keeps track of position in wave acquisition array
+  for(unsigned int i = 0; i < numWaves; i++){
+    
+    digitalWrite(actinicPin, HIGH);
+    long timer = micros();
+      
+    for(unsigned int i = 0; i < waveAqu; i++){
+      waveRead[wavePos] = analogRead(readPin);
+      waveTime[wavePos] = micros() - timer;
+      wavePos++;
+    }
+    
+    digitalWrite(actinicPin, LOW);
+    delay(waveInterval); // Delay for specified interval
+  }
+
+  // Prints out the data
+  for(unsigned int i = 0; i < waveLength; i++){
+    Serial.print(waveRead[i]); 
+    Serial.print("\t");
+    Serial.println(waveTime[i]);
+    delay(5);
+  }
+  
+}
+
 
 void measure_fluorescence() {
   set_reference_voltage(refVoltage); 
@@ -160,6 +229,7 @@ void measure_fluorescence() {
   }
 }
 
+
 void calculate_parameters(){
   float fo = fluorescenceValues[fo_pos]; // Gets the minimum level fluorescence (Fo)
   float fj = 0.0f, fi = 0.0f;
@@ -216,6 +286,7 @@ void calculate_parameters(){
   }
 }
 
+
 void calibrate_fo(){
   /* Calibrate the fo value of the fluorometer, can be used to ensure the concentration of algae
   is not too high
@@ -236,6 +307,7 @@ void calibrate_fo(){
     }
 }
 
+
 void calibrate_rise(){
   // Calibrate the rise time of the flurometer (useful for debugging)
   for (int i = 0; i < 200; i++){
@@ -246,6 +318,7 @@ void calibrate_rise(){
   }
 }
 
+
 void measure_light(){
   // Measure light using external 4pi light meter
   digitalWrite(actinicPin, HIGH);
@@ -253,6 +326,7 @@ void measure_light(){
   digitalWrite(actinicPin, LOW);
   delay(20);
 }
+
 
 void loop(){
   if(Serial.available()){   
@@ -271,6 +345,9 @@ void loop(){
     }
     else if(command.equals("ML")){
       measure_light();
+    }
+    else if(command.equals("MW")){
+      wave();
     }
     else if(command.equals("Cr")){
       calibrate_rise();
