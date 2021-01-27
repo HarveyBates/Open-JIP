@@ -1,4 +1,3 @@
-
 #include "SDRead_Write.h"
 #include "LCDGraphics.h"
 #include <SD.h>
