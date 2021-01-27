@@ -756,13 +756,13 @@ Text GLabel 2500 6600 0    50   Input ~ 0
 ActinicGain3
 Text GLabel 2500 6700 0    50   Input ~ 0
 ActinicGain4
-Text GLabel 7200 5700 0    50   Input ~ 0
+Text GLabel 7200 3500 0    50   Input ~ 0
 ActinicGain1
-Text GLabel 7200 5200 0    50   Input ~ 0
+Text GLabel 7200 4800 0    50   Input ~ 0
 ActinicGain2
-Text GLabel 7200 5100 0    50   Input ~ 0
+Text GLabel 7200 4700 0    50   Input ~ 0
 ActinicGain3
-Text GLabel 7200 5800 0    50   Input ~ 0
+Text GLabel 7200 2600 0    50   Input ~ 0
 ActinicGain4
 $Comp
 L Device:R R13

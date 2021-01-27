@@ -39,6 +39,15 @@ int microLength = 1000, milliLength = 1000; // Change these to match the size of
 float fluorescenceValues[2000];
 float timeStamps[2000];
 
+/* Setup array for J-Step length 
+ *  Default length: 250 acquisitions (2 ms) at 8 us per measurment
+ */
+int micorReadJLength = 250;
+int microReadJ[250];
+int microTimeJ[250];
+float jValues[250];
+float jTime[250];
+
 int fm = 0; // Initalise the fm value so we can calcualte it later
 
 int fo_pos = 4; // Location of Fo in the measured array
@@ -68,8 +77,33 @@ void set_reference_voltage(float voltage){
   analogRead(readPin); // Initalise reference voltage
 }
 
+void measure_j_step(){
+  /* Measures the J-Step only (2 ms) */
+  set_reference_voltage(refVoltage);
+  digitalWrite(actinicPin, HIGH);
+  long timer = micros();
+
+  /* Read the values */
+  for(unsigned int i = 0; i < sizeof(microReadJ) / sizeof(int); i++){
+    microReadJ[i] = analogRead(readPin);
+    microTimeJ[i] = micros() - timer;
+  }
+
+  digitalWrite(actinicPin, LOW);
+
+  /* Convert and print out the values */
+  for(unsigned int i = 0; i < sizeof(microReadJ) / sizeof(int); i++){
+    jTime[i] = microTimeJ[i] / 1000; // Convert to ms
+    jValues[i] = (microReadJ[i] * refVoltage) / 4096; // Convert bits to V
+    Serial.print(jTime[i], 3); 
+    Serial.print("\t");
+    Serial.println(jValues[i]);
+    delay(5);
+  }
+}
+
 void measure_fluorescence() {
-//  set_reference_voltage(refVoltage); 
+  set_reference_voltage(refVoltage); 
   
   digitalWrite(actinicPin, HIGH); // Turn on actinic LED
 
@@ -231,6 +265,9 @@ void loop(){
     }
     else if(command.equals("CFo")){
       calibrate_fo();
+    }
+    else if(command.equals("MJ")){
+      measure_j_step();
     }
     else if(command.equals("ML")){
       measure_light();
