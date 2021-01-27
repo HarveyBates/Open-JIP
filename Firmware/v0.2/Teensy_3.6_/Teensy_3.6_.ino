@@ -150,7 +150,7 @@ void wave(){
     digitalWrite(actinicPin, HIGH);
     long timer = micros();
       
-    for(unsigned int i = 0; i < waveAqu; i++){
+    for(unsigned int x = 0; x < waveAqu; x++){
       waveRead[wavePos] = analogRead(readPin);
       waveTime[wavePos] = micros() - timer;
       wavePos++;
