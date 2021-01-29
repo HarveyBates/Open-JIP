@@ -67,17 +67,15 @@ float jValues[250];
 float jTime[250];
 
 /* Setup for the wave feature of J-step acquisitions (Multiple O-J rises). 
- * Large arrays are used to store consecutive O-J rises with 5 ms between  
- * measurments.
- * To save space these arrays are not converted to volts or milliseconds, 
- * this can be done in post processing using python or excel. 
+ * Large arrays are used to store consecutive O-J rises with (waveInterval) ms between  
+ * measurments. 
  * 
  * Array sizes are calculated as follows:
- * array size = numWaves * J-length
+ * array size = numWaves * waveAqu
  * 
- * Where J-length is the number of microsecond acquisitions used to resolve the
+ * Where waveAqu is the number of microsecond acquisitions used to resolve the
  * J-step and the number of waves represent your desired number of consecutive
- * O-J rises
+ * O-J rises.
  */
 unsigned int numWaves = 100; // Number of consecutive acquisitions
 unsigned int waveInterval = 5; // Time between each O-J rise
