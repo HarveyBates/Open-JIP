@@ -758,9 +758,9 @@ Text GLabel 2500 6700 0    50   Input ~ 0
 ActinicGain4
 Text GLabel 7200 3500 0    50   Input ~ 0
 ActinicGain1
-Text GLabel 7200 4700 0    50   Input ~ 0
-ActinicGain2
 Text GLabel 7200 4800 0    50   Input ~ 0
+ActinicGain2
+Text GLabel 7200 4700 0    50   Input ~ 0
 ActinicGain3
 Text GLabel 7200 2600 0    50   Input ~ 0
 ActinicGain4
