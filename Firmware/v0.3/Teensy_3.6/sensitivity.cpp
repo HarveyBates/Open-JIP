@@ -35,6 +35,7 @@ void Sensitivity::refresh(){
 }
 
 void Sensitivity::define(int _gain){
+  refresh();
   switch(_gain){
     case 1:
       digitalWrite(fluoroGain1, HIGH);

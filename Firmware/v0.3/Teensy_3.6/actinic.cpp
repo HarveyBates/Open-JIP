@@ -21,7 +21,6 @@
 #include "actinic.h"
 
 Actinic::Actinic(){
-  Serial.println("[OUTPUT] Actnic LED");
   pinMode(actinicGain1, OUTPUT);
   pinMode(actinicGain2, OUTPUT);
   pinMode(actinicGain3, OUTPUT);
@@ -30,14 +29,13 @@ Actinic::Actinic(){
 }
 
 void Actinic::off(){
-  Serial.println("[OFF] Actnic LED");
   digitalWrite(actinicGain1, LOW);
   digitalWrite(actinicGain2, LOW);
   digitalWrite(actinicGain3, LOW);
   digitalWrite(actinicGain4, LOW);
 }
 
-void Actinic::define(int mag){
+void Actinic::define(unsigned int mag){
   intensity = mag;
 }
 

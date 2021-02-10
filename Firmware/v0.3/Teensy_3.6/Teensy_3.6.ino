@@ -38,25 +38,37 @@ void setup() {
 }
 
 void loop(){
-  if(Serial.available()){   
-    char cmd = Serial.read();
-    
-    switch(cmd){
-      case 'M':
-        fluorescence.measure_fluorescence(actinic);
-        break;
-      case 'P':
-        fluorescence.calculate_parameters();
-        break;
-      case 'L':
-        fluorescence.measure_light(actinic);
-        break;
-      case 'O':
-        fluorescence.calibrate_fo(actinic);
-        break;
-      case 'R':
-        fluorescence.calibrate_rise(actinic);
-        break;
+  if(Serial.available()){
+    String command = Serial.readStringUntil('\n');
+    if(command.equals("MF")){
+      fluorescence.measure_fluorescence(actinic);
+    }
+    else if(command.startsWith("A")){
+      unsigned int intensity = command.substring(1, command.length()).toInt();
+      actinic.define(intensity);
+    }
+    else if(command.startsWith("F")){
+      unsigned int detection = command.substring(1, command.length()).toInt();
+      sensitivity.define(detection);
+    }
+    else if(command.equals("CP")){
+      fluorescence.calculate_parameters();
+    }
+    else if(command.equals("CFo")){
+      fluorescence.calibrate_fo(actinic);
+    }
+    else if(command.equals("MJ")){
+      fluorescence.measure_j_step(actinic);
+    }
+    else if(command.equals("ML")){
+      fluorescence.measure_light(actinic);
+    }
+    else if(command.equals("MW")){
+      fluorescence.wave(actinic);
+    }
+    else if(command.equals("Cr")){
+      fluorescence.calibrate_rise(actinic);
     }
   }
+  delay(10);
 }

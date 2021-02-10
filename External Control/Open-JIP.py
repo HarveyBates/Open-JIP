@@ -25,10 +25,11 @@ from time import strftime
 import plotly
 import plotly.graph_objects as go
 import csv
+import atexit
 
 usb_baudrate = 115200  # Baudrate to match Teensy
 fileName = "Open-JIP_Data.csv"  # Filename of output .csv file
-
+fo_pos = 3
 
 def serial_ports():
         # List serial ports available on each OS
@@ -77,6 +78,27 @@ def connect(portAddress):
     else:
         print("Open-JIP USB device not found.")
 
+def set_gain():
+    gain = input("Set the detection gain: (1 (Lowest) - 4 (Highest))")
+    if(int(gain) > 0 and int(gain) <= 4):
+        openJIP.flush()
+        time.sleep(0.1)
+        message = "F" + gain
+        openJIP.write(bytes(message.encode('utf-8')))
+        print("Gain set to: {}".format(gain))
+    else:
+        print("Invalid detection gain. Default settings will be used.")
+
+def set_intensity():
+    intensity = input("Set the actinic LED intensity: (1 (Highest) - 4 (Lowest))")
+    if(int(intensity) > 0 and int(intensity) <= 4):
+        openJIP.flush()
+        time.sleep(0.1)
+        message = "A" + intensity
+        openJIP.write(bytes(message.encode('utf-8')))
+        print("Actinic intensity set to: {}".format(intensity))
+    else:
+        print("Invalid actinic intensity. Default settings will be used.") 
 
 def measure_fluorescence(readLength):
     # Read fluorescence and create two arrays of corresponding values
@@ -97,6 +119,33 @@ def measure_fluorescence(readLength):
     print("Transient captured.")
     # Return arrays to be passed into csv upload function
     return timeStamps, fluorescenceValues
+
+
+def calculate_parameters(fluorescenceValues, timeStamps):
+    fo = fluorescenceValues[fo_pos]
+    fm = max(fluorescenceValues[2:])
+    fj_found = False
+    fi_found = False
+
+    for i in range(len(fluorescenceValues)):
+        if(not fj_found and int(timeStamps[i]) == 2):
+            fj = fluorescenceValues[i]
+            fj_time = timeStamps[i]
+            fj_found = True
+        elif(not fi_found and int(timeStamps[i]) == 30):
+            fi = fluorescenceValues[i]
+            fi_time = timeStamps[i]
+            fi_found = True
+    
+    fv = (fm - fo)
+    quantumYield = fv / fm
+    
+    print("Fo: {}".format(fo))
+    print("Fj: {} at {}".format(fj, fj_time))
+    print("Fi: {} at {}".format(fi, fi_time))
+    print("Fm: {}". format(fm))
+    print("Fv: {}".format(fv))
+    print("Quantum yield: {}".format(round(quantumYield, 3)))
 
 
 def upload(timeStamps, fluorescenceValues):
@@ -180,11 +229,26 @@ def plot_transients(readTimes, timeStamps, fluorescenceValues):
     fig.layout.template = "seaborn"
     fig.show()
 
+def close():
+    if(openJIP.is_open):
+        openJIP.close()
+        print("Exited cleanly.")
+
+atexit.register(close)
 
 if __name__ == "__main__":
     port = serial_ports()
     connect(port)
-    # Takes the length of the corresponding array in the Teensy script
-    timeStamps, fluorescenceValues = measure_fluorescence(2000)
-    upload(timeStamps, fluorescenceValues)
-    query_user_plot()
+    measure = input("Do you want measure an OJIP curve now? (y/n)")
+    if(measure == "y" or measure == "Y"):
+        # Takes the length of the corresponding array in the Teensy script
+        adjust = input("Set gain and actinic intensity? (y/n)")
+        if(adjust == "y" or adjust == "Y"):
+            set_intensity()
+            set_gain()
+        timeStamps, fluorescenceValues = measure_fluorescence(2000)
+        calculate_parameters(fluorescenceValues, timeStamps)
+        upload(timeStamps, fluorescenceValues)
+        query_user_plot()
+    else:
+        print("Exiting...")

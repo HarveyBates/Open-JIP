@@ -37,7 +37,7 @@ class Actinic{
 public:
   Actinic();
   void off();
-  void define(int mag);
+  void define(unsigned int mag);
   void on();
 };
 #endif
