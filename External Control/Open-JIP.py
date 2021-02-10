@@ -90,7 +90,7 @@ def set_gain():
         print("Invalid detection gain. Default settings will be used.")
 
 def set_intensity():
-    intensity = input("Set the actinic LED intensity: (1 (Highest) - 4 (Lowest))")
+    intensity = input("Set the actinic LED intensity: (1 (Lowest) - 4 (Highest))")
     if(int(intensity) > 0 and int(intensity) <= 4):
         openJIP.flush()
         time.sleep(0.1)

@@ -41,16 +41,16 @@ void Actinic::define(unsigned int mag){
 
 void Actinic::on(){
   switch(intensity){
-    case 1:
+    case 4:
       digitalWrite(actinicGain1, HIGH);
       break;
-    case 2:
+    case 3:
       digitalWrite(actinicGain2, HIGH);
       break;
-    case 3:
+    case 2:
       digitalWrite(actinicGain3, HIGH);
       break;
-    case 4:
+    case 1:
       digitalWrite(actinicGain4, HIGH);
       break;
   }
