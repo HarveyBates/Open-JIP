@@ -82,8 +82,8 @@ def set_gain():
     gain = input("Set the detection gain: (1 (Lowest) - 4 (Highest))")
     if(int(gain) > 0 and int(gain) <= 4):
         openJIP.flush()
-        time.sleep(0.1)
-        message = "F" + gain
+        time.sleep(0.2)
+        message = "F" + gain + "\n"
         openJIP.write(bytes(message.encode('utf-8')))
         print("Gain set to: {}".format(gain))
     else:
@@ -93,8 +93,8 @@ def set_intensity():
     intensity = input("Set the actinic LED intensity: (1 (Lowest) - 4 (Highest))")
     if(int(intensity) > 0 and int(intensity) <= 4):
         openJIP.flush()
-        time.sleep(0.1)
-        message = "A" + intensity
+        time.sleep(0.2)
+        message = "A" + intensity + "\n"
         openJIP.write(bytes(message.encode('utf-8')))
         print("Actinic intensity set to: {}".format(intensity))
     else:
