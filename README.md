@@ -1,6 +1,26 @@
-# Open-JIP
+<p align="center">
+  <img src="Images/Open-JIP Logo.png" width="450">
+</p>
 
-Open-JIP is an open-source chlorophyll fluorometer used for quantifying photosynthetic processes is terrestrial plants and microalgae. The original device which used an Arduino Mega was published in [Photosynthesis Research](https://doi.org/10.1007/s11120-019-00673-2) in 2019.
+### Description
+
+Open-JIP is an open-source chlorophyll *a* fluorometer used to quantify photosynthetic phenotypes in terrestrial plants and microalgae. It is controlled via a Teensy microcontroller and features a highly customisable electrical components and 3D printed infrastructure. 
+
+#### OJIP
+
+Open-JIP utilises a technique known as the fast rise of chlorophyll *a* fluorescence (also known as OJIP). Steady irradaince is provided from an emitting LED, this excites photosynthetic antenna in the sample resulting in excess irradiance being emitted as photons of a longer wavelength (i.e. fluorescence). The emitted fluorescence is captured by a photodiode, amplified by the custom circuitry and stored by the Teensy microcontroller. 
+
+The information provided from Open-JIP gives the user an indication of the state of photosynthesis in the subject organism to varying levels of complexity. If you would like to know more about the theory surrounding the measurement of chlorophyll *a* fluorescence, this [link](https://doi.org/10.1016/j.algal.2020.102105) gives a basic introduction and resources for further reading.
+
+### Publication
+
+The original device which used an Arduino Mega was published in [Photosynthesis Research in 2019](https://doi.org/10.1007/s11120-019-00673-2):
+
+*A guide to Open-JIP, a low-cost open-source chlorophyll fluorometer - Bates et al. 2019*
+
+If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through chlorophyll *a* fluorometer connected [a custom photobioreactor](https://github.com/HarveyBates/Phenobottle) with the microalga *Chlorella vulgaris*.
+
+### Future of Open-JIP
 
 Since the publication of Open-JIP a number of changes have been made to increase the devices capabilities. These include:
 
@@ -9,31 +29,6 @@ Since the publication of Open-JIP a number of changes have been made to increase
 3. Adjustment of actinic LED intensity dynamically (through software)
 4. Improvements in resolution
 5. Improvements in number of datapoints in each OJIP transient
-
-<p align="center">
-  <img src="Images/Teensy (v0.2).jpg" width="350">
-</p>
-
-If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through chlorophyll *a* fluorometer connected [a photobioreactor](https://github.com/HarveyBates/Phenobottle) with the microalga *Chlorella vulgaris*.
-
-## What data is captured
-
-In a one second OJIP measurment Open-JIP can capture the polyphasic rise of chlorophyll *a* fluorescence. Below is a transient captured with low (black) and high (red) conncentrations of cells. 
-
-<p align="center">
-  <img src="Images/OJIPTransient.png" width="500">
-</p>
-
-If you would like to know more about the theory surrounding the measurment of chlorophyll *a* fluorescence, the provided [link](https://doi.org/10.1016/j.algal.2020.102105) above gives a basic introduction and resources for futher reading.
-
-### To do list:
-
-These are notes on features I would like to see the device have in the future:
-
-- [x] Software customisable gain
-- [x] Software customisable actinic brightness
-- [ ] Mulit-wavelength actinic LED with software control 
-- [x] Smaller overall footprint
 
 ***
 
@@ -88,7 +83,7 @@ Below contains the user manual for Open-JIP, if you have any questions there is 
 
 ##### Method 1 (New users)
 
-New users should naviage to the [releases](https://github.com/HarveyBates/Open-JIP/releases) page to find the most recent (and stable) version of the device. You can download the latest release as a `.zip` file and this will contain all you need to get the device up and running. 
+New users should naviage to the [releases](https://github.com/HarveyBates/Open-JIP/releases) page to find the most recent (and stable) version of the device. You can download the latest release as a `.zip` file and this will contain all the files you need to get the device up and running. 
 
 ##### Method 2 (Experinced users / collaborators)
 
