@@ -2,15 +2,15 @@
   <img src="Images/Open-JIP Logo.png" width="450">
 </p>
 
-### Description
+### Description<img align="right" width=250 style="box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2); border=0;" src="Images/Teensy (v0.2).jpg">
 
-Open-JIP is an open-source chlorophyll *a* fluorometer used to quantify photosynthetic phenotypes in terrestrial plants and microalgae. It is controlled via a Teensy microcontroller and features a highly customisable electrical components and 3D printed infrastructure. 
+Open-JIP is an open-source chlorophyll *a* fluorometer used to quantify photosynthetic phenotypes in terrestrial plants and microalgae. It is controlled via a Teensy microcontroller and features highly customisable electrical components and a 3D-printed infrastructure. 
 
 #### OJIP
 
-Open-JIP utilises a technique known as the fast rise of chlorophyll *a* fluorescence (also known as OJIP). Steady irradaince is provided from an emitting LED, this excites photosynthetic antenna in the sample resulting in excess irradiance being emitted as photons of a longer wavelength (i.e. fluorescence). The emitted fluorescence is captured by a photodiode, amplified by the custom circuitry and stored by the Teensy microcontroller. 
+Open-JIP utilises a technique known as the fast polyphasic rise fluorescence (also known as OJIP). Steady irradaince is provided from an emitting LED, this excites photosynthetic antenna in the sample resulting in excess irradiance being emitted as photons of a longer wavelength (i.e. fluorescence). The emitted fluorescence, which contains information regarding the state of photosynthesis, is captured by a photodiode, amplified by the custom circuitry and stored by the Teensy microcontroller. 
 
-The information provided from Open-JIP gives the user an indication of the state of photosynthesis in the subject organism to varying levels of complexity. If you would like to know more about the theory surrounding the measurement of chlorophyll *a* fluorescence, this [link](https://doi.org/10.1016/j.algal.2020.102105) gives a basic introduction and resources for further reading.
+The transient captured by Open-JIP gives the user an indication of the state of photosynthesis in the subject organism to varying levels of complexity. If you would like to know more about the theory surrounding the measurement of chlorophyll *a* fluorescence, this [link](https://doi.org/10.1016/j.algal.2020.102105) gives a basic introduction and resources for further reading.
 
 ### Publication
 
@@ -19,6 +19,10 @@ The original device which used an Arduino Mega was published in [Photosynthesis 
 *A guide to Open-JIP, a low-cost open-source chlorophyll fluorometer - Bates et al. 2019*
 
 If you would like to see what the device is capable of, you may be interested in this recent [publication](https://doi.org/10.1016/j.algal.2020.102105) which uses Open-JIP as a flow-through chlorophyll *a* fluorometer connected [a custom photobioreactor](https://github.com/HarveyBates/Phenobottle) with the microalga *Chlorella vulgaris*.
+
+### Collaborations and custom architecture 
+
+If you would like to collaborate on a project, or would like to see if Open-JIP can be customised to suit your application, please email me at [harvey_bates@hotmail.com](mailto:harvey_bates@hotmail.com). 
 
 ### Future of Open-JIP
 
@@ -34,7 +38,7 @@ Since the publication of Open-JIP a number of changes have been made to increase
 
 # USER MANUAL
 
-Below contains the user manual for Open-JIP, if you have any questions there is a discussions tab in this github repository. Where I will do my best to get back to you as soon as possible.
+Below contains the user manual for Open-JIP, if you have any questions there is a discussions tab in this github repository, where I will do my best to get back to you as soon as possible.
 
 ## Contents
 
@@ -114,7 +118,7 @@ In the ```Bill of Materials/Circuit Board``` folder you will find a table all th
 
 Note that most of the comonents are suface mount (SMD), this is due to their increased reliablity and in my opinion its easier to assemble SMD compared to through-hole (THT) components. 
 
-###### Ordering PCB
+###### Ordering a PCB
 
 To order the circuit board I recommend using [JLCPCB](https://jlcpcb.com/) as they are cheap, easy and ship fast. 
 
@@ -138,11 +142,11 @@ In addition to the above electronics you will need a few components such as a Te
 
 ### Introduction
 
-Open-JIP operates via a computers serial port (USB connection), the user sends commands in the form of characters that are read by the Teensy microcontroller. This results in the device taking a measurement or other tasks. You can do this manually though the Arduino IDE or by using scripts in various languages. 
+Open-JIP operates via a computers serial port (USB connection), the user sends commands in the form of strings that are read by the Teensy microcontroller. This results in the device taking a measurement or other tasks. You can do this manually though the Arduino IDE or by using scripts in various languages. 
 
 ### Arduino IDE / Teensyduino
 
-To setup the Teensy (flash the program to the Teensy microcontroller) you will need **both** [Arduino IDE](https://www.arduino.cc/en/software) and [TeensyDuino](https://www.pjrc.com/teensy/teensyduino.html) if running on Linux or Windows, or just [TeensyDuino](https://www.pjrc.com/teensy/teensyduino.html) if using a Mac. Instructions on how to do this is provided in the above links. 
+To setup the Teensy (upload the firmware to the microcontroller) you will need **both** [Arduino IDE](https://www.arduino.cc/en/software) and [TeensyDuino](https://www.pjrc.com/teensy/teensyduino.html) if running on Linux or Windows, or just [TeensyDuino](https://www.pjrc.com/teensy/teensyduino.html) if using a Mac. Instructions on how to do this is provided in the above links. 
 
 When first using Open-JIP: 
 
@@ -153,30 +157,52 @@ When first using Open-JIP:
 5. ```File>Open``` the "Teensy.ino" file found in ```Firmware/v0.3/Teensy_3.6/Teensy_3.6.ino```
 6. ```Sketch>Upload``` to flash the file onto the Teensy
 
-The povided ```Teensy.ino``` file will work as is, but if you wish to change settings in this file you will need to flash the program to the Teensy again after such changes have been made.
+The povided ```Teensy.ino``` file will work as is, but if you wish to change settings in this file you will need to reupload the firmware to the Teensy again after changes have been made.
 
 ### Basic Operations
 
-To take a measurment open the serial monitor (in the Arduino IDE when the deivce is connected to your computer) (```Tools>Serial Monitor```) and type in the command ```M``` (denoting **m**easure fluorescence). This will (in the default configuration) take a one second measurement of chlorophyll *a* fluorescence and print the resulting measurments out into the serial monitor. You can copy and paste the data into excel in order to graph the transient.
+To take a measurment open the serial monitor (in the Arduino IDE when the deivce is connected to your computer) (```Tools>Serial Monitor```) and type in the command ```MF``` (denoting **m**easure **f**luorescence). This will (in the default configuration) take a one second measurement of chlorophyll *a* fluorescence and print the resulting measurments out into the serial monitor. You can copy and paste the data into excel in order to graph the transient.
 
 There are a number of included functions that require the same method to operate:
 
-1. ```M``` - **M**easure fluorescence. Measure the chlorophyll *a* fluorescence signature of the microalga of interest. 
-2. ```P``` - Calculate **p**arameters. Calculate and print out basic fluorescence parameters from the most recently captured OJIP curve. 
-3. ```O``` - Calibrate F**o** (the minimum level fluoresence). Provides short flashes of illumination for calibrating the minimum level fluorescence. This command is useful if you want to know if your measurment is going to *saturate* (due to an overly concentrated sample) before taking a measurment. 
-4. ```L``` - Calibrate actinic intensity (measure **l**ight). Turns on the actinic LED for a period of three seconds to allow the intensity to be measured by a 4&#960; light meter.
-5. ```R``` Calibrate **r**ise time of the actinic LED/amplifier combination. Provides some short  (100us) flashes of illumination from the actinic LED to calibrate your setup using an external oscilloscope. Useful if you want to ensure your Fo value is accurate (i.e. Fo should be measured when the actinic LED and amplifier are stable (usually around 40us)). *Note* this is only nessesary if you alter the default electronics configuration (see below).  
+#### Basic functions
+
+1. ```MF``` - **M**easure fluorescence. Measure the chlorophyll *a* fluorescence signature of the organism of interest. 
+2. ```CP``` - **C**alculate **p**arameters. Calculate and print out basic fluorescence parameters from the most recent OJIP curve. 
+3. ```CFo``` - **C**alibrate **F<sub>o</sub>** (the minimum level fluoresence). Provides short flashes of illumination for calibrating the minimum level fluorescence. This command is useful if you want to know if your measurment is going to *saturate* (due to an overly concentrated sample) before taking a measurment. 
+4. ```An``` - **A**ctinic intensity (irradiance of LED) where ***n*** is a number between 1 and 4 (lowest to highest).
+5. ```Fn``` - **F**luorescence gain (sensitivity of detection) where ***n*** is a number between 1 and 4 (lowest to highest).
+
+**Note** - It is reccomended that the minumum level of fluorescence (F<sub>o</sub>) is greater than 0.3 V for the maximum stability of acquisitions.
+
+#### Advanced functions
+
+1. ```MJ``` - **M**easure **J**-step. Measures up to the J-step (~2 ms) and returns the data to the serial port.
+2. ```MW``` - **M**easure **w**ave. Measures up to the J-step multiple times with set time intervals between acquisitions. 
+
+#### Calibration funcitons
+
+1. ```ML``` - Calibrate actinic intensity (**m**easure **l**ight). Turns on the actinic LED for a period of three seconds to allow the intensity to be measured by a 4&#960; light meter.
+2. ```Cr``` **C**alibrate **r**ise time of the actinic LED/amplifier combination. Provides some short  (100us) flashes of illumination from the actinic LED to calibrate your setup using an external oscilloscope. Useful if you want to ensure your Fo value is accurate (i.e. Fo should be measured when the actinic LED and amplifier are stable (usually around 40us)). *Note* this is only nessesary if you alter the default electronics configuration (see below).  
 
 ### Python Control
 
 Open-JIP comes with an external cross platform python script that allows users to take basic measurments, plot the data and sort it into a ```.csv``` file automatically. This program is located under ```External Control/Open-JIP.py```.
 
-```Open-JIP.py``` uses [plotly](https://plotly.com/python/) to plot the data and [pyserial](https://pyserial.readthedocs.io/en/latest/pyserial.html) to access the serial port of your machine. You must have [python](https://www.python.org/) installed to use this script. This program runs in the terminal / console. Additonally you need pip to install these requirements as follows:
+```Open-JIP.py``` uses [plotly](https://plotly.com/python/) to plot the data and [pyserial](https://pyserial.readthedocs.io/en/latest/pyserial.html) to access the serial port of your machine. You must have [python](https://www.python.org/) installed to use this script. **This program runs in the terminal / console**. Additonally you need pip to install these requirements as follows:
 
 ```bash
 cd Open-JIP/External Control
 pip3 install -r requirements.txt
 python3 Open-JIP.py
+```
+
+If the above doesn't work, try this instead:
+
+```bash
+cd Open-JIP/External Control
+pip install -r requirements.txt
+python Open-JIP.py
 ```
 
 If you wish to change the output path of the ```.csv``` file you can do so by changing this string in ```Open-JIP.py```:
@@ -199,22 +225,22 @@ This next section is going to be in reference to the files located within ```Fir
 
 #### Change actinic LED intensity
 
-In ```actinic.cpp``` the actinic LED intensity can be adjusted. There are four possible configurations, LOW, MID, HIGH, VERY HIGH. Thse can be selected by applying the values 1 - 4 (LOW - VERY HIGH) when switching on the actinic LED. 
+In ```actinic.cpp``` the actinic LED intensity can be adjusted. There are four possible configurations, LOW, MID, HIGH, VERY HIGH. These can be selected by applying the values 1 - 4 (LOW - VERY HIGH) when switching on the actinic LED. 
 
 ```C++
 void Actinic::on(){
   switch(intensity){
     case 1:
-      digitalWrite(actinicGain1, HIGH);
-      break;
+      digitalWrite(actinicGain4, HIGH); // Low
+    	break;
     case 2:
-      digitalWrite(actinicGain2, HIGH);
+      digitalWrite(actinicGain3, HIGH); // Mid
       break;
     case 3:
-      digitalWrite(actinicGain3, HIGH);
+      digitalWrite(actinicGain2, HIGH); // High
       break;
     case 4:
-      digitalWrite(actinicGain4, HIGH);
+      digitalWrite(actinicGain1, HIGH); // Very high
       break;
   }
 }
@@ -232,16 +258,16 @@ In ```sensitivity.cpp``` the detection sensitivity can be adjusted. There are fo
 void Sensitivity::define(int _gain){
   switch(_gain){
     case 1:
-      digitalWrite(fluoroGain1, HIGH);
+      digitalWrite(fluoroGain1, HIGH); // Low (high chl concentration)
       break;
     case 2:
-      digitalWrite(fluoroGain2, HIGH);
+      digitalWrite(fluoroGain2, HIGH); // Mid
       break;
     case 3:
-      digitalWrite(fluoroGain3, HIGH);
+      digitalWrite(fluoroGain3, HIGH); // High
       break;
     case 4:
-      digitalWrite(fluoroGain4, HIGH);
+      digitalWrite(fluoroGain4, HIGH); // Very high (low chl concentration)
       break;
   }
 }
@@ -281,39 +307,40 @@ analogResolution(12); // 12-bit resolution
 
 If you use have a 12 bit-resolution with a reference voltage of 1.1V the finest sensivitiy of the device is 0.00027 V per-division (1.1V / 2<sup>12</sup>) at a 8 &mu;s sampling rate. 
 
+#### Defaults
+
+Upon startup, Open-JIP will revert to its default configuration. You can change this by altering the setup command in ```Teensy_3.6.ino```:
+
+```C++
+void setup() {
+  Serial.begin(115200); // Starting baud rate
+  analogReadResolution(12); // Default resolution
+  pinMode(13, OUTPUT); // Sets the microcontrollers LED pin as an output
+  
+  sensitivity.refresh(); // Switch off all sensitivity settings
+  sensitivity.define(1); // Set a default sensitivity (1 - 4)
+
+  actinic.off(); // Switch off all actinic settings
+  actinic.define(1); // Set a default actinic irradiance (1 - 4)
+}
+```
+
 #### Length of actinic pulse
 
-In ```fluorescence.h``` the length of the actinic exposure (pulse) can be adjusted. The aqusition is done in two steps; (1) the fast measurments (readings every 8 &mu;s) and (2) slow (readings every 2 ms). These arrays require different processing methods and are therefore stored seperately. Below gives you an idea of how the array lengths are calculated for the intial aqusitions and the converted output. 
+In ```fluorescence.h``` the length of the actinic exposure (pulse) can be adjusted. The acquisition is done in two steps; (1) the fast measurments (readings every 8 &mu;s) and (2) slow (readings every 1 ms). These arrays require different processing methods and are therefore stored seperately. Below gives you an idea of how the array lengths are calculated for the intial aqusitions and the converted output. 
 
 ```c++
-/* Setup for OJIP analysis 
-   *  Length specifies the number of data points captured at two different 
-   *  acquisition frequencies. 
-   
-   *  Microsecond (micro) = readings every 8 us
-   *  Millisecond (milli) = readings every 1 ms
-   *  
-   *  Each value is stored with its corresponding timestamp. Thus, the length
-   *  of each array must match their corresponding number of acquisitions. 
-   *  E.g. microLength of 1000 means 1000 data points will be captured at 8 us 
-   *  intervals, this must match the array size of microRead and microTime.
-  */
-  int microLength = 1000;
-  int microRead [1000];
-  int milliRead[1000];
-  
-  int milliLength = 1000;
-  float microTime[1000]; 
-  float milliTime[1000];
+// Microsecond (micro) = readings every 8 us
+  int microLength = 1000; // Equals length of microread array
+  int microRead [1000]; // Stores microsecond readings 
+  int milliRead[1000]; // Stores millisecond readings
 
-  /* These arrays represent the final array size of OJIP fluorescence acquisitions.
-   *  Thus they are calculated as:
-   
-   *  array size = microLength + milliLength
-   *  
-   *  They hold the full OJIP acquisition (time stamps and values) in volts
-   *  and milliseconds.
-   */
+// Millisecond (milli) = readings every 1 ms
+  int milliLength = 1000; // Equals length of milliread array
+  float microTime[1000]; // Stores microsecond timestamps
+  float milliTime[1000]; // Stores millisecond timestamps
+
+// Stores final array in converted form (i.e. Volts and Milliseconds)
   float fluorescenceValues[2000];
   float timeStamps[2000];
 ```
@@ -333,7 +360,7 @@ Open-JIP operates using a Teensy 3.6 microcontroller connected to a custom print
 
 ### Detection
 
-Fluorescence dection is acheived with the use of an operation amplifier (op-amp) connected as a transimpedance amplifier. The inverting input is connected to a photodiode, while the non-inverting input is connected to a voltage divider to provide a very small offset voltage. The concept of the offset voltage is that the amplifier (op-amp) will respond faster to changes than if it went from 0 V. 
+Fluorescence dection is acheived with the use of an operational amplifier (op-amp) connected as a transimpedance amplifier. The inverting input is connected to a photodiode, while the non-inverting input is connected to a voltage divider to provide a very small offset voltage. The concept of the offset voltage is that the amplifier (op-amp) will respond faster to changes in voltage. 
 
 <p align="center">
   <img src="Images/FluoroAdjDetection.png" width="600">
