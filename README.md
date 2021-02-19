@@ -50,20 +50,26 @@ Below contains the user manual for Open-JIP, if you have any questions there is 
          2. Method 2 (Experienced users / collaborators)
       2. Gathering materials
          1. Printed circuit board (PCB)
-            1. Ordering PCB
+            1. Ordering a PCB
          2. 3D models
          3. Additonal parts
 2. Firmware / Software
    1. Introduction
    2. Arduino IDE / Teensyduino
    3. Basic operations
+      1. Basic functions
+      2. Advanced functions
+      3. Calibration functions
    4. Python control
    5. Advanced operations
       1. Change actinic LED intensity
       2. Change detection sensitivity
       3. Set analog reference voltage & Resolution
+      4. Defaults
+      5. Length of actinic pulse
 3. Hardware
    1. Detection
+      1. Gain adjustment 
    2. Actinic Intensity
 
 ## 1. Introduction
