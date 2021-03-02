@@ -31,10 +31,10 @@
 #define actinicGain3 36
 #define actinicGain4 10
 
-
 class Actinic{
   unsigned int intensity = 1;
 public:
+  unsigned int intensity_pin = 29;
   Actinic();
   void off();
   void define(unsigned int mag);

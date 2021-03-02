@@ -91,10 +91,10 @@ void Fluorescence::wave(Actinic actinic){
   }
 }
 
-void Fluorescence::measure_fluorescence(Actinic actinic) {
-  actinic.on();
-
-  long timer = micros(); // Start timer 
+void Fluorescence::measure_fluorescence(unsigned int actinicPin) {
+  digitalWrite(actinicPin, HIGH);
+  
+  long long timer = micros(); // Start timer 
 
   // Read microsecond fluorescence values and corresponding timestamps
   for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++) 
@@ -111,7 +111,7 @@ void Fluorescence::measure_fluorescence(Actinic actinic) {
     delay(1);
   }
   
-  actinic.off(); // Turn off actinic LED
+  digitalWrite(actinicPin, LOW); // Turn off actinic LED
   delay(10);
 
   // Convert micros() to milliseconds (ms) for microsecond values and convert bits to voltage
@@ -223,7 +223,7 @@ void Fluorescence::calibrate_fo(Actinic actinic){
 }
 
 void Fluorescence::calibrate_rise(Actinic actinic){
-  // Calibrate the rise time of the flurometer (useful for debugging)
+  // Calibrate the rise time of the fluorometer (useful for debugging)
   for (int i = 0; i < 200; i++){
     actinic.on();
     delayMicroseconds(100);

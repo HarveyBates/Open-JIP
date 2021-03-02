@@ -102,7 +102,7 @@ public:
   void measure_j_step(Actinic actinic);
   void calculate_parameters();
   void wave(Actinic actinic);
-  void measure_fluorescence(Actinic actinic);
+  void measure_fluorescence(unsigned int actinicPin);
 
   // Debugging commands
   void calibrate_fo(Actinic actinic);

@@ -37,13 +37,28 @@ void Actinic::off(){
 
 void Actinic::define(unsigned int mag){
   intensity = mag;
+  switch(mag){
+    case 1:
+      intensity_pin = 10;
+      break;
+    case 2:
+      intensity_pin = 36;
+      break;
+    case 3:
+      intensity_pin = 37;
+      break;
+    case 4:
+      intensity_pin = 29;
+      break;
+  }
 }
 
 void Actinic::on(){
   switch(intensity){
     case 1:
+      // Lowest
       digitalWrite(actinicGain4, HIGH);
-    break;
+      break;
     case 2:
       digitalWrite(actinicGain3, HIGH);
       break;
@@ -51,6 +66,7 @@ void Actinic::on(){
       digitalWrite(actinicGain2, HIGH);
       break;
     case 4:
+      // Highest
       digitalWrite(actinicGain1, HIGH);
       break;
   }

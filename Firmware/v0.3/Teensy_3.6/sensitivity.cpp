@@ -38,6 +38,7 @@ void Sensitivity::define(int _gain){
   refresh();
   switch(_gain){
     case 1:
+      // Lowest
       digitalWrite(fluoroGain1, HIGH);
       break;
     case 2:
@@ -47,6 +48,7 @@ void Sensitivity::define(int _gain){
       digitalWrite(fluoroGain3, HIGH);
       break;
     case 4:
+      // Highest
       digitalWrite(fluoroGain4, HIGH);
       break;
   }

@@ -41,7 +41,7 @@ void loop(){
   if(Serial.available()){
     String command = Serial.readStringUntil('\n');
     if(command.equals("MF")){
-      fluorescence.measure_fluorescence(actinic);
+      fluorescence.measure_fluorescence(actinic.intensity_pin);
     }
     else if(command.startsWith("A")){
       unsigned int intensity = command.substring(1, command.length()).toInt();
