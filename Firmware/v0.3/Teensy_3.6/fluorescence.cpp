@@ -91,7 +91,7 @@ void Fluorescence::wave(Actinic actinic){
   }
 }
 
-void Fluorescence::measure_fluorescence(unsigned int actinicPin) {
+void Fluorescence::measure_fluorescence(unsigned int actinicPin, ADC *adc) {
   digitalWrite(actinicPin, HIGH);
   
   long long timer = micros(); // Start timer 
@@ -99,14 +99,14 @@ void Fluorescence::measure_fluorescence(unsigned int actinicPin) {
   // Read microsecond fluorescence values and corresponding timestamps
   for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++) 
   {
-    microRead[i] = analogRead(readPin);
+    microRead[i] = adc->adc0->analogRead(readPin);
     microTime[i] = micros() - timer;
   }
 
   // Read millisecond fluorescence values and corresponding timestamps
   for (unsigned int i = 0; i < sizeof(milliRead) / sizeof(int); i++) 
   {
-    milliRead[i] = analogRead(readPin);
+    milliRead[i] = adc->adc0->analogRead(readPin);
     milliTime[i] = micros() - timer;
     delay(1);
   }
@@ -117,32 +117,32 @@ void Fluorescence::measure_fluorescence(unsigned int actinicPin) {
   // Convert micros() to milliseconds (ms) for microsecond values and convert bits to voltage
   for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++)
   {
-   float milliReal = microTime[i]/1000; // Convert micros() to ms
-   // Find fm value, we do this here while data are still ints
+   float milliReal = microTime[i]/1000.0; // Convert micros() to ms
+   // Find fm value, we do this here while the data is an interger
    if (microRead[i] > fm){
     fm = microRead[i];
    }
-   fluorescenceValues[i] = (microRead[i] * refVoltage) / 4096; // Convert to volts and append to final array
+   fluorescenceValues[i] = (microRead[i] * refVoltage) / 4096.0; // Convert to volts and append to final array
    timeStamps[i] = milliReal; // Append time to final array
    Serial.print(milliReal, 3); 
    Serial.print("\t");
-   Serial.println((microRead[i] * refVoltage) / 4096, 4);
+   Serial.println((microRead[i] * refVoltage) / 4096.0, 4);
    delay(1);
   }
 
   // Convert micros() to milliseconds for millsecond values and convert bits to voltage
   for (unsigned int i = 0; i < sizeof(milliRead) / sizeof(int); i++) 
   {
-   float milliReal = milliTime[i]/1000; // Convert micros() to ms
+   float milliReal = milliTime[i]/1000.0; // Convert micros() to ms
    // Find fm value if not in microsecond range
    if (milliRead[i] > fm){
     fm = milliRead[i];
    }
-   fluorescenceValues[i + microLength] = (milliRead[i] * refVoltage) / 4096; // Convert to V and append
+   fluorescenceValues[i + microLength] = (milliRead[i] * refVoltage) / 4096.0; // Convert to V and append
    timeStamps[i + microLength] = milliReal; // Append to timestamps after microRead data
    Serial.print(milliReal, 3); 
    Serial.print("\t");
-   Serial.println((milliRead[i] * refVoltage) / 4096, 4);
+   Serial.println((milliRead[i] * refVoltage) / 4096.0, 4);
    delay(1);
   }
 }

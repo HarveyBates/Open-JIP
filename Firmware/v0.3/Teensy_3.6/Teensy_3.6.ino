@@ -20,6 +20,9 @@
 #include "sensitivity.h"
 #include "actinic.h"
 #include "fluorescence.h"
+#include <ADC.h>
+
+ADC *adc = new ADC();
 
 Fluorescence fluorescence;
 Sensitivity sensitivity;
@@ -27,7 +30,10 @@ Actinic actinic;
 
 void setup() {
   Serial.begin(115200); // Initalise serial communications at specific baud rate
-  analogReadResolution(12); // Set the resolution of the microcontroller in bits
+  adc->adc0->setAveraging(0);
+  adc->adc0->setResolution(12);
+  adc->adc0->setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED);
+  adc->adc0->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED);
   pinMode(13, OUTPUT); // Sets the microcontrollers LED pin as an output
   
   sensitivity.refresh(); // Switch off all gain pathways
@@ -41,7 +47,7 @@ void loop(){
   if(Serial.available()){
     String command = Serial.readStringUntil('\n');
     if(command.equals("MF")){
-      fluorescence.measure_fluorescence(actinic.intensity_pin);
+      fluorescence.measure_fluorescence(actinic.intensity_pin, adc);
     }
     else if(command.startsWith("A")){
       unsigned int intensity = command.substring(1, command.length()).toInt();

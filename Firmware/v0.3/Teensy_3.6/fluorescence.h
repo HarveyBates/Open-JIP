@@ -21,10 +21,10 @@
 #ifndef Fluorescence_H
 #define Fluorescence_H
 
-#pragma once
 #include <Arduino.h>
 #include "actinic.h"
 #include "sensitivity.h"
+#include <ADC.h>
 
 /* Fluorescence analogread pin */
 #define readPin 14
@@ -102,7 +102,7 @@ public:
   void measure_j_step(Actinic actinic);
   void calculate_parameters();
   void wave(Actinic actinic);
-  void measure_fluorescence(unsigned int actinicPin);
+  void measure_fluorescence(unsigned int actinicPin, ADC *adc);
 
   // Debugging commands
   void calibrate_fo(Actinic actinic);
