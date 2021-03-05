@@ -84,12 +84,12 @@ class Fluorescence{
    * J-step and the number of waves represent your desired number of consecutive
    * O-J rises.
    */
-  unsigned int numWaves = 100; // Number of consecutive acquisitions
+  unsigned int numWaves = 10; // Number of consecutive acquisitions
   unsigned int waveInterval = 5; // Time between each O-J rise
-  unsigned int waveLength = 25000; // Array size of wave acquisitions
-  unsigned int waveAqu = 250; // Number of acquisitions in each O-J rise
-  int waveRead[25000];
-  int waveTime[25000];
+  unsigned int waveLength = 2550; // Array size of wave acquisitions
+  unsigned int waveAqu = 400; // Number of acquisitions in each O-J rise
+  int waveRead[2550];
+  int waveTime[2550];
   
   int fm = 0; // Initalise the fm value so we can calcualte it later
   int fo_pos = 4; // Location of Fo in the measured array

@@ -80,6 +80,14 @@ void Fluorescence::wave(Actinic actinic){
     }
     
     actinic.off();
+    for(unsigned int x = 0; x <= 5; x++){
+      actinic.on();
+      delayMicroseconds(100);
+      waveRead[wavePos] = analogRead(readPin);
+      waveTime[wavePos] = micros() - timer;
+      actinic.off();
+      delayMicroseconds(200);
+    }
     delay(waveInterval); // Delay for specified interval
   }
 
