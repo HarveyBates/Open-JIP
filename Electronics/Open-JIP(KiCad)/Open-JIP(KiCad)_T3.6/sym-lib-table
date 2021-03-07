@@ -221,4 +221,6 @@
   (lib (name STD1802T4)(type Legacy)(uri "/Users/harveybates/Documents/GithubProjects/Open-JIP/Open-JIP/Electronics/Open-JIP(KiCad)/Symbols:Footprints:3D-Models/Additional-parts/STD1802T4.lib")(options "")(descr ""))
   (lib (name FDN337N)(type Legacy)(uri "/Users/harveybates/Documents/GithubProjects/Open-JIP/Open-JIP/Electronics/Open-JIP(KiCad)/Symbols:Footprints:3D-Models/Additional-parts/FDN337N.lib")(options "")(descr ""))
   (lib (name VREG_L7806CD2T-TR)(type Legacy)(uri "/Users/harveybates/Documents/GithubProjects/Open-JIP/Open-JIP/Electronics/Open-JIP(KiCad)/Symbols:Footprints:3D-Models/Additional-parts/VREG_L7806CD2T-TR.lib")(options "")(descr ""))
+  (lib (name teensy)(type Legacy)(uri "/Users/harveybates/Documents/GithubProjects/Open-JIP/Open-JIP/Electronics/Open-JIP(KiCad)/Symbols:Footprints:3D-Models/Teensy-boards/teensy.lib")(options "")(descr ""))
+  (lib (name B3B-PH-SM4-TB_LF__SN_)(type Legacy)(uri "/Users/harveybates/Documents/GithubProjects/Open-JIP/Open-JIP/Electronics/Open-JIP(KiCad)/Symbols:Footprints:3D-Models/Additional-parts/B3B-PH-SM4-TB_LF__SN_.lib")(options "")(descr ""))
 )
