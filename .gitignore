@@ -11,7 +11,39 @@
 *.sln.docstates
 *.DS_Store
 CppProperties.json
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+.swp
 
+----- KiCad Files -----
+*.000
+*.bak
+*.bck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-cache.lib
+*.kicad_prl
+*.sch-bak
+*~
+_autosave-*
+*.tmp
+*-save.pro
+*-save.kicad_pcb
+fp-info-cache
+fp-lib-table
+sym-lib-table
+*.dsn
+*.ses
+*.net
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
