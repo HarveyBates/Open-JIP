@@ -21,7 +21,6 @@
 #ifndef Sensitivity_H
 #define Sensitivity_H
 
-#pragma once
 #include <Arduino.h>
 
 /* Fluorescence intensity gain set pins */

@@ -67,7 +67,7 @@ void Fluorescence::measure_j_step(Actinic actinic){
 
 void Fluorescence::wave(Actinic actinic){
   set_reference_voltage(refVoltage); 
-  int wavePos = 0; // Keeps track of position in wave acquisition array
+  unsigned int wavePos = 0; // Keeps track of position in wave acquisition array
   for(unsigned int i = 0; i < numWaves; i++){
     
     actinic.on();
@@ -99,7 +99,7 @@ void Fluorescence::wave(Actinic actinic){
   }
 }
 
-void Fluorescence::measure_fluorescence(unsigned int actinicPin, ADC *adc) {
+void Fluorescence::measure_fluorescence(unsigned int actinicPin) {
   digitalWrite(actinicPin, HIGH);
   
   long long timer = micros(); // Start timer 
@@ -107,14 +107,14 @@ void Fluorescence::measure_fluorescence(unsigned int actinicPin, ADC *adc) {
   // Read microsecond fluorescence values and corresponding timestamps
   for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++) 
   {
-    microRead[i] = adc->adc0->analogRead(readPin);
+    microRead[i] = analogRead(readPin);
     microTime[i] = micros() - timer;
   }
 
   // Read millisecond fluorescence values and corresponding timestamps
   for (unsigned int i = 0; i < sizeof(milliRead) / sizeof(int); i++) 
   {
-    milliRead[i] = adc->adc0->analogRead(readPin);
+    milliRead[i] = analogRead(readPin);
     milliTime[i] = micros() - timer;
     delay(1);
   }
@@ -156,45 +156,45 @@ void Fluorescence::measure_fluorescence(unsigned int actinicPin, ADC *adc) {
 }
 
 void Fluorescence::calculate_parameters(){
-  float fo = fluorescenceValues[fo_pos]; // Gets the minimum level fluorescence (Fo)
+  float fo = fluorescenceValues[foPos]; // Gets the minimum level fluorescence (Fo)
   float fj = 0.0f, fi = 0.0f;
-  float  fj_time = 0.0f, fi_time = 0.0f, fm_time = 0.0f;
-  bool fj_found = false, fi_found = false;
+  float  fjTime = 0.0f, fiTime = 0.0f, fmTime = 0.0f;
+  bool fjFound = false, fiFound = false;
 
   // Next loop gets the Fj and Fi values at 2 and 30 ms respsctively 
   for(unsigned int i = 0; i < sizeof(timeStamps) / sizeof(int); i++){
     // Search for timestamp corresponding to 2 ms
-    if(!fj_found && int(timeStamps[i]) == 2){
+    if(!fjFound && int(timeStamps[i]) == 2){
       fj = fluorescenceValues[i];
-      fj_time = timeStamps[i];
-      fj_found = true;
+      fjTime = timeStamps[i];
+      fjFound = true;
     }
-    else if(!fi_found && int(timeStamps[i]) == 30){
+    else if(!fiFound && int(timeStamps[i]) == 30){
       fi = fluorescenceValues[i];
-      fi_time = timeStamps[i];
-      fi_found = true;
+      fiTime = timeStamps[i];
+      fiFound = true;
     }
   }
 
-  float fm_volts = (fm * refVoltage) / 4096.0;
-  float fv = fm_volts - fo;
-  float fvfm = fv / fm_volts;
+  float fmVolts = (fm * refVoltage) / 4096.0;
+  float fv = fmVolts - fo;
+  float fvfm = fv / fmVolts;
 
   Serial.println();
   Serial.print("Fo: \t");
   Serial.print(fo, 4);
   Serial.print(" V @ ");
-  Serial.print(timeStamps[fo_pos], 4);
+  Serial.print(timeStamps[foPos], 4);
   Serial.println(" ms");
   Serial.print("Fj: \t");
   Serial.print(fj, 4);
-  Serial.println(" V @ " + String(fj_time) + " ms");
+  Serial.println(" V @ " + String(fjTime) + " ms");
   Serial.print("Fi: \t");
   Serial.print(fi, 4);
-  Serial.println(" V @ " + String(fi_time) + " ms");
+  Serial.println(" V @ " + String(fiTime) + " ms");
   Serial.print("Fm: \t");
-  Serial.print(fm_volts, 4);
-  Serial.println(" V @ " + String(fm_time) + " ms");
+  Serial.print(fmVolts, 4);
+  Serial.println(" V @ " + String(fmTime) + " ms");
   Serial.print("Fv: \t");
   Serial.print(fv, 4);
   Serial.println(" V");
@@ -241,7 +241,7 @@ void Fluorescence::calibrate_rise(Actinic actinic){
 }
 
 void Fluorescence::measure_light(Actinic actinic){
-  // Measure light using external 4pi light meter
+  // Measure light using an external light meter
   actinic.on();
   delay(3000);
   actinic.off();

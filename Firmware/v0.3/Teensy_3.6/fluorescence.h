@@ -24,41 +24,29 @@
 #include <Arduino.h>
 #include "actinic.h"
 #include "sensitivity.h"
-#include <ADC.h>
 
-/* Fluorescence analogread pin */
-#define readPin 14
+#define readPin 14 // Fluorescence read pin
 
 class Fluorescence{
-
-  /* Setup for OJIP analysis 
-   *  Length specifies the number of data points captured at two different 
+  /*  Length specifies the number of data points captured at two different 
    *  acquisition frequencies. 
    *  Microsecond (micro) = readings every 8 us
    *  Millisecond (milli) = readings every 1 ms
-   *  
-   *  Each value is stored with its corresponding timestamp. Thus, the length
-   *  of each array must match their corresponding number of acquisitions. 
-   *  E.g. microLength of 1000 means 1000 data points will be captured at 8 us 
-   *  intervals, this must match the array size of microRead and microTime.
   */
-  int microLength = 1000;
-  int microRead [1000];
-  int milliRead[1000];
+  static const unsigned int microLength = 1000; // Set number of microsecond datapoints (default 1000)
+  int microRead [microLength];
+  int milliRead[microLength];
   
-  int milliLength = 1000;
-  float microTime[1000]; 
-  float milliTime[1000];
+  static const unsigned int milliLength = 1000; // Set number of millisecond datapoints (default 1000)
+  int microTime[milliLength]; 
+  int milliTime[milliLength];
   
   /* These arrays represent the final array size of OJIP fluorescence acquisitions.
-   *  Thus they are calculated as:
-   *  array size = microLength + milliLength
-   *  
    *  They hold the full OJIP acquisition (time stamps and values) in volts
    *  and milliseconds.
    */
-  float fluorescenceValues[2000];
-  float timeStamps[2000];
+  float fluorescenceValues[microLength + milliLength];
+  float timeStamps[microLength + milliLength];
   
   /* Setup arrays for a single J-Step acquisitions.
    *  These are used to capture a single 2 ms rise from Fo to Fj.
@@ -67,18 +55,15 @@ class Fluorescence{
    *  
    *  Default: 250 acquisitions (2 ms) at 8 us per measurment
    */
-  unsigned int micorReadJLength = 250;
-  int microReadJ[250];
-  int microTimeJ[250];
-  float jValues[250];
-  float jTime[250];
+  static const unsigned int micorReadJLength = 250;
+  int microReadJ[micorReadJLength];
+  int microTimeJ[micorReadJLength];
+  float jValues[micorReadJLength];
+  float jTime[micorReadJLength];
   
   /* Setup for the wave feature of J-step acquisitions (Multiple O-J rises). 
    * Large arrays are used to store consecutive O-J rises with (waveInterval) ms between  
    * measurments. 
-   * 
-   * Array sizes are calculated as follows:
-   * array size = numWaves * waveAqu
    * 
    * Where waveAqu is the number of microsecond acquisitions used to resolve the
    * J-step and the number of waves represent your desired number of consecutive
@@ -86,13 +71,13 @@ class Fluorescence{
    */
   unsigned int numWaves = 10; // Number of consecutive acquisitions
   unsigned int waveInterval = 5; // Time between each O-J rise
-  unsigned int waveLength = 2550; // Array size of wave acquisitions
+  static const unsigned int waveLength = 2550; // Array size of wave acquisitions
+  int waveRead[waveLength];
+  int waveTime[waveLength];
   unsigned int waveAqu = 400; // Number of acquisitions in each O-J rise
-  int waveRead[2550];
-  int waveTime[2550];
-  
+
   int fm = 0; // Initalise the fm value so we can calcualte it later
-  int fo_pos = 4; // Location of Fo in the measured array
+  int foPos = 3; // Location of Fo in the measured array
   
   float refVoltage = 3.3; // Set the reference voltage (only applicable with Teensy 3.6)
 
@@ -102,7 +87,7 @@ public:
   void measure_j_step(Actinic actinic);
   void calculate_parameters();
   void wave(Actinic actinic);
-  void measure_fluorescence(unsigned int actinicPin, ADC *adc);
+  void measure_fluorescence(unsigned int actinicPin);
 
   // Debugging commands
   void calibrate_fo(Actinic actinic);

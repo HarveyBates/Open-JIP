@@ -21,7 +21,6 @@
 #ifndef Actnic_H
 #define Actnic_H
 
-#pragma once
 #include <Arduino.h>
 
 /* Actinic intensity set pins */
