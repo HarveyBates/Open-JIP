@@ -99,10 +99,10 @@ New users should naviage to the [releases](https://github.com/HarveyBates/Open-J
 
 If you want to contribute to the project or fork this directory feel free to do so, just know that I constantly update files here so they may not function as expected before release. 
 
-To clone this directory type this into your terminal / console.git clone 
+To clone this directory type this into your terminal / console.
 
 ```bash
-git clone https://github.com/HarveyBates/Open-JIP.git
+git clone --depth 1 https://github.com/HarveyBates/Open-JIP.git
 ```
 
 #### Gathering materials
