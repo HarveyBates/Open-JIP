@@ -80,9 +80,12 @@ class Fluorescence{
   int foPos = 3; // Location of Fo in the measured array
   
   float refVoltage = 3.3; // Set the reference voltage (only applicable with Teensy 3.6)
+  unsigned int readResolution = 12; // Analog read resolution (default = 12-bit)
 
 public:
   Fluorescence();
+  void set_resolution(unsigned int resolution);
+  float get_bit_resoltuion();
   void set_reference_voltage(float voltage);
   void measure_j_step(Actinic actinic);
   void calculate_parameters();

@@ -22,6 +22,17 @@
 
 Fluorescence::Fluorescence(){
   set_reference_voltage(refVoltage); // Only applicable with a Teensy 3.6 (disable if using other microcontroller)
+  set_resolution(readResolution);
+}
+
+void Fluorescence::set_resolution(unsigned int resolution){
+  readResolution = resolution;
+  analogReadResolution(resolution);
+  analogRead(readPin); // Initalise resolution
+}
+
+float Fluorescence::get_bit_resoltuion(){
+  return (float)pow(2, readResolution);
 }
 
 void Fluorescence::set_reference_voltage(float voltage){
@@ -56,7 +67,7 @@ void Fluorescence::measure_j_step(Actinic actinic){
   /* Convert and print out the values */
   for(unsigned int i = 0; i < sizeof(microReadJ) / sizeof(int); i++){
     jTime[i] = microTimeJ[i] / 1000.0; // Convert to ms
-    jValues[i] = (microReadJ[i] * refVoltage) / 4096.0; // Convert bits to V
+    jValues[i] = (microReadJ[i] * refVoltage) / get_bit_resoltuion(); // Convert bits to V
     Serial.print(jTime[i], 3); 
     Serial.print("\t");
     Serial.println(jValues[i], 4);
@@ -95,7 +106,7 @@ void Fluorescence::wave(Actinic actinic){
   for(unsigned int i = 0; i < waveLength; i++){
     Serial.print(waveTime[i] / 1000.0, 3); 
     Serial.print("\t");
-    Serial.println((waveRead[i] * refVoltage) / 4096.0, 4);
+    Serial.println((waveRead[i] * refVoltage) / get_bit_resoltuion(), 4);
   }
 }
 
@@ -130,11 +141,11 @@ void Fluorescence::measure_fluorescence(unsigned int actinicPin) {
    if (microRead[i] > fm){
     fm = microRead[i];
    }
-   fluorescenceValues[i] = (microRead[i] * refVoltage) / 4096.0; // Convert to volts and append to final array
+   fluorescenceValues[i] = (microRead[i] * refVoltage) / get_bit_resoltuion(); // Convert to volts and append to final array
    timeStamps[i] = milliReal; // Append time to final array
    Serial.print(milliReal, 3); 
    Serial.print("\t");
-   Serial.println((microRead[i] * refVoltage) / 4096.0, 4);
+   Serial.println((microRead[i] * refVoltage) / get_bit_resoltuion(), 4);
    delay(1);
   }
 
@@ -146,11 +157,11 @@ void Fluorescence::measure_fluorescence(unsigned int actinicPin) {
    if (milliRead[i] > fm){
     fm = milliRead[i];
    }
-   fluorescenceValues[i + microLength] = (milliRead[i] * refVoltage) / 4096.0; // Convert to V and append
+   fluorescenceValues[i + microLength] = (milliRead[i] * refVoltage) / get_bit_resoltuion(); // Convert to V and append
    timeStamps[i + microLength] = milliReal; // Append to timestamps after microRead data
    Serial.print(milliReal, 3); 
    Serial.print("\t");
-   Serial.println((milliRead[i] * refVoltage) / 4096.0, 4);
+   Serial.println((milliRead[i] * refVoltage) / get_bit_resoltuion(), 4);
    delay(1);
   }
 }
@@ -176,7 +187,7 @@ void Fluorescence::calculate_parameters(){
     }
   }
 
-  float fmVolts = (fm * refVoltage) / 4096.0;
+  float fmVolts = (fm * refVoltage) / get_bit_resoltuion();
   float fv = fmVolts - fo;
   float fvfm = fv / fmVolts;
 
@@ -221,11 +232,11 @@ void Fluorescence::calibrate_fo(Actinic actinic){
     delayMicroseconds(20);
     for (int i = 0; i <= 2; i++){
       foread = analogRead(readPin);
-      Serial.println((foread/4096) * refVoltage);
+      Serial.println((foread / get_bit_resoltuion()) * refVoltage);
     }
     actinic.off();
     Serial.print("Final Fo = ");
-    Serial.println((foread/4096) * refVoltage);
+    Serial.println((foread / get_bit_resoltuion()) * refVoltage);
     delay(2000);
     }
 }
