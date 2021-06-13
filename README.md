@@ -237,22 +237,24 @@ In ```actinic.cpp``` the actinic LED intensity can be adjusted. There are four p
 void Actinic::on(){
   switch(intensity){
     case 1:
-      digitalWrite(actinicGain4, HIGH); // Low
+      digitalWrite(actinicGain1, HIGH); // Low
     	break;
     case 2:
-      digitalWrite(actinicGain3, HIGH); // Mid
+      digitalWrite(actinicGain2, HIGH); // Mid
       break;
     case 3:
-      digitalWrite(actinicGain2, HIGH); // High
+      digitalWrite(actinicGain3, HIGH); // High
       break;
     case 4:
-      digitalWrite(actinicGain1, HIGH); // Very high
+      digitalWrite(actinicGain4, HIGH); // Very high
       break;
   }
 }
 ```
 
 *Note-* that a switch statment is used here as this process is time sensitive, the actinic LED must switch on as fast as possible to resolve Fo. 
+
+*Note-* Electrical components have intrinsic variability. If using identical devices ensure actinic intensity is similar using a PAR meter.
 
 *DO NOT -* combine actinic LED intensities as this will result in undefined behaviour. 
 
@@ -262,20 +264,23 @@ In ```sensitivity.cpp``` the detection sensitivity can be adjusted. There are fo
 
 ```C++
 void Sensitivity::define(int _gain){
-  switch(_gain){
-    case 1:
-      digitalWrite(fluoroGain1, HIGH); // Low (high chl concentration)
-      break;
-    case 2:
-      digitalWrite(fluoroGain2, HIGH); // Mid
-      break;
-    case 3:
-      digitalWrite(fluoroGain3, HIGH); // High
-      break;
-    case 4:
-      digitalWrite(fluoroGain4, HIGH); // Very high (low chl concentration)
-      break;
-  }
+    refresh();
+    switch(_gain){
+        case 1:
+            // Lowest
+            digitalWrite(fluoroGain1, HIGH);
+            break;
+        case 2:
+            digitalWrite(fluoroGain2, HIGH);
+            break;
+        case 3:
+            digitalWrite(fluoroGain3, HIGH);
+            break;
+        case 4:
+            // Highest
+            digitalWrite(fluoroGain4, HIGH);
+            break;
+    }
 }
 ```
 
