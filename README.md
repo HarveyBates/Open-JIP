@@ -373,6 +373,8 @@ Open-JIP operates using a Teensy 3.6 microcontroller connected to a custom print
 
 Fluorescence dection is acheived with the use of an operational amplifier (op-amp) connected as a transimpedance amplifier. The inverting input is connected to a photodiode, while the non-inverting input is connected to a voltage divider to provide a very small offset voltage. The concept of the offset voltage is that the amplifier (op-amp) will respond faster to changes in voltage. 
 
+*Note-* Resistor values may change depending on your application.
+
 <p align="center">
   <img src="Images/FluoroAdjDetection.png" width="600">
 </p>
@@ -390,6 +392,8 @@ Four different sensitivies are provided though the use of a CMOS switch (74HC406
 ### Actinic intensity
 
 The actinic LED is controlled in the same way as the detection circuit i.e. Using a CMOS switch to controll its brightness. Again four levels of brightness can be selected in the firmware and are controlled by resistors (10K, 12K, 15K, 20k) connected to the base of the darlington transisitor (BD681). Adjusting the value of these resistors will result in the LED getting brighter or dimmer based on their resistance value.
+
+*Note-* Resistor values may change depending on your application.
 
 <p align="center">
   <img src="Images/ActinicAdjDetection.png" width="600">
