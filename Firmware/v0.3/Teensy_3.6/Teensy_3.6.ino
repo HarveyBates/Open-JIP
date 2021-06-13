@@ -30,10 +30,10 @@ void setup() {
   pinMode(13, OUTPUT); // Sets the microcontrollers LED pin as an output
   
   sensitivity.refresh(); // Switch off all gain pathways
-  sensitivity.define(4); // Set the detection senstivity: 1 (lowest) - 4 (highest)
+  sensitivity.define(4); // Set the detection senstivity: (F) 1 (lowest) - 4 (highest)
 
   actinic.off(); // Switch off all actinic pathways
-  actinic.define(4); // Define desired actinic intensity: 1 (lowest) - 4 (highest)
+  actinic.define(1); // Define desired actinic intensity: (A) 1 (lowest) - 4 (highest)
 }
 
 void loop(){
