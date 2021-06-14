@@ -38,5 +38,6 @@ public:
   void off();
   void define(unsigned int mag);
   void on();
+  int get_settings();
 };
 #endif

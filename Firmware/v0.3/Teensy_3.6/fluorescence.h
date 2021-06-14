@@ -77,7 +77,7 @@ class Fluorescence{
   unsigned int waveAqu = 400; // Number of acquisitions in each O-J rise
 
   int fm = 0; // Initalise the fm value so we can calcualte it later
-  int foPos = 3; // Location of Fo in the measured array
+  int foPos = 4; // Location of Fo in the measured array
   
   float refVoltage = 3.3; // Set the reference voltage (only applicable with Teensy 3.6)
   unsigned int readResolution = 12; // Analog read resolution (default = 12-bit)

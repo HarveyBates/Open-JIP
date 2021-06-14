@@ -35,6 +35,7 @@ void Sensitivity::refresh(){
 }
 
 void Sensitivity::define(int _gain){
+  fluorescence_gain = _gain;
   refresh();
   switch(_gain){
     case 1:
@@ -52,4 +53,8 @@ void Sensitivity::define(int _gain){
       digitalWrite(fluoroGain4, HIGH);
       break;
   }
+}
+
+int Sensitivity::get_settings(){
+  return fluorescence_gain;
 }

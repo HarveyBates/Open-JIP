@@ -133,6 +133,7 @@ void Fluorescence::measure_fluorescence(unsigned int actinicPin) {
   digitalWrite(actinicPin, LOW); // Turn off actinic LED
   delay(10);
 
+  fm = 0; // Reset Fm back to zero
   // Convert micros() to milliseconds (ms) for microsecond values and convert bits to voltage
   for (unsigned int i = 0; i < sizeof(microRead) / sizeof(int); i++)
   {
@@ -225,7 +226,7 @@ void Fluorescence::calculate_parameters(){
 void Fluorescence::calibrate_fo(Actinic actinic){
   /* Calibrate the fo value of the fluorometer, can be used to ensure the concentration of algae
   is not too high
-  */  
+  */
   float foread = 0.0f;
   for (int k = 0; k < 5; k++){
     actinic.on();

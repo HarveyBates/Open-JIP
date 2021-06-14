@@ -57,17 +57,21 @@ void Actinic::on(){
   switch(intensity){
     case 1:
       // Lowest
-      digitalWrite(actinicGain1, HIGH);
+      digitalWrite(actinicGain4, HIGH);
       break;
     case 2:
-      digitalWrite(actinicGain2, HIGH);
+      digitalWrite(actinicGain3, HIGH);
       break;
     case 3:
-      digitalWrite(actinicGain3, HIGH);
+      digitalWrite(actinicGain2, HIGH);
       break;
     case 4:
       // Highest
-      digitalWrite(actinicGain4, HIGH);
+      digitalWrite(actinicGain1, HIGH);
       break;
   }
+}
+
+int Actinic::get_settings(){
+  return intensity;
 }

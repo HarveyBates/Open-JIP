@@ -16,7 +16,8 @@
      
      For more information contact: harvey.bates@student.uts.edu.au or see
      https://github.com/HarveyBates/Open-JIP 
-*/ 
+*/
+
 #include "sensitivity.h"
 #include "actinic.h"
 #include "fluorescence.h"
@@ -52,6 +53,12 @@ void loop(){
     }
     else if(command.equals("CP")){
       fluorescence.calculate_parameters();
+    }
+    else if(command.equals("Settings")){
+      Serial.print("Sensitivity: ");
+      Serial.println(sensitivity.get_settings());
+      Serial.print("Actinic Brightness: ");
+      Serial.println(actinic.get_settings());
     }
     else if(command.startsWith("R")){
       unsigned int resolution = command.substring(1, command.length()).toInt();

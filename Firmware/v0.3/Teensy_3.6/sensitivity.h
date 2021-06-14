@@ -31,9 +31,11 @@
 #define fluoroGain4 22
 
 class Sensitivity {
+  int fluorescence_gain = 1;
 public:
   Sensitivity();
   void refresh();
   void define(int _gain);
+  int get_settings();
 };
 #endif
