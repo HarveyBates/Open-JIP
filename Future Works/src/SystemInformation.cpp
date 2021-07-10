@@ -1,7 +1,0 @@
-// 
-// 
-// 
-
-#include "SystemInformation.h"
-
-
