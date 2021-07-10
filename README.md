@@ -6,9 +6,16 @@
 
 Open-JIP is an open-source chlorophyll *a* fluorometer used to quantify photosynthetic phenotypes in terrestrial plants and microalgae. It is controlled via a Teensy microcontroller and features highly customisable electrical components and a 3D-printed infrastructure. 
 
+
 #### OJIP
 
-Open-JIP utilises a technique known as the fast polyphasic rise fluorescence (also known as OJIP). Steady irradaince is provided from an emitting LED, this excites photosynthetic antenna in the sample resulting in excess irradiance being emitted as photons of a longer wavelength (i.e. fluorescence). The emitted fluorescence, which contains information regarding the state of photosynthesis, is captured by a photodiode, amplified by the custom circuitry and stored by the Teensy microcontroller. 
+Open-JIP utilises a technique known as the fast polyphasic rise fluorescence
+(also known as OJIP). Steady irradiance is provided from an emitting LED, this
+excites photosynthetic antenna in the sample resulting in excess irradiance
+being emitted as photons of a longer wavelength (i.e. fluorescence). The
+emitted fluorescence, which contains information regarding the state of
+photosynthesis, is captured by a photodiode, amplified by the custom circuitry
+and stored by the Teensy microcontroller. This all happens in less than a second.
 
 The transient captured by Open-JIP gives the user an indication of the state of photosynthesis in the subject organism to varying levels of complexity. If you would like to know more about the theory surrounding the measurement of chlorophyll *a* fluorescence, this [link](https://doi.org/10.1016/j.algal.2020.102105) gives a basic introduction and resources for further reading.
 
@@ -24,17 +31,10 @@ If you would like to see what the device is capable of, you may be interested in
 
 If you would like to collaborate on a project, or would like to see if Open-JIP can be customised to suit your application, please email me at [harvey_bates@hotmail.com](mailto:harvey_bates@hotmail.com). 
 
-### Future of Open-JIP
 
-Since the publication of Open-JIP a number of changes have been made to increase the devices capabilities. These include:
+### Disclaimer
 
-1. Adjustable fluorescence protocols
-2. Ability to change detection sensitivity dynamically (though software)
-3. Adjustment of actinic LED intensity dynamically (through software)
-4. Improvements in resolution
-5. Improvements in number of datapoints in each OJIP transient
-
-***
+Open-JIP requires some knowledge of electronics, programming and photosynthesis to operate. If you have problems with the device place an issue in the [issues](https://github.com/HarveyBates/Open-JIP/issues) tab of this repository and I will do my best to address it as soon as possible.
 
 # USER MANUAL
 
@@ -93,54 +93,61 @@ Below contains the user manual for Open-JIP, if you have any questions there is 
 
 ##### Method 1 (New users)
 
-New users should naviage to the [releases](https://github.com/HarveyBates/Open-JIP/releases) page to find the most recent (and stable) version of the device. You can download the latest release as a `.zip` file and this will contain all the files you need to get the device up and running. 
+New users should navigate to the [releases](https://github.com/HarveyBates/Open-JIP/releases) page to find the most recent (and stable) version of the device. You can download the latest release as a `.zip` file and this will contain all the files you need to get the device up and running. 
 
-##### Method 2 (Experinced users / collaborators)
+The most recent version is **v0.3**. 
+
+When searching through files in this repository all relevant folders are labeled with a specific version. You will want to use files that match the version you are using.
+
+##### Method 2 (Experienced users / collaborators)
 
 If you want to contribute to the project or fork this directory feel free to do so, just know that I constantly update files here so they may not function as expected before release. 
 
 To clone this directory type this into your terminal / console.
 
 ```bash
-git clone --depth 1 https://github.com/HarveyBates/Open-JIP.git
+git clone https://github.com/HarveyBates/Open-JIP.git
 ```
 
 #### Gathering materials
 
 Open-JIP can be built in an afternoon if you have all the equipment at hand. The folder "Bill of Materials" contains all the materials needed to build Open-JIP. This has been divided into two parts; (1) circuit board and (2) other. 
 
-In addition to the Bill of Mateirals you will need to have access to:
+In addition to the Bill of Materials you will need to have access to:
 
 1. A soldering iron
 2. Solder (Paste or wire variety)
-3. A reflow oven (not nessesary but makes the circuit board easier to assemble)
+3. A re-flow oven (not necessary but makes the circuit board easier to assemble)
 4. A 3D-printer
 5. A pair of wire strippers / cutters
-6. Some tweesers
+6. Some tweezers
 
 ##### Printed circuit board (PCB)
 
 In the ```Bill of Materials/Circuit Board``` folder you will find a table all the components needed to construct the Open-JIP circuit board. These components can be bought from common electronics suppliers such as [digikey](https://www.digikey.com/), [LCSC](https://lcsc.com/en) or [farnell](https://au.element14.com/) etc. Links for each component is provided.
 
-Note that most of the comonents are suface mount (SMD), this is due to their increased reliablity and in my opinion its easier to assemble SMD compared to through-hole (THT) components. 
+Note that most of the components are surface mount (SMD), this is due to their increased reliability and in my opinion its easier to assemble SMD compared to through-hole (THT) components. 
 
 ###### Ordering a PCB
 
 To order the circuit board I recommend using [JLCPCB](https://jlcpcb.com/) as they are cheap, easy and ship fast. 
 
-1. Open the folder titled Electronics and compress the housed Gerber files into a ```.zip``` file. 
-2. On the JLCPCB website drag and drop the ```.zip``` file into the order form. 
+1. Open the folder titled Electronics 
+2. Navigate to your current version 
+3. In the subdirectory select the folder containing gerber and drl files
+4. Compress this folder into a ```.zip``` file. 
+5. On the JLCPCB website drag and drop the ```.zip``` file into the order form. 
 
-The default settings are sutiable and you will receive 5 circuit boards for around $30 AUD. 
+The default settings are suitable. 
 
 ##### 3D Models
 
-The 3D-models used for 3D-printing Open-JIP can be found in the ```Open-JIP/3D Models``` folder. Two file types are specified:
+The 3D-models used for 3D-printing Open-JIP can be found in the ```Open-JIP/Hardware``` folder. Two file types are specified:
 
-1. ```.stl``` can be directly imported into 3D-printing software such as [Ultimaker-Cura](https://ultimaker.com/software/ultimaker-cura) or sent to a local 3D-printing manufactuer.
+1. ```.stl``` can be directly imported into 3D-printing software such as [Ultimaker-Cura](https://ultimaker.com/software/ultimaker-cura) or sent to a local 3D-printing manufacturer.
 2. ```.STEP``` is the modifiable Open-JIP 3D-model and as such can be configured whichever way you want before being exported as a ```.stl``` file. You can use 3D modeling software to do this such as [Fusion360](https://www.autodesk.com/products/fusion-360/overview) or [Solidworks](https://www.solidworks.com/).
 
-##### Additonal parts
+##### Additional parts
 
 In addition to the above electronics you will need a few components such as a Teensy microcontroller, power supply, computer to use the device etc. A table of all these additional items can be found in the folder location ```Bill of Materials/Other```.
 
@@ -163,11 +170,11 @@ When first using Open-JIP:
 5. ```File>Open``` the "Teensy.ino" file found in ```Firmware/v0.3/Teensy_3.6/Teensy_3.6.ino```
 6. ```Sketch>Upload``` to flash the file onto the Teensy
 
-The povided ```Teensy.ino``` file will work as is, but if you wish to change settings in this file you will need to reupload the firmware to the Teensy again after changes have been made.
+The provided ```Teensy.ino``` file will work as is, but if you wish to change settings in this file you will need to reupload the firmware to the Teensy again after changes have been made.
 
 ### Basic Operations
 
-To take a measurment open the serial monitor (in the Arduino IDE when the deivce is connected to your computer) (```Tools>Serial Monitor```) and type in the command ```MF``` (denoting **m**easure **f**luorescence). This will (in the default configuration) take a one second measurement of chlorophyll *a* fluorescence and print the resulting measurments out into the serial monitor. You can copy and paste the data into excel in order to graph the transient.
+To take a measurement open the serial monitor (in the Arduino IDE when the device is connected to your computer) (```Tools>Serial Monitor```) and type in the command ```MF``` (denoting **m**easure **f**luorescence). This will (in the default configuration) take a one second measurement of chlorophyll *a* fluorescence and print the resulting measurements out into the serial monitor. You can copy and paste the data into excel in order to graph the transient.
 
 There are a number of included functions that require the same method to operate:
 
@@ -175,38 +182,33 @@ There are a number of included functions that require the same method to operate
 
 1. ```MF``` - **M**easure fluorescence. Measure the chlorophyll *a* fluorescence signature of the organism of interest. 
 2. ```CP``` - **C**alculate **p**arameters. Calculate and print out basic fluorescence parameters from the most recent OJIP curve. 
-3. ```CFo``` - **C**alibrate **F<sub>o</sub>** (the minimum level fluoresence). Provides short flashes of illumination for calibrating the minimum level fluorescence. This command is useful if you want to know if your measurment is going to *saturate* (due to an overly concentrated sample) before taking a measurment. 
-4. ```An``` - **A**ctinic intensity (irradiance of LED) where ***n*** is a number between 1 and 4 (lowest to highest).
-5. ```Fn``` - **F**luorescence gain (sensitivity of detection) where ***n*** is a number between 1 and 4 (lowest to highest).
+3. ```CFo``` - **C**alibrate **F<sub>o</sub>** (the minimum level fluoresence). Provides short flashes of illumination for calibrating the minimum level fluorescence. This command is useful if you want to know if your measurement is going to *saturate* (due to an overly concentrated sample) before taking a measurement. 
+4. ```An``` - **A**ctinic intensity (irradiance of LED) where *n* is a number between 1 and 4 (lowest to highest).
+5. ```Fn``` - **F**luorescence gain (sensitivity of detection) where *n* is a number between 1 and 4 (lowest to highest).
 
-**Note** - It is reccomended that the minumum level of fluorescence (F<sub>o</sub>) is greater than 0.3 V for the maximum stability of acquisitions.
+**Note** - It is recommended that the minimum level of fluorescence (F<sub>o</sub>) is greater than 0.3 V for the maximum stability of acquisitions.
 
 #### Advanced functions
 
 1. ```MJ``` - **M**easure **J**-step. Measures up to the J-step (~2 ms) and returns the data to the serial port.
 2. ```MW``` - **M**easure **w**ave. Measures up to the J-step multiple times with set time intervals between acquisitions. 
 
-#### Calibration funcitons
+#### Calibration functions
 
 1. ```ML``` - Calibrate actinic intensity (**m**easure **l**ight). Turns on the actinic LED for a period of three seconds to allow the intensity to be measured by a 4&#960; light meter.
 2. ```Cr``` **C**alibrate **r**ise time of the actinic LED/amplifier combination. Provides some short  (100us) flashes of illumination from the actinic LED to calibrate your setup using an external oscilloscope. Useful if you want to ensure your Fo value is accurate (i.e. Fo should be measured when the actinic LED and amplifier are stable (usually around 40us)). *Note* this is only nessesary if you alter the default electronics configuration (see below).  
 
 ### Python Control
 
-Open-JIP comes with an external cross platform python script that allows users to take basic measurments, plot the data and sort it into a ```.csv``` file automatically. This program is located under ```External Control/Open-JIP.py```.
+Open-JIP comes with an external cross platform python script that allows users to take basic measurements, plot the data and sort it into a ```.csv``` file automatically. This program is located under ```External Control/Open-JIP.py```.
 
 ```Open-JIP.py``` uses [plotly](https://plotly.com/python/) to plot the data and [pyserial](https://pyserial.readthedocs.io/en/latest/pyserial.html) to access the serial port of your machine. You must have [python](https://www.python.org/) installed to use this script. **This program runs in the terminal / console**. Additonally you need pip to install these requirements as follows:
 
 ```bash
-cd Open-JIP/External Control
+cd Open-JIP/Software
 pip3 install -r requirements.txt
 python3 Open-JIP.py
-```
-
-If the above doesn't work, try this instead:
-
-```bash
-cd Open-JIP/External Control
+# or (depending on python installation)
 pip install -r requirements.txt
 python Open-JIP.py
 ```
@@ -252,8 +254,6 @@ void Actinic::on(){
 }
 ```
 
-*Note-* that a switch statment is used here as this process is time sensitive, the actinic LED must switch on as fast as possible to resolve Fo. 
-
 *Note-* Electrical components have intrinsic variability. If using identical devices ensure actinic intensity is similar using a PAR meter.
 
 *DO NOT -* combine actinic LED intensities as this will result in undefined behaviour. 
@@ -268,21 +268,24 @@ void Sensitivity::define(int _gain){
     switch(_gain){
         case 1:
             // Lowest
-            digitalWrite(fluoroGain1, HIGH);
+            digitalWrite(fluoroGain1, HIGH); // Photosynthesis (OJIP)
             break;
         case 2:
-            digitalWrite(fluoroGain2, HIGH);
+            digitalWrite(fluoroGain2, HIGH); // Photosynthesis (OJIP)
             break;
         case 3:
-            digitalWrite(fluoroGain3, HIGH);
+            digitalWrite(fluoroGain3, HIGH); // Concentration only (not recommended for photosynthesis)
             break;
         case 4:
             // Highest
-            digitalWrite(fluoroGain4, HIGH);
+            digitalWrite(fluoroGain4, HIGH); // Concentration only (not recommended for photosynthesis)
             break;
     }
 }
 ```
+**NOTE**
+
+Recent testing of the gain settings of Open-JIP has led to the conclusion that the current version of the device (v0.3) can only use gain 1 and 2 for photosynthesis (OJIP) measurements. Gain 3 and 4 should only be used for concentration estimates using the fluorescence intensity at ~120 &mu;s.
 
  *DO NOT* - combine gain settings as this will result in undefined behaviour. 
 
@@ -292,7 +295,7 @@ In ```fluorescence.cpp``` the reference voltage can be adjusted to either 3.3 or
 
 ```C++
 void Fluorescence::set_reference_voltage(float voltage){
-  // Sets and initalises the required reference voltage for measurments
+  // Sets and initialises the required reference voltage for measurements
   if(voltage == 3.3){
     analogReference(DEFAULT); // Set to 3.3 V
   }
@@ -302,11 +305,11 @@ void Fluorescence::set_reference_voltage(float voltage){
   else{
     analogReference(DEFAULT); // Set to default (3.3 V) if unknown value is found
   }
-  analogRead(readPin); // Initalise reference voltage
+  analogRead(readPin); // Initialise reference voltage
 }
 ```
 
-*Note* - This is usally done statically at the start of the program by adjusting the value of ```refVoltage``` to either 3.3 or 1.1 depending on your requirements.
+*Note* - This is usually done statically at the start of the program by adjusting the value of ```refVoltage``` to either 3.3 or 1.1 depending on your requirements.
 
 The number of bits for each reading can be changed via this command in the ```void setup()``` function:
 
@@ -342,24 +345,24 @@ In ```fluorescence.h``` the length of the actinic exposure (pulse) can be adjust
 
 ```c++
 // Microsecond (micro) = readings every 8 us
-  int microLength = 1000; // Equals length of microread array
-  int microRead [1000]; // Stores microsecond readings 
-  int milliRead[1000]; // Stores millisecond readings
+static const unsigned int microLength = 1000; 
+int microRead [microLength];
+int milliRead[microLength];
 
 // Millisecond (milli) = readings every 1 ms
-  int milliLength = 1000; // Equals length of milliread array
-  float microTime[1000]; // Stores microsecond timestamps
-  float milliTime[1000]; // Stores millisecond timestamps
+static const unsigned int milliLength = 1000; 
+int microTime[milliLength]; 
+int milliTime[milliLength];
 
 // Stores final array in converted form (i.e. Volts and Milliseconds)
-  float fluorescenceValues[2000];
-  float timeStamps[2000];
+float fluorescenceValues[microLength + milliLength];
+float timeStamps[microLength + milliLength];
 ```
 
-*Note* - If you are using the ```Open-JIP.py``` script you will need to change the number of datapoints that are read to match the length of ```fluorescenceValues```:
+*Note* - If you are using the ```Open-JIP.py``` script you will need to change the number of data points that are read to match the length of ```fluorescenceValues```:
 
 ```python
-timeStamps, fluorescenceValues = measure_fluorescence(2000) # Match with teensy script array length
+timeStamps, fluorescenceValues = measure_fluorescence(2000) # Match with teensy script array length (default 2000)
 ```
 
 ## 3. Hardware
@@ -371,7 +374,7 @@ Open-JIP operates using a Teensy 3.6 microcontroller connected to a custom print
 
 ### Detection
 
-Fluorescence dection is acheived with the use of an operational amplifier (op-amp) connected as a transimpedance amplifier. The inverting input is connected to a photodiode, while the non-inverting input is connected to a voltage divider to provide a very small offset voltage. The concept of the offset voltage is that the amplifier (op-amp) will respond faster to changes in voltage. 
+Fluorescence detection is achieved with the use of an operational amplifier (op-amp) connected as a transimpedance amplifier. The inverting input is connected to a photodiode, while the non-inverting input is connected to a voltage divider to provide a very small offset voltage. The concept of the offset voltage is that the amplifier (op-amp) will respond faster to changes in voltage. 
 
 *Note-* Resistor values may change depending on your application.
 
@@ -381,13 +384,19 @@ Fluorescence dection is acheived with the use of an operational amplifier (op-am
 
 #### Gain adjustment
 
-Four different sensitivies are provided though the use of a CMOS switch (74HC4066D) which has a range of different feedback resistors (1M, 2M, 3.3M and 3.9M). These resistors are all 0805 SMD. The gain is selected in the firmware of Open-JIP; however, if you wish to adjust the senstivity futher you can do so by changing one or more of these resistors. 
+Four different sensitivities are provided though the use of a CMOS switch (74HC4066D) which has a range of different feedback resistors (1M, 2M, 3.3M and 3.9M). These resistors are all 0805 SMD. The gain is selected in the firmware of Open-JIP; however, if you wish to adjust the senstivity futher you can do so by changing one or more of these resistors. 
 
 **Increasing** the resistance of the feedback resistor will **increase** the sensitivty of detection.
 
 **Decreasing** the resistance of the feedback resistor will **decrese** the sensitivty of detection.
 
-*Note* - if you begin to get a large overshoot occuring at the start of your measurements you may need to increase the capacitor value (C3) to 2pF - 5pF. This [article](https://wiki.analog.com/university/courses/electronics/electronics-lab-1st) may help you if you encounter this issue.
+**Note**
+
+Feedback resistances above 2Mohm are not suitable for OJIP measurements in v0.3. Ideally the feedback resistor should be a small as possible to increase the response time of the device.
+
+**Note**
+
+If you begin to get a large overshoot occurring at the start of your measurements you may need to increase the capacitor value (C3) to 2pF - 5pF. This [article](https://wiki.analog.com/university/courses/electronics/electronics-lab-1st) may help you if you encounter this issue.
 
 ### Actinic intensity
 
@@ -405,9 +414,24 @@ The input voltage (15 V) is filtered through a 12 V linear voltage regulator. Th
 
 **Decreasing** the resistance of R10 results in **increased** actinic brightness.
 
-***
+**Note**
 
-### Licence
+Gate resistor values are dependent on a number of factors including manufacturer tolerances and LED color. Dialing in the resistor values to use in your device is an important consideration. Typically you will need a PAR meter to calibrate the devices brightness before use (if using for OJIP measurements). However, if access to a PAR meter is an issue, the shape of the OJIP curve can be an indicator of LED intensity. If the rise between Fo and Fj is sharp and rapid (<2ms), typically the device has enough brightness to saturate the electron transport chain. However, if the rise between Fo and Fj is gradual (>2ms), the brightness may not be bright enough. 
+
+
+## Future of Open-JIP
+
+Since the publication of Open-JIP a number of changes have been made to increase the devices capabilities. These include:
+
+1. ~~Adjustable fluorescence protocols~~
+
+2. ~~Ability to change detection sensitivity dynamically (though software)~~
+
+3. ~~Adjustment of actinic LED intensity dynamically (through software)~~
+4. Improvements in resolution
+5. Improvements in number of datapoints in each OJIP transient
+
+## Licence
 
 The software in this work is licensed under GNU AFFERO GENERAL PUBLIC LICENSE Copyright (C) (2020) (Harvey Bates)
 
