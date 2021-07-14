@@ -1,17 +1,26 @@
-Value,Designator (Location),Quantity ,Footprint,Required,Notes,Website
-330nF,C10,1,Capacitor_SMD:C_0805_2012Metric,Y,Capacitor SMD,https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_FH-Guangdong-Fenghua-Advanced-Tech-0805B334K500NT_C1740.html 
-1pF,C5,1,Capacitor_SMD:C_0805_2012Metric,Y,Capacitor SMD,https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_Walsin-Tech-Corp-0805N1R0C500CT_C424847.html 
-100nF,"C6,C7,C8,C11",4,Capacitor_SMD:C_0805_2012Metric,Y,Capacitor SMD,https://lcsc.com/product-detail/Multilayer-Ceramic-Capacitors-MLCC-SMD-SMT_TORCH-CT41G-0805-2X1-50V-0-1mF-M-N_C138340.html 
-1uF,C9,1,Capacitor_SMD:CP_Elec_ 4x5.4mm,Y,Capacitor Electrolytic 4 x 5.4mm,https://lcsc.com/product-detail/Aluminum-Electrolytic-Capacitors-SMD_ST-Semtech-CS1H010M-CRC54_C116391.html 
-PJ-202A,J2,1,Barrel_Jack_5.5mmODx2.1mmID_PJ-202A,Y,Barrel Jack for 15 V 1.2 A power supply,https://lcsc.com/product-detail/AC-DC-Power-Plugs-Receptacles_GANGYUAN-DC-470-2-1GP_C194407.html 
-SFH_213,PV1,1,Photodiode_5mm_Radial_IR_Filtered,Y,Photodiode (IR Filtered),https://au.element14.com/osram-opto-semiconductors/sfh213-fa/photodiode-ir-filtered/dp/1212763?st=SFH213-FA 
-BD681,Q1,1,BD681_Darlington_Transistor,Y,Transistor (Darlington),https://lcsc.com/product-detail/Darlington-Transistors_STMicroelectronics-BD681_C703688.html 
-5.6K,R10,1,Resistor_SMD:R_0805_2012Metric,Y,"Resistor, May want a range (3K – 15K)",https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount_5-6KR-562-5_C159921.html 
-4.7M,R5,1,Resistor_SMD:R_0805_2012Metric,Y,"Resistor, May want a range (3.3M to 10M)",https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount_HKR-Hong-Kong-Resistors-RCT054M7FLF_C185697.html 
-47,R6,1,Resistor_SMD:R_0805_2012Metric,Y,Resistor,https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount_Walsin-Tech-Corp-WR08X470JTL_C168501.html
-20K,R7,1,Resistor_SMD:R_0805_2012Metric,Y,Resistor,https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount_FH-Guangdong-Fenghua-Advanced-Tech-RS-05K203JT_C139905.html 
-5,R8,1,Resistor_SMD:R_0805_2012Metric,Y,Resistor,https://lcsc.com/product-detail/Chip-Resistor-Surface-Mount_FH-Guangdong-Fenghua-Advanced-Tech-RS-05L5R10FT_C304869.html 
-Teensy3.6,U2,1,Teensy:Teensy35_36,Y,Only need one,https://www.pjrc.com/store/teensy36.html 
-OPA320AIDBVT,U3,1,OPA320AIDBVT:SOT95P280X145-5N,Y,Operational amplifier for detection ,https://www.digikey.com/en/products/detail/texas-instruments/OPA320AIDBVT/2751273 
-KA7812ETU,U4,1,KA7812:TO220V,Y,Linear voltage regulator,https://lcsc.com/product-detail/Dropout-Regulators-LDO_FeiHong-KA7812B_C438618.html 
-Teensy-Board24Pin,Goes in J3,2,24 Pin Female Headers x2,Y,"For attaching teeny to circuit board, these are hard to find",https://www.ebay.com.au/itm/2-54mm-Pitch-Female-Pin-Header-Socket-Connector-Strip-2-3-4-5-6-7-40P-Single-Row/264208648021?hash=item3d84100755:g:FcoAAOSwoF5cmyg5&frcectupt=true
+Reference, Quantity, Value, Footprint,Required,Notes,Part Link
+C2 ,1,330nF,Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,Y,,
+C3 ,1,1pF,Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,Y,,
+C1 C4 C5 C6 ,4,100nF,Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,Y,,
+C7 ,1,1uF,Capacitor_SMD:CP_Elec_4x5.4,Y,,
+CR1 ,1,BD681 or BD681G,Additional-parts:BD681,Y,Darlington tranistor,https://www.digikey.com/en/products/detail/on-semiconductor/BD681/606034 https://www.digikey.com/en/products/detail/on-semiconductor/BD681G/918366
+D1 ,1,SFH_213_FA,Additional-parts:SFH_213_FA,Y,Photodiode,https://www.digikey.com/en/products/detail/osram-opto-semiconductors-inc/SFH-213-FA/2205882?s=N4IgTCBcDaIMoDEASACMBGAzChBBEAugL5A
+D2 D3 ,2,LED,LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder,Y,,
+J1 ,1,EJ503A,Additional-parts:DCJack_MPD_EJ503A,Y,DC jack,
+J2 ,1,Screw_Terminal_01x02,TerminalBlock:TerminalBlock_Altech_AK300-2_P5.00mm,Y,For attaching actinic LED,https://www.digikey.com/en/products/detail/phoenix-contact/1730010/2511110
+R1 ,1,20K,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R10 ,1,1M,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R11 ,1,5.1K,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R12 ,1,1K,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R13 ,1,15K,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R2 ,1,5,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R3 ,1,3.9M,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R4 ,1,10K,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R5 ,1,3.3M,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R6 ,1,8.2K,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R7 ,1,47,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R8 ,1,2M,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+R9 ,1,6.8K,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Y,,
+U1 U2 ,2,"74HC4066D,653",Additional-parts:SOIC127P600X175-14N,Y,CMOS switch,https://www.digikey.com/en/products/detail/toshiba-semiconductor-and-storage/74HC4066D/7809425
+U3 ,1,KA7812ETU or MC7812CTG,Additional-parts:TO253P1067X470X2040-3,Y,Linear voltage regulator,https://www.digikey.com/en/products/detail/on-semiconductor/KA7812ETU/1051250 https://www.digikey.com/en/products/detail/on-semiconductor/MC7812CTG/919340
+U4 ,1,OPA320AIDBVT,Additional-parts:SOT95P280X145-5N,Y,Operational amplifier,https://www.digikey.com/en/products/detail/texas-instruments/OPA320SAIDBVT/4291961 
