@@ -22,9 +22,11 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
-.swp
+*.swp
+*.*.swp
 
------ KiCad Files -----
+# KiCad Files
+open_jip-backups
 *.000
 *.bak
 *.bck
@@ -44,6 +46,8 @@ sym-lib-table
 *.dsn
 *.ses
 *.net
+*.htm
+Licence.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

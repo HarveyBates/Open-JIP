@@ -1,0 +1,35 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# CONUFL001-SMD-T
+#
+DEF CONUFL001-SMD-T J 0 40 N N 1 L N
+F0 "J" -150 160 50 H V L BNN
+F1 "CONUFL001-SMD-T" -160 -170 50 H V L BNN
+F2 "LINX_CONUFL001-SMD-T" 0 0 50 H I L BNN
+F3 "" 0 0 50 H I L BNN
+F4 "B" 0 0 50 H I L BNN "PARTREV"
+F5 "Linx Technologies" 0 0 50 H I L BNN "MANUFACTURER"
+F6 "Manufacturer Recommendations" 0 0 50 H I L BNN "STANDARD"
+DRAW
+C 0 100 40 0 0 10 N
+P 2 0 0 10 -40 60 0 60 N
+P 2 0 0 10 0 60 40 60 N
+P 2 0 0 10 0 60 0 -30 N
+C 0 0 10 0 0 10 N
+P 2 0 0 10 0 -30 -30 -30 N
+P 2 0 0 10 0 -30 30 -30 N
+P 2 0 0 10 -30 -30 -50 -60 N
+P 2 0 0 10 0 -30 -20 -60 N
+P 2 0 0 10 30 -30 10 -60 N
+A -125 100 25 2700 4499 0 0 10 N -125 75 -125 125
+A -125 0 25 2700 4499 0 0 10 N -125 -25 -125 25
+X ~ 1 100 100 200 L 40 40 0 0 P 
+X ~ 2 100 0 200 L 40 40 0 0 P 
+X ~ 3 100 0 200 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
