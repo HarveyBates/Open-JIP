@@ -1,0 +1,24 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# S2B-PH-SM4-TB(LF)(SN)
+#
+DEF S2B-PH-SM4-TB(LF)(SN) J 0 40 Y Y 1 L N
+F0 "J" -200 220 50 H V L BNN
+F1 "S2B-PH-SM4-TB(LF)(SN)" -200 -371 50 H V L BNN
+F2 "JST_S2B-PH-SM4-TB(LF)(SN)" 0 0 50 H I L BNN
+F3 "" 0 0 50 H I L BNN
+F4 "Manufacturer Recommendation" 0 0 50 H I L BNN "STANDARD"
+F5 "JST" 0 0 50 H I L BNN "MANUFACTURER"
+DRAW
+S -200 -300 200 200 0 0 6 f
+X 1 1 -300 100 100 R 40 40 0 0 P 
+X 2 2 -300 0 100 R 40 40 0 0 P 
+X SHIELD S1 -300 -200 100 R 40 40 0 0 P 
+X SHIELD S2 -300 -200 100 R 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
