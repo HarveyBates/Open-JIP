@@ -350,7 +350,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Open-JIP.kicad_pro",
+    "filename": "open_jip.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -382,7 +382,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "Open-JIP.net",
+      "netlist": "open_jip.net",
       "specctra_dsn": "",
       "step": "",
       "vrml": ""

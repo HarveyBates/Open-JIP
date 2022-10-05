@@ -5,12 +5,12 @@
       "Application": "Pcbnew",
       "Version": "(6.0.7-1)-1"
     },
-    "CreationDate": "2022-10-05T22:11:01+11:00"
+    "CreationDate": "2022-10-05T22:32:42+11:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "Open-JIP",
-      "GUID": "4f70656e-2d4a-4495-902e-6b696361645f",
+      "Name": "open_jip",
+      "GUID": "6f70656e-5f6a-4697-902e-6b696361645f",
       "Revision": "rev?"
     },
     "Size": {
@@ -34,47 +34,47 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "Open-JIP-F_Cu.gbr",
+      "Path": "open_jip-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Open-JIP-B_Cu.gbr",
+      "Path": "open_jip-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Open-JIP-F_Paste.gbr",
+      "Path": "open_jip-F_Paste.gbr",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Open-JIP-B_Paste.gbr",
+      "Path": "open_jip-B_Paste.gbr",
       "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Open-JIP-F_Silkscreen.gbr",
+      "Path": "open_jip-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Open-JIP-B_Silkscreen.gbr",
+      "Path": "open_jip-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Open-JIP-F_Mask.gbr",
+      "Path": "open_jip-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Open-JIP-B_Mask.gbr",
+      "Path": "open_jip-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Open-JIP-Edge_Cuts.gbr",
+      "Path": "open_jip-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }
