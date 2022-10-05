@@ -22,6 +22,7 @@ _deps
 
 # Uer defined KiCad files
 *.dcm
+*-backups
 
 # KiCad Files
 open_jip-backups
