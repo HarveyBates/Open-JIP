@@ -1,0 +1,40 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# EJ503A
+#
+DEF EJ503A J 0 40 Y N 1 L N
+F0 "J" -200 200 50 H V L BNN
+F1 "EJ503A" -200 -300 50 H V L BNN
+F2 "MPD_EJ503A" 0 0 50 H I L BNN
+F3 "" 0 0 50 H I L BNN
+F4 "B" 0 0 50 H I L BNN "PARTREV"
+F5 "MPD" 0 0 50 H I L BNN "MANUFACTURER"
+F6 "11 mm" 0 0 50 H I L BNN "MAXIMUM_PACKAGE_HEIGHT"
+F7 "Manufacturer Recommendations" 0 0 50 H I L BNN "STANDARD"
+DRAW
+P 2 0 0 10 0 138 0 63 N
+P 2 0 0 10 0 63 -25 63 N
+P 2 0 0 10 -25 63 -25 75 N
+P 2 0 0 10 -25 75 -25 125 N
+P 2 0 0 10 -25 125 -25 138 N
+P 2 0 0 10 -25 138 0 138 N
+P 2 0 0 10 -25 125 -175 125 N
+A -175 100 25 900 1800 0 0 10 N -175 125 -200 100
+A -175 100 25 1800 2700 0 0 10 N -200 100 -175 75
+P 2 0 0 10 -175 75 -25 75 N
+P 2 0 0 10 0 -100 -100 -100 N
+P 2 0 0 10 -100 -100 -200 -100 N
+P 2 0 0 10 -200 -100 -225 -50 N
+P 2 0 0 10 -225 -50 -250 -100 N
+P 2 0 0 10 0 0 -100 0 N
+P 2 0 0 10 -100 0 -100 -100 N
+X ~ 1 200 100 200 L 40 40 0 0 P 
+X ~ 3 200 0 200 L 40 40 0 0 P 
+X ~ 2 200 -100 200 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
