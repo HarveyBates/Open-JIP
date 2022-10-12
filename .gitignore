@@ -19,6 +19,7 @@ CTestTestfile.cmake
 _deps
 *.swp
 *.*.swp
+*.html
 
 # Uer defined KiCad files
 *.dcm
