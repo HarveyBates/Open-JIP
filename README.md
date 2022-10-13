@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="Images/Open-JIP Logo.png" width="450">
+  <img src="images/Open-JIP Logo.png" width="450">
 </p>
 
-### Description<img align="right" width=250 style="box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2); border=0;" src="Images/Teensy (v0.2).jpg">
+### Description<img align="right" width=250 style="box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2); border=0;" src="images/Teensy (v0.2).jpg">
 
 Open-JIP is an open-source chlorophyll *a* fluorometer used to quantify photosynthetic phenotypes in terrestrial plants and microalgae. It is controlled via a Teensy microcontroller and features highly customisable electrical components and a 3D-printed infrastructure. 
 
@@ -379,7 +379,7 @@ Fluorescence detection is achieved with the use of an operational amplifier (op-
 *Note-* Resistor values may change depending on your application.
 
 <p align="center">
-  <img src="Images/FluoroAdjDetection.png" width="600">
+  <img src="images/FluoroAdjDetection.png" width="600">
 </p>
 
 #### Gain adjustment
@@ -405,7 +405,7 @@ The actinic LED is controlled in the same way as the detection circuit i.e. Usin
 *Note-* Resistor values may change depending on your application.
 
 <p align="center">
-  <img src="Images/ActinicAdjDetection.png" width="600">
+  <img src="images/ActinicAdjDetection.png" width="600">
 </p>
 
 The input voltage (15 V) is filtered through a 12 V linear voltage regulator. This regulator ensures the actinic LED is stable of the measurement. A small capacitor (C7 - 1 &mu;F) is placed across the LED's terminal to prevent overshoot. If you want the LED to respond faster you can reduce the value of this capacitor while using an oscilloscope to check the devices rise-time. 
