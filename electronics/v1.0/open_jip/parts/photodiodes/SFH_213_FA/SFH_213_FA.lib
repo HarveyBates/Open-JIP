@@ -1,0 +1,42 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# SFH_213_FA
+#
+DEF SFH_213_FA D 0 40 Y N 1 L N
+F0 "D" -122 177 50 H V L BNN
+F1 "SFH_213_FA" -140 -130 50 H V L BNN
+F2 "XDCR_SFH_213_FA" 0 0 50 H I L BNN
+F3 "" 0 0 50 H I L BNN
+F4 "1.3" 0 0 50 H I L BNN "PARTREV"
+F5 "Manufacturer Recommendations" 0 0 50 H I L BNN "STANDARD"
+F6 "OSRAM" 0 0 50 H I L BNN "MANUFACTURER"
+DRAW
+P 2 0 0 10 -100 60 -100 0 N
+P 2 0 0 10 -100 0 -100 -60 N
+P 2 0 0 10 -100 -60 0 0 N
+P 2 0 0 10 0 0 -100 60 N
+P 2 0 0 10 0 60 0 -60 N
+P 2 0 0 6 -100 0 -200 0 N
+P 2 0 0 10 -70 80 0 160 N
+P 2 0 0 10 -57 118 -35 99 N
+P 2 0 0 10 -35 99 -70 80 N
+P 2 0 0 10 -70 80 -57 118 N
+P 2 0 0 10 -57 118 -58 89 N
+P 2 0 0 10 -58 89 -53 89 N
+P 2 0 0 10 -42 102 -51 96 N
+P 2 0 0 10 -21 76 49 156 N
+P 2 0 0 10 -8 114 14 95 N
+P 2 0 0 10 14 95 -21 76 N
+P 2 0 0 10 -21 76 -8 114 N
+P 2 0 0 10 -8 114 -9 85 N
+P 2 0 0 10 -9 85 -4 85 N
+P 2 0 0 10 7 98 -2 92 N
+X ~ 2 200 0 200 L 40 40 0 0 P 
+X ~ 1 -300 0 100 R 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
