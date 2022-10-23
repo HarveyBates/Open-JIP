@@ -18,10 +18,10 @@ int Detection::test_read(){
 
 void Detection::measureOJIP(OJIP_Dataset* dataset){
 
-    Detection::enable();
-    delay(100); // Ensure op-amps are ready
+    //Detection::enable();
+    //delay(10); // Ensure op-amps are ready (10 ns startup time)
 
-    Excitation::setBrightness(Excitation::LED_VERY_HIGH);
+    Excitation::setBrightness(Excitation::LED_MAX);
     unsigned long timer = micros();
 
     for(uint16_t i = 0; i < MICRO_LEN; i++){
@@ -36,7 +36,7 @@ void Detection::measureOJIP(OJIP_Dataset* dataset){
     }
 
     Excitation::setBrightness(Excitation::LED_OFF);
-    Detection::disable();
+    //Detection::disable();
 }
 
 void Detection::extractOJIP(OJIP_Dataset* dataset,
@@ -69,10 +69,6 @@ void Detection::extractOJIP(OJIP_Dataset* dataset,
             time_fi = (float)dataset->timestamps[i] / 1000.0f;
             found_fi = true;
         }
-
-        Serial.print(milli_time);
-        Serial.print("\t");
-        Serial.println(value, 4);
     }
 
     if(parameters->Fm == 1023){
@@ -80,12 +76,11 @@ void Detection::extractOJIP(OJIP_Dataset* dataset,
         return;
     }
 
-    parameters->Fo = dataset->raw_values[0];
+    parameters->Fo = dataset->raw_values[4];
     parameters->Fv = parameters->Fm - parameters->Fo;
     parameters->FvFm = (float)parameters->Fv /
             (float)parameters->Fm;
 
-    Serial.println();
     Serial.print("Fo: \t");
     Serial.print((parameters->Fo * 3.3) / 10.0f, 4);
     Serial.print(" V @ ");
@@ -108,4 +103,18 @@ void Detection::extractOJIP(OJIP_Dataset* dataset,
     Serial.println(" V");
     Serial.print("Quantum yield (Fv/Fm): \t");
     Serial.print(parameters->FvFm, 3);
+}
+
+void Detection::rawOJIP(OJIP_Dataset* dataset) {
+
+    for (uint16_t i = 0; i < MEASURE_LEN; i++) {
+        // Extract Fm
+        float milli_time = (float) dataset->timestamps[i] / 1000.0f;
+        double value = dataset->raw_values[i];
+
+        Serial.print(milli_time);
+        Serial.print("\t");
+        Serial.println(value);
+    }
+
 }

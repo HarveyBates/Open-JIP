@@ -2,6 +2,7 @@
 #define ACTINIC_H
 
 #include <Wire.h>
+#include "detection.h"
 
 class Excitation {
 public:
@@ -15,10 +16,13 @@ public:
         LED_MEDIUM = 120,
         LED_HIGH = 140,
         LED_VERY_HIGH = 200,
+        LED_MAX = 255,
     };
 
     static void setBrightness(Brightness brightness);
     static void begin();
+    static void testRise(Brightness brightness, uint8_t n_rises,
+                         uint16_t pulse_width);
 
 
 private:

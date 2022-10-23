@@ -4,8 +4,8 @@
 #include <Arduino.h>
 #include "excitation.h"
 
-#define DETECTION_EN D10
-#define DETECTION_ANALOG_PIN A3
+#define DETECTION_EN                D10
+#define DETECTION_ANALOG_PIN        A3
 
 class Detection {
 public:
@@ -37,6 +37,7 @@ public:
     static void measureOJIP(OJIP_Dataset* dataset);
     static void extractOJIP(OJIP_Dataset* dataset,
                             OJIP_Parameters* parameters);
+    static void rawOJIP(OJIP_Dataset* dataset);
 
 };
 

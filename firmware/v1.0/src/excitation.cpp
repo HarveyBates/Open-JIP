@@ -11,3 +11,19 @@ void Excitation::setBrightness(Brightness brightness){
     Wire.write(brightness & 0x0F);
     Wire.endTransmission();
 }
+
+void Excitation::testRise(Brightness brightness, const uint8_t n_rises,
+                          const uint16_t pulse_width){
+
+    //Detection::enable();
+    //delay(10);
+
+    for(uint8_t i = 0; i < n_rises; i++){
+        setBrightness(brightness);
+        delay(pulse_width);
+        setBrightness(LED_OFF);
+        delay(pulse_width);
+    }
+
+    //Detection::disable();
+}
