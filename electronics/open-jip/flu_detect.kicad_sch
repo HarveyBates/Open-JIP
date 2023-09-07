@@ -755,7 +755,7 @@
     (property "Value" "OPA328DBVR" (at 149.225 98.425 0)
       (effects (font (size 1.524 1.524)))
     )
-    (property "Footprint" "op_amps:OPA328DBVR" (at 134.62 104.14 0)
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23-6" (at 134.62 104.14 0)
       (effects (font (size 1.27 1.27) italic) hide)
     )
     (property "Datasheet" "OPA328DBVR" (at 134.62 104.14 0)

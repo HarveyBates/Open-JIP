@@ -49,6 +49,7 @@ sym-lib-table
 *.net
 *.htm
 Licence.txt
+~*.*.lck
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
