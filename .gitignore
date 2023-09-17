@@ -26,6 +26,10 @@ tmp
 *.dcm
 *-backups
 
+# FreeCAD
+*.*.FCBak
+*.FCBak
+
 # KiCad Files
 open_jip-backups
 *.000
